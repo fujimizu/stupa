@@ -1,0 +1,39 @@
+================================================================
+ Stupa : C++ implementaion of Bayesian Sets
+
+ Copyright(C) Mizuki Fujisawa <fujisawa@bayon.cc>
+================================================================
+
+Overview:
+  Stupa is C++ implementaion of Bayesian Sets algorithm.
+
+Install:
+  % ./configure
+  % make
+  % make check
+  % sudo make install
+
+Usage:
+  * Search related documents interactively
+    % ./bsmgr search file
+
+  * Convert input tsv file to binary format file
+    % ./bsmgr save infile outfile invsize
+
+Format of Input Data:
+  * List of input documents
+    document_id1 \t key1-1 \t key1-2 \t key1-3 \t ...\n
+    document_id2 \t key2-1 \t key2-2 \t key2-3 \t ...\n
+    ...
+
+    * document_id : string
+    * key         : string
+
+Requirement:
+  * C++ compiler with STL (Standard Template Library)
+  * google-sparsehash <http://code.google.com/p/google-sparsehash/>
+    (If google-sparsehash not installed,
+     this library uses __gnu_cxx::hash_map or std::map)
+
+License:
+  GPL2 (Gnu General Public License Version 2)
