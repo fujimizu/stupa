@@ -60,7 +60,8 @@ int main(int argc, char **argv) {
 static void usage(const char *progname) {
   fprintf(stderr, "%s: Bayesian Sets utility\n\n", progname);
   fprintf(stderr, "Usage\n");
-  fprintf(stderr, " %% %s search file\n", progname);
+  fprintf(stderr, " %% %s search file [invsize]   (default invsize=%d)\n",
+          progname, static_cast<int>(DEFAULT_INV_SIZE));
   fprintf(stderr, " %% %s save infile outfile invsize\n", progname);
 }
 
@@ -70,7 +71,7 @@ static void usage(const char *progname) {
  * @param argv argument strings
  */
 static int run_search(int argc, char **argv) {
-  if (argc != 3) {
+  if (argc < 3) {
     usage(argv[0]);
     return EXIT_FAILURE;
   }
@@ -80,7 +81,9 @@ static int run_search(int argc, char **argv) {
     return EXIT_FAILURE;
   }
   printf("Read input documents ...\n");
-  stupa::BayesianSetsSearch bssearch(DEFAULT_INV_SIZE);
+  size_t invsize = argc == 4 ?
+    static_cast<size_t>(atoi(argv[3])) : DEFAULT_INV_SIZE;
+  stupa::BayesianSetsSearch bssearch(invsize);
   if (stupa::get_extension(argv[2]) == "tsv") {
     read_tsv(ifs, bssearch);
   } else {
