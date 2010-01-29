@@ -40,12 +40,14 @@ const int WORKER_COUNT = 4;
 const size_t INV_SIZE  = 100;
 
 void usage(const char *progname);
-void start_nonblocking_thread_server(int port, int workerCount, size_t invsize);
+void start_nonblocking_thread_server(int port, int workerCount,
+                                     size_t invsize, const char *filename);
 
 int main(int argc, char **argv) {
   int port = PORT;
   int workerCount = WORKER_COUNT;
   size_t invsize = INV_SIZE;
+  const char *filename = NULL;
 
   int i = 1;
   while (i < argc) {
@@ -58,6 +60,9 @@ int main(int argc, char **argv) {
     } else if (!strcmp(argv[i], "-i")) {
       invsize = atoi(argv[++i]);
       ++i;
+    } else if (!strcmp(argv[i], "-f")) {
+      filename = argv[++i];
+      ++i;
     } else if (!strcmp(argv[i], "-h")) {
       usage(argv[0]);
     } else {
@@ -65,7 +70,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  start_nonblocking_thread_server(port, workerCount, invsize);
+  start_nonblocking_thread_server(port, workerCount, invsize, filename);
   return 0;
 }
 
@@ -76,12 +81,15 @@ void usage(const char *progname) {
           WORKER_COUNT);
   fprintf(stderr, " -i size     maximum size of inverted indexes (default:%d)\n",
           static_cast<int>(INV_SIZE));
+  fprintf(stderr, " -f file     load a file (binary format)\n");
   fprintf(stderr, " -h          show help message\n");
   exit(1);
 }
 
-void start_nonblocking_thread_server(int port, int workerCount, size_t invsize) {
+void start_nonblocking_thread_server(int port, int workerCount,
+                                     size_t invsize, const char *filename) {
   shared_ptr<StupaThriftHandler> handler(new StupaThriftHandler(invsize));
+  if (filename) handler->load(filename);
   shared_ptr<TProcessor> processor(new StupaThriftProcessor(handler));
   shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 

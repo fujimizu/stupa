@@ -34,6 +34,11 @@ class StupaThriftHandler : virtual public StupaThriftIf {
  public:
   StupaThriftHandler(size_t invsize) : bssearch_(invsize) { }
 
+  /**
+   * Add a document.
+   * @param document_id the identifier of input document
+   * @param features feature strings of input document
+   */
   void add_document(const std::string &document_id,
                     const std::vector<std::string> &features) {
     if (document_id.empty() || features.empty()) return;
@@ -41,17 +46,31 @@ class StupaThriftHandler : virtual public StupaThriftIf {
     bssearch_.add_document(document_id, features);
   }
 
+  /**
+   * Delete a document.
+   * @param document_id the identifier of document to be deleted
+   */
   void delete_document(const std::string &document_id) {
     if (document_id.empty()) return;
     RWGuard m(lock_, 1);
     bssearch_.delete_document(document_id);
   }
 
+  /**
+   * Get the number of documents
+   * @return the number of documents
+   */
   int64_t size() {
     RWGuard m(lock_, 0);
     return static_cast<uint64_t>(bssearch_.size());
   }
 
+  /**
+   * Search related documents.
+   * @param _return search result
+   * @param max maximum number of output documents
+   * @param query the identifiers of query documents
+   */
   void search(std::vector<SearchResult> &_return, const int64_t max,
               const std::vector<std::string> &query) {
     RWGuard m(lock_, 0);
@@ -66,6 +85,11 @@ class StupaThriftHandler : virtual public StupaThriftIf {
     }
   }
 
+  /**
+   * Save status.
+   * @param filename file name
+   * @return return true if sccessed
+   */
   bool save(const std::string& filename) {
     std::ofstream ofs(filename.c_str());
     if (!ofs) {
@@ -77,6 +101,11 @@ class StupaThriftHandler : virtual public StupaThriftIf {
     return true;
   }
 
+  /**
+   * Load status.
+   * @param filename file name
+   * @return true if successed
+   */
   bool load(const std::string& filename) {
     std::ifstream ifs(filename.c_str());
     if (!ifs) {
