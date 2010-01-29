@@ -1,11 +1,11 @@
 CXX = g++
 VERSION = 0.0.1
 CXXFLAGS = -O3 -Wall
-LDFLAGS = -L/usr/local/lib -L/home/fujisawa/work/stupa
-INCLUDES = -I/usr/local/include -I/usr/local/include/thrift -I/home/fujisawa/work/stupa
+LDFLAGS = -L/usr/local/lib -L../stupa/
+INCLUDES = -I/usr/local/include -I/usr/local/include/thrift -I../stupa/
 LIBS =  -lthrift -lstupa
 LIBS_NB = -lthriftnb -levent
-OBJ = Stupa.o stupa_constants.o stupa_types.o
+OBJ = StupaThrift.o stupa_constants.o stupa_types.o
 TARGET_THREAD = stupa_thread
 TARGET_NONBLOCK = stupa_nonblock
 PACKAGE = stupa-thrift-$(VERSION)
@@ -15,11 +15,11 @@ PACKAGE = stupa-thrift-$(VERSION)
 
 all: $(TARGET_THREAD) $(TARGET_NONBLOCK)
 
-$(TARGET_THREAD) : $(OBJ) Stupa_server_thread.o
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJ) Stupa_server_thread.o $(LDFLAGS) $(LIBS)
+$(TARGET_THREAD) : $(OBJ) StupaThrift_thread.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJ) StupaThrift_thread.o $(LDFLAGS) $(LIBS)
 
-$(TARGET_NONBLOCK) : $(OBJ) Stupa_server_nonblock.o
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJ) Stupa_server_nonblock.o $(LDFLAGS) $(LIBS) $(LIBS_NB)
+$(TARGET_NONBLOCK) : $(OBJ) StupaThrift_nonblock.o
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJ) StupaThrift_nonblock.o $(LDFLAGS) $(LIBS) $(LIBS_NB)
 
 clean:
 	rm -f *.o $(TARGET_THREAD) $(TARGET_NONBLOCK) core *~ *.tar.gz a.out gmon.out leak.log
@@ -33,5 +33,5 @@ dist:
 
 check:
 
-Stupa_server_thread.o : Stupa_handler.h
-Stupa_server_nonblock.o : Stupa_handler.h
+StupaThrift_server_thread.o : StupaThrift_handler.h
+StupaThrift_server_nonblock.o : StupaThrift_handler.h

@@ -17,20 +17,20 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#include "Stupa.h"
+#include "StupaThrift.h"
 #include <concurrency/Mutex.h>
 #include "stupa.h"
 
 using namespace apache::thrift;
 using namespace apache::thrift::concurrency;
 
-class StupaHandler : virtual public StupaIf {
+class StupaThriftHandler : virtual public StupaThriftIf {
  private:
   stupa::BayesianSetsSearch bssearch_;  ///< Bayesian Sets search
   ReadWriteMutex lock_;                 ///< read-write lock
 
  public:
-  StupaHandler(size_t invsize) : bssearch_(invsize) { }
+  StupaThriftHandler(size_t invsize) : bssearch_(invsize) { }
 
   void add_document(const std::string &document_id,
                     const std::vector<std::string> &features) {
@@ -62,5 +62,17 @@ class StupaHandler : virtual public StupaIf {
       sr.point = results[i].second;
       _return[i] = sr;
     }
+  }
+
+  bool save(const std::string& filename) {
+    // Your implementation goes here
+    printf("save\n");
+    return false;
+  }
+
+  bool load(const std::string& filename) {
+    // Your implementation goes here
+    printf("load\n");
+    return false;
   }
 };

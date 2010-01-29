@@ -14,7 +14,7 @@ use Thrift::Socket;
 use Thrift::BufferedTransport;
 use Thrift::FramedTransport;
 
-use Stupa;
+use StupaThrift;
 
 my $socket = Thrift::Socket->new('localhost', 9090);
 my $transport = $socket;
@@ -32,7 +32,7 @@ if (@ARGV) {
         exit 1;
     }
 }
-my $client = StupaClient->new(Thrift::BinaryProtocol->new($transport));
+my $client = StupaThriftClient->new(Thrift::BinaryProtocol->new($transport));
 
 eval {
     $transport->open;
