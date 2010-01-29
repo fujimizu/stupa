@@ -42,6 +42,7 @@ if ($@) {
     exit 1;
 }
 
+# add documents
 while (my $line = <DATA>) {
     chomp $line;
     my @data = split /\s/, $line;
@@ -56,6 +57,7 @@ while (my $line = <DATA>) {
     }
 }
 
+# get size
 eval {
     my $size = $client->size();
     print "Size: $size\n";
@@ -65,6 +67,7 @@ if ($@) {
     exit 1;
 }
 
+# search
 my @queries = ('Alex');
 my $max = 20;
 eval {
@@ -73,6 +76,18 @@ eval {
     for (my $i = 0; $i < scalar @{ $results }; $i++) {
         printf " %d\t%s\t%f\n", $i+1, $results->[$i]->name, $results->[$i]->point;
     }
+};
+if ($@) {
+    print "[ERROR] ", $@->{message}, "\n";
+    exit 1;
+}
+
+# save, load
+my $filename = '/tmp/stupa_saved.tmp';
+eval {
+    $client->save($filename);
+
+    $client->load($filename);
 };
 if ($@) {
     print "[ERROR] ", $@->{message}, "\n";
