@@ -17,6 +17,8 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
+#include <fstream>
+#include <iostream>
 #include "StupaThrift.h"
 #include <concurrency/Mutex.h>
 #include "stupa.h"
@@ -65,14 +67,24 @@ class StupaThriftHandler : virtual public StupaThriftIf {
   }
 
   bool save(const std::string& filename) {
-    // Your implementation goes here
-    printf("save\n");
-    return false;
+    std::ofstream ofs(filename.c_str());
+    if (!ofs) {
+      fprintf(stderr, "Cannot open file %s\n", filename.c_str());
+      return false;
+    }
+    RWGuard m(lock_, 0);
+    bssearch_.save(ofs);
+    return true;
   }
 
   bool load(const std::string& filename) {
-    // Your implementation goes here
-    printf("load\n");
-    return false;
+    std::ifstream ifs(filename.c_str());
+    if (!ifs) {
+      fprintf(stderr, "Cannot open file %s\n", filename.c_str());
+      return false;
+    }
+    RWGuard m(lock_, 1);
+    bssearch_.load(ifs);
+    return true;
   }
 };
