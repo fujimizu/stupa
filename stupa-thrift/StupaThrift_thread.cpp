@@ -17,8 +17,8 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#include "Stupa.h"
-#include "Stupa_handler.h"
+#include "StupaThrift.h"
+#include "StupaThrift_handler.h"
 #include <concurrency/PosixThreadFactory.h>
 #include <concurrency/ThreadManager.h>
 #include <protocol/TBinaryProtocol.h>
@@ -85,8 +85,8 @@ void usage(const char *progname) {
 }
 
 void start_simple_server(int port, size_t invsize) {
-  shared_ptr<StupaHandler> handler(new StupaHandler(invsize));
-  shared_ptr<TProcessor> processor(new StupaProcessor(handler));
+  shared_ptr<StupaThriftHandler> handler(new StupaThriftHandler(invsize));
+  shared_ptr<TProcessor> processor(new StupaThriftProcessor(handler));
   shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
   shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
   shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
@@ -96,8 +96,8 @@ void start_simple_server(int port, size_t invsize) {
 }
 
 void start_thread_pool_server(int port, int workerCount, size_t invsize) {
-  shared_ptr<StupaHandler> handler(new StupaHandler(invsize));
-  shared_ptr<TProcessor> processor(new StupaProcessor(handler));
+  shared_ptr<StupaThriftHandler> handler(new StupaThriftHandler(invsize));
+  shared_ptr<TProcessor> processor(new StupaThriftProcessor(handler));
   shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
   shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
   shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());

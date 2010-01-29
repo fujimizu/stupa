@@ -12,9 +12,9 @@ use Types;
 
 # HELPER FUNCTIONS AND STRUCTURES
 
-package Stupa_add_document_args;
+package StupaThrift_add_document_args;
 use base qw(Class::Accessor);
-Stupa_add_document_args->mk_accessors( qw( document_id features ) );
+StupaThrift_add_document_args->mk_accessors( qw( document_id features ) );
 
 sub new {
   my $classname = shift;
@@ -34,7 +34,7 @@ sub new {
 }
 
 sub getName {
-  return 'Stupa_add_document_args';
+  return 'StupaThrift_add_document_args';
 }
 
 sub read {
@@ -87,7 +87,7 @@ sub read {
 sub write {
   my ($self, $output) = @_;
   my $xfer   = 0;
-  $xfer += $output->writeStructBegin('Stupa_add_document_args');
+  $xfer += $output->writeStructBegin('StupaThrift_add_document_args');
   if (defined $self->{document_id}) {
     $xfer += $output->writeFieldBegin('document_id', TType::STRING, 1);
     $xfer += $output->writeString($self->{document_id});
@@ -112,7 +112,7 @@ sub write {
   return $xfer;
 }
 
-package Stupa_add_document_result;
+package StupaThrift_add_document_result;
 use base qw(Class::Accessor);
 
 sub new {
@@ -123,7 +123,7 @@ sub new {
 }
 
 sub getName {
-  return 'Stupa_add_document_result';
+  return 'StupaThrift_add_document_result';
 }
 
 sub read {
@@ -152,15 +152,15 @@ sub read {
 sub write {
   my ($self, $output) = @_;
   my $xfer   = 0;
-  $xfer += $output->writeStructBegin('Stupa_add_document_result');
+  $xfer += $output->writeStructBegin('StupaThrift_add_document_result');
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
 }
 
-package Stupa_delete_document_args;
+package StupaThrift_delete_document_args;
 use base qw(Class::Accessor);
-Stupa_delete_document_args->mk_accessors( qw( document_id ) );
+StupaThrift_delete_document_args->mk_accessors( qw( document_id ) );
 
 sub new {
   my $classname = shift;
@@ -176,7 +176,7 @@ sub new {
 }
 
 sub getName {
-  return 'Stupa_delete_document_args';
+  return 'StupaThrift_delete_document_args';
 }
 
 sub read {
@@ -211,7 +211,7 @@ sub read {
 sub write {
   my ($self, $output) = @_;
   my $xfer   = 0;
-  $xfer += $output->writeStructBegin('Stupa_delete_document_args');
+  $xfer += $output->writeStructBegin('StupaThrift_delete_document_args');
   if (defined $self->{document_id}) {
     $xfer += $output->writeFieldBegin('document_id', TType::STRING, 1);
     $xfer += $output->writeString($self->{document_id});
@@ -222,7 +222,7 @@ sub write {
   return $xfer;
 }
 
-package Stupa_delete_document_result;
+package StupaThrift_delete_document_result;
 use base qw(Class::Accessor);
 
 sub new {
@@ -233,7 +233,7 @@ sub new {
 }
 
 sub getName {
-  return 'Stupa_delete_document_result';
+  return 'StupaThrift_delete_document_result';
 }
 
 sub read {
@@ -262,13 +262,13 @@ sub read {
 sub write {
   my ($self, $output) = @_;
   my $xfer   = 0;
-  $xfer += $output->writeStructBegin('Stupa_delete_document_result');
+  $xfer += $output->writeStructBegin('StupaThrift_delete_document_result');
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
 }
 
-package Stupa_size_args;
+package StupaThrift_size_args;
 use base qw(Class::Accessor);
 
 sub new {
@@ -279,7 +279,7 @@ sub new {
 }
 
 sub getName {
-  return 'Stupa_size_args';
+  return 'StupaThrift_size_args';
 }
 
 sub read {
@@ -308,15 +308,15 @@ sub read {
 sub write {
   my ($self, $output) = @_;
   my $xfer   = 0;
-  $xfer += $output->writeStructBegin('Stupa_size_args');
+  $xfer += $output->writeStructBegin('StupaThrift_size_args');
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
 }
 
-package Stupa_size_result;
+package StupaThrift_size_result;
 use base qw(Class::Accessor);
-Stupa_size_result->mk_accessors( qw( success ) );
+StupaThrift_size_result->mk_accessors( qw( success ) );
 
 sub new {
   my $classname = shift;
@@ -332,7 +332,7 @@ sub new {
 }
 
 sub getName {
-  return 'Stupa_size_result';
+  return 'StupaThrift_size_result';
 }
 
 sub read {
@@ -367,7 +367,7 @@ sub read {
 sub write {
   my ($self, $output) = @_;
   my $xfer   = 0;
-  $xfer += $output->writeStructBegin('Stupa_size_result');
+  $xfer += $output->writeStructBegin('StupaThrift_size_result');
   if (defined $self->{success}) {
     $xfer += $output->writeFieldBegin('success', TType::I64, 0);
     $xfer += $output->writeI64($self->{success});
@@ -378,9 +378,9 @@ sub write {
   return $xfer;
 }
 
-package Stupa_search_args;
+package StupaThrift_search_args;
 use base qw(Class::Accessor);
-Stupa_search_args->mk_accessors( qw( max query ) );
+StupaThrift_search_args->mk_accessors( qw( max query ) );
 
 sub new {
   my $classname = shift;
@@ -400,7 +400,7 @@ sub new {
 }
 
 sub getName {
-  return 'Stupa_search_args';
+  return 'StupaThrift_search_args';
 }
 
 sub read {
@@ -453,7 +453,7 @@ sub read {
 sub write {
   my ($self, $output) = @_;
   my $xfer   = 0;
-  $xfer += $output->writeStructBegin('Stupa_search_args');
+  $xfer += $output->writeStructBegin('StupaThrift_search_args');
   if (defined $self->{max}) {
     $xfer += $output->writeFieldBegin('max', TType::I64, 1);
     $xfer += $output->writeI64($self->{max});
@@ -478,9 +478,9 @@ sub write {
   return $xfer;
 }
 
-package Stupa_search_result;
+package StupaThrift_search_result;
 use base qw(Class::Accessor);
-Stupa_search_result->mk_accessors( qw( success ) );
+StupaThrift_search_result->mk_accessors( qw( success ) );
 
 sub new {
   my $classname = shift;
@@ -496,7 +496,7 @@ sub new {
 }
 
 sub getName {
-  return 'Stupa_search_result';
+  return 'StupaThrift_search_result';
 }
 
 sub read {
@@ -544,7 +544,7 @@ sub read {
 sub write {
   my ($self, $output) = @_;
   my $xfer   = 0;
-  $xfer += $output->writeStructBegin('Stupa_search_result');
+  $xfer += $output->writeStructBegin('StupaThrift_search_result');
   if (defined $self->{success}) {
     $xfer += $output->writeFieldBegin('success', TType::LIST, 0);
     {
@@ -564,7 +564,263 @@ sub write {
   return $xfer;
 }
 
-package StupaIf;
+package StupaThrift_save_args;
+use base qw(Class::Accessor);
+StupaThrift_save_args->mk_accessors( qw( filename ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{filename} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{filename}) {
+      $self->{filename} = $vals->{filename};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'StupaThrift_save_args';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{filename});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('StupaThrift_save_args');
+  if (defined $self->{filename}) {
+    $xfer += $output->writeFieldBegin('filename', TType::STRING, 1);
+    $xfer += $output->writeString($self->{filename});
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package StupaThrift_save_result;
+use base qw(Class::Accessor);
+StupaThrift_save_result->mk_accessors( qw( success ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{success} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{success}) {
+      $self->{success} = $vals->{success};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'StupaThrift_save_result';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^0$/ && do{      if ($ftype == TType::BOOL) {
+        $xfer += $input->readBool(\$self->{success});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('StupaThrift_save_result');
+  if (defined $self->{success}) {
+    $xfer += $output->writeFieldBegin('success', TType::BOOL, 0);
+    $xfer += $output->writeBool($self->{success});
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package StupaThrift_load_args;
+use base qw(Class::Accessor);
+StupaThrift_load_args->mk_accessors( qw( filename ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{filename} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{filename}) {
+      $self->{filename} = $vals->{filename};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'StupaThrift_load_args';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{filename});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('StupaThrift_load_args');
+  if (defined $self->{filename}) {
+    $xfer += $output->writeFieldBegin('filename', TType::STRING, 1);
+    $xfer += $output->writeString($self->{filename});
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package StupaThrift_load_result;
+use base qw(Class::Accessor);
+StupaThrift_load_result->mk_accessors( qw( success ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{success} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{success}) {
+      $self->{success} = $vals->{success};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'StupaThrift_load_result';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^0$/ && do{      if ($ftype == TType::BOOL) {
+        $xfer += $input->readBool(\$self->{success});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('StupaThrift_load_result');
+  if (defined $self->{success}) {
+    $xfer += $output->writeFieldBegin('success', TType::BOOL, 0);
+    $xfer += $output->writeBool($self->{success});
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package StupaThriftIf;
 
 use strict;
 
@@ -598,7 +854,21 @@ sub search{
   die 'implement interface';
 }
 
-package StupaRest;
+sub save{
+  my $self = shift;
+  my $filename = shift;
+
+  die 'implement interface';
+}
+
+sub load{
+  my $self = shift;
+  my $filename = shift;
+
+  die 'implement interface';
+}
+
+package StupaThriftRest;
 
 use strict;
 
@@ -639,10 +909,24 @@ sub search{
   return $self->{impl}->search($max, $query);
 }
 
-package StupaClient;
+sub save{
+  my ($self, $request) = @_;
+
+  my $filename = ($request->{'filename'}) ? $request->{'filename'} : undef;
+  return $self->{impl}->save($filename);
+}
+
+sub load{
+  my ($self, $request) = @_;
+
+  my $filename = ($request->{'filename'}) ? $request->{'filename'} : undef;
+  return $self->{impl}->load($filename);
+}
+
+package StupaThriftClient;
 
 
-use base qw(StupaIf);
+use base qw(StupaThriftIf);
 sub new {
   my ($classname, $input, $output) = @_;
   my $self      = {};
@@ -667,7 +951,7 @@ sub send_add_document{
   my $features = shift;
 
   $self->{output}->writeMessageBegin('add_document', TMessageType::CALL, $self->{seqid});
-  my $args = new Stupa_add_document_args();
+  my $args = new StupaThrift_add_document_args();
   $args->{document_id} = $document_id;
   $args->{features} = $features;
   $args->write($self->{output});
@@ -689,7 +973,7 @@ sub recv_add_document{
     $self->{input}->readMessageEnd();
     die $x;
   }
-  my $result = new Stupa_add_document_result();
+  my $result = new StupaThrift_add_document_result();
   $result->read($self->{input});
   $self->{input}->readMessageEnd();
 
@@ -708,7 +992,7 @@ sub send_delete_document{
   my $document_id = shift;
 
   $self->{output}->writeMessageBegin('delete_document', TMessageType::CALL, $self->{seqid});
-  my $args = new Stupa_delete_document_args();
+  my $args = new StupaThrift_delete_document_args();
   $args->{document_id} = $document_id;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
@@ -729,7 +1013,7 @@ sub recv_delete_document{
     $self->{input}->readMessageEnd();
     die $x;
   }
-  my $result = new Stupa_delete_document_result();
+  my $result = new StupaThrift_delete_document_result();
   $result->read($self->{input});
   $self->{input}->readMessageEnd();
 
@@ -746,7 +1030,7 @@ sub send_size{
   my $self = shift;
 
   $self->{output}->writeMessageBegin('size', TMessageType::CALL, $self->{seqid});
-  my $args = new Stupa_size_args();
+  my $args = new StupaThrift_size_args();
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
   $self->{output}->getTransport()->flush();
@@ -766,7 +1050,7 @@ sub recv_size{
     $self->{input}->readMessageEnd();
     die $x;
   }
-  my $result = new Stupa_size_result();
+  my $result = new StupaThrift_size_result();
   $result->read($self->{input});
   $self->{input}->readMessageEnd();
 
@@ -790,7 +1074,7 @@ sub send_search{
   my $query = shift;
 
   $self->{output}->writeMessageBegin('search', TMessageType::CALL, $self->{seqid});
-  my $args = new Stupa_search_args();
+  my $args = new StupaThrift_search_args();
   $args->{max} = $max;
   $args->{query} = $query;
   $args->write($self->{output});
@@ -812,7 +1096,7 @@ sub recv_search{
     $self->{input}->readMessageEnd();
     die $x;
   }
-  my $result = new Stupa_search_result();
+  my $result = new StupaThrift_search_result();
   $result->read($self->{input});
   $self->{input}->readMessageEnd();
 
@@ -821,7 +1105,93 @@ sub recv_search{
   }
   die "search failed: unknown result";
 }
-package StupaProcessor;
+sub save{
+  my $self = shift;
+  my $filename = shift;
+
+    $self->send_save($filename);
+  return $self->recv_save();
+}
+
+sub send_save{
+  my $self = shift;
+  my $filename = shift;
+
+  $self->{output}->writeMessageBegin('save', TMessageType::CALL, $self->{seqid});
+  my $args = new StupaThrift_save_args();
+  $args->{filename} = $filename;
+  $args->write($self->{output});
+  $self->{output}->writeMessageEnd();
+  $self->{output}->getTransport()->flush();
+}
+
+sub recv_save{
+  my $self = shift;
+
+  my $rseqid = 0;
+  my $fname;
+  my $mtype = 0;
+
+  $self->{input}->readMessageBegin(\$fname, \$mtype, \$rseqid);
+  if ($mtype == TMessageType::EXCEPTION) {
+    my $x = new TApplicationException();
+    $x->read($self->{input});
+    $self->{input}->readMessageEnd();
+    die $x;
+  }
+  my $result = new StupaThrift_save_result();
+  $result->read($self->{input});
+  $self->{input}->readMessageEnd();
+
+  if (defined $result->{success} ) {
+    return $result->{success};
+  }
+  die "save failed: unknown result";
+}
+sub load{
+  my $self = shift;
+  my $filename = shift;
+
+    $self->send_load($filename);
+  return $self->recv_load();
+}
+
+sub send_load{
+  my $self = shift;
+  my $filename = shift;
+
+  $self->{output}->writeMessageBegin('load', TMessageType::CALL, $self->{seqid});
+  my $args = new StupaThrift_load_args();
+  $args->{filename} = $filename;
+  $args->write($self->{output});
+  $self->{output}->writeMessageEnd();
+  $self->{output}->getTransport()->flush();
+}
+
+sub recv_load{
+  my $self = shift;
+
+  my $rseqid = 0;
+  my $fname;
+  my $mtype = 0;
+
+  $self->{input}->readMessageBegin(\$fname, \$mtype, \$rseqid);
+  if ($mtype == TMessageType::EXCEPTION) {
+    my $x = new TApplicationException();
+    $x->read($self->{input});
+    $self->{input}->readMessageEnd();
+    die $x;
+  }
+  my $result = new StupaThrift_load_result();
+  $result->read($self->{input});
+  $self->{input}->readMessageEnd();
+
+  if (defined $result->{success} ) {
+    return $result->{success};
+  }
+  die "load failed: unknown result";
+}
+package StupaThriftProcessor;
 
 use strict;
 
@@ -857,10 +1227,10 @@ sub process {
 
 sub process_add_document {
     my ($self, $seqid, $input, $output) = @_;
-    my $args = new Stupa_add_document_args();
+    my $args = new StupaThrift_add_document_args();
     $args->read($input);
     $input->readMessageEnd();
-    my $result = new Stupa_add_document_result();
+    my $result = new StupaThrift_add_document_result();
     $self->{handler}->add_document($args->document_id, $args->features);
     $output->writeMessageBegin('add_document', TMessageType::REPLY, $seqid);
     $result->write($output);
@@ -870,10 +1240,10 @@ sub process_add_document {
 
 sub process_delete_document {
     my ($self, $seqid, $input, $output) = @_;
-    my $args = new Stupa_delete_document_args();
+    my $args = new StupaThrift_delete_document_args();
     $args->read($input);
     $input->readMessageEnd();
-    my $result = new Stupa_delete_document_result();
+    my $result = new StupaThrift_delete_document_result();
     $self->{handler}->delete_document($args->document_id);
     $output->writeMessageBegin('delete_document', TMessageType::REPLY, $seqid);
     $result->write($output);
@@ -883,10 +1253,10 @@ sub process_delete_document {
 
 sub process_size {
     my ($self, $seqid, $input, $output) = @_;
-    my $args = new Stupa_size_args();
+    my $args = new StupaThrift_size_args();
     $args->read($input);
     $input->readMessageEnd();
-    my $result = new Stupa_size_result();
+    my $result = new StupaThrift_size_result();
     $result->{success} = $self->{handler}->size();
     $output->writeMessageBegin('size', TMessageType::REPLY, $seqid);
     $result->write($output);
@@ -896,12 +1266,38 @@ sub process_size {
 
 sub process_search {
     my ($self, $seqid, $input, $output) = @_;
-    my $args = new Stupa_search_args();
+    my $args = new StupaThrift_search_args();
     $args->read($input);
     $input->readMessageEnd();
-    my $result = new Stupa_search_result();
+    my $result = new StupaThrift_search_result();
     $result->{success} = $self->{handler}->search($args->max, $args->query);
     $output->writeMessageBegin('search', TMessageType::REPLY, $seqid);
+    $result->write($output);
+    $output->writeMessageEnd();
+    $output->getTransport()->flush();
+}
+
+sub process_save {
+    my ($self, $seqid, $input, $output) = @_;
+    my $args = new StupaThrift_save_args();
+    $args->read($input);
+    $input->readMessageEnd();
+    my $result = new StupaThrift_save_result();
+    $result->{success} = $self->{handler}->save($args->filename);
+    $output->writeMessageBegin('save', TMessageType::REPLY, $seqid);
+    $result->write($output);
+    $output->writeMessageEnd();
+    $output->getTransport()->flush();
+}
+
+sub process_load {
+    my ($self, $seqid, $input, $output) = @_;
+    my $args = new StupaThrift_load_args();
+    $args->read($input);
+    $input->readMessageEnd();
+    my $result = new StupaThrift_load_result();
+    $result->{success} = $self->{handler}->load($args->filename);
+    $output->writeMessageBegin('load', TMessageType::REPLY, $seqid);
     $result->write($output);
     $output->writeMessageEnd();
     $output->getTransport()->flush();
