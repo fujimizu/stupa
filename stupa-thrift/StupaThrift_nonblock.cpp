@@ -35,71 +35,30 @@ using namespace apache::thrift::server;
 
 using boost::shared_ptr;
 
-const int PORT         = 9090;
-const int WORKER_COUNT = 4;
-const size_t INV_SIZE  = 100;
+void start_nonblocking_thread_server(const ServerParam &param);
 
-void usage(const char *progname);
-void start_nonblocking_thread_server(int port, int workerCount,
-                                     size_t invsize, const char *filename);
 
 int main(int argc, char **argv) {
-  int port = PORT;
-  int workerCount = WORKER_COUNT;
-  size_t invsize = INV_SIZE;
-  const char *filename = NULL;
-
-  int i = 1;
-  while (i < argc) {
-    if (!strcmp(argv[i], "-p")) {
-      port = atoi(argv[++i]);
-      ++i;
-    } else if (!strcmp(argv[i], "-w")) {
-      workerCount = atoi(argv[++i]);
-      ++i;
-    } else if (!strcmp(argv[i], "-i")) {
-      invsize = atoi(argv[++i]);
-      ++i;
-    } else if (!strcmp(argv[i], "-f")) {
-      filename = argv[++i];
-      ++i;
-    } else if (!strcmp(argv[i], "-h")) {
-      usage(argv[0]);
-    } else {
-      usage(argv[0]);
-    }
-  }
-
-  start_nonblocking_thread_server(port, workerCount, invsize, filename);
+  ServerParam param;
+  parse_options(argc, argv, param);
+  start_nonblocking_thread_server(param);
   return 0;
 }
 
-void usage(const char *progname) {
-  fprintf(stderr, "Usage: %s [options]\n", progname);
-  fprintf(stderr, " -p port     port number (default:%d)\n", PORT);
-  fprintf(stderr, " -w nworker  number of worker thread (default:%d)\n",
-          WORKER_COUNT);
-  fprintf(stderr, " -i size     maximum size of inverted indexes (default:%d)\n",
-          static_cast<int>(INV_SIZE));
-  fprintf(stderr, " -f file     load a file (binary format)\n");
-  fprintf(stderr, " -h          show help message\n");
-  exit(1);
-}
-
-void start_nonblocking_thread_server(int port, int workerCount,
-                                     size_t invsize, const char *filename) {
-  shared_ptr<StupaThriftHandler> handler(new StupaThriftHandler(invsize));
-  if (filename) handler->load(filename);
+void start_nonblocking_thread_server(const ServerParam &param) {
+  shared_ptr<StupaThriftHandler> handler(new StupaThriftHandler(param.invsize));
+  if (param.filename) handler->load(param.filename);
   shared_ptr<TProcessor> processor(new StupaThriftProcessor(handler));
   shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 
   shared_ptr<ThreadManager> threadManager =
-    ThreadManager::newSimpleThreadManager(workerCount);
+    ThreadManager::newSimpleThreadManager(param.workerCount);
   shared_ptr<PosixThreadFactory> threadFactory =
     shared_ptr<PosixThreadFactory>(new PosixThreadFactory());
   threadManager->threadFactory(threadFactory);
   threadManager->start();
 
-  TNonblockingServer server(processor, protocolFactory, port, threadManager);
+  TNonblockingServer server(processor, protocolFactory, param.port,
+                            threadManager);
   server.serve();
 }
