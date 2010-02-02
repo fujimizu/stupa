@@ -28,6 +28,7 @@ dist:
 	rm -fr $(PACKAGE)
 	mkdir $(PACKAGE)
 	cp -r *.h *.cpp stupa.thrift Makefile README COPYING perl $(PACKAGE)
+	rm -rf $(PACKAGE)/perl/.svn; rm -rf $(PACKAGE)/perl/lib/.svn
 	tar cvzf $(PACKAGE).tar.gz $(PACKAGE)
 	rm -fr $(PACKAGE)
 
