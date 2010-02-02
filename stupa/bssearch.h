@@ -46,8 +46,6 @@ class BayesianSetsSearch {
   static const size_t MAX_RESULT      = 20;
   /** maximum size of inverted index */
   static const size_t MAX_INVERT_SIZE = 100;
-  /** maximum number of documents */
-  static const size_t MAX_DOCUMENT    = 1000000;
 
   FeatureId current_feature_id_;    ///< current(highest) feature id
   DocumentId current_document_id_;  ///< current(highest) document id
@@ -79,7 +77,7 @@ class BayesianSetsSearch {
    * @param max_doc maximum number of documents
    */
   BayesianSetsSearch(size_t invsize = MAX_INVERT_SIZE,
-                     size_t max_doc = MAX_DOCUMENT)
+                     size_t max_doc = 0)
     : current_feature_id_(FEATURE_START_ID),
       current_document_id_(DOC_START_ID),
       oldest_document_id_(DOC_START_ID),
