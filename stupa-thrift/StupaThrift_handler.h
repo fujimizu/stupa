@@ -17,6 +17,9 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
+#ifndef StupaThrift_Handler_H
+#define StupaThrift_Handler_H
+
 #include <fstream>
 #include <iostream>
 #include "StupaThrift.h"
@@ -25,6 +28,11 @@
 
 using namespace apache::thrift;
 using namespace apache::thrift::concurrency;
+
+const int PORT         = 9090;
+const int WORKER_COUNT = 4;
+const size_t INV_SIZE  = 100;
+
 
 class StupaThriftHandler : virtual public StupaThriftIf {
  private:
@@ -117,3 +125,19 @@ class StupaThriftHandler : virtual public StupaThriftIf {
     return true;
   }
 };
+
+struct ServerParam {
+  int port;
+  size_t max_doc;
+  int workerCount;
+  size_t invsize;
+  char *filename;
+
+  ServerParam() : port(PORT), max_doc(0), workerCount(WORKER_COUNT),
+                  invsize(INV_SIZE), filename(NULL) { }
+};
+
+void usage(const char *progname);
+void parse_options(int argc, char **argv, ServerParam &param);
+
+#endif
