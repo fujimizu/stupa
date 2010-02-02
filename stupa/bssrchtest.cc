@@ -110,7 +110,7 @@ TEST(BayesianSetsSearchTest, SearchTest) {
   }
 }
 
-/* save/load */
+/* save, load */
 TEST(BayesianSetsSearchTest, SaveLoadTest) {
   TestSet documents;
   set_input_documents(documents);

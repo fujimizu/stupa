@@ -49,15 +49,15 @@ class BayesianSetsSearch {
   /** maximum number of documents */
   static const size_t MAX_DOCUMENT    = 1000000;
 
-  FeatureId current_feature_id_;       ///< current(highest) feature id
-  FeatureId current_document_id_;      ///< current(highest) document id
-  BayesianSets bs_;                    ///< bayesian sets object
-  InvertedIndex inv_;                  ///< inverted index
-  DocId2Str did2str_;                  ///< mapping from document id to string
-  Str2DocId str2did_;                  ///< mapping from string to document id
-  Str2FeatureId str2fid_;              ///< mapping from string to feature id
-  std::deque<DocumentId> docid_list_;  ///< list of document ids
-  size_t max_documents_;               ///< maximum number of documents
+  FeatureId current_feature_id_;    ///< current(highest) feature id
+  DocumentId current_document_id_;  ///< current(highest) document id
+  DocumentId oldest_document_id_;   ///< oldest document id
+  BayesianSets bs_;                 ///< bayesian sets object
+  InvertedIndex inv_;               ///< inverted index
+  DocId2Str did2str_;               ///< mapping from document id to string
+  Str2DocId str2did_;               ///< mapping from string to document id
+  Str2FeatureId str2fid_;           ///< mapping from string to feature id
+  size_t max_documents_;            ///< maximum number of documents
 
   /**
    * Look up inverted index.
@@ -75,11 +75,15 @@ class BayesianSetsSearch {
  public:
   /**
    * Constructor.
+   * @param invsize maximum size of inverted indexes
+   * @param max_doc maximum number of documents
    */
-  explicit BayesianSetsSearch(size_t invsize = MAX_INVERT_SIZE,
-                              size_t max_doc = MAX_DOCUMENT)
+  BayesianSetsSearch(size_t invsize = MAX_INVERT_SIZE,
+                     size_t max_doc = MAX_DOCUMENT)
     : current_feature_id_(FEATURE_START_ID),
-      current_document_id_(DOC_START_ID), max_documents_(max_doc) {
+      current_document_id_(DOC_START_ID),
+      oldest_document_id_(DOC_START_ID),
+      max_documents_(max_doc) {
     inv_.set_max(invsize);
     init_hash_map(DOC_EMPTY_ID, did2str_);
     init_hash_map("", str2did_);
@@ -100,7 +104,7 @@ class BayesianSetsSearch {
    * Get the number of stored documents.
    * @return the number of stored documents
    */
-  size_t size() const { return docid_list_.size(); }
+  size_t size() const { return bs_.size(); }
 
   /**
    * Add a document to bayesian sets object and inverted indexes.
@@ -128,7 +132,7 @@ class BayesianSetsSearch {
     str2fid_.clear();
     current_feature_id_ = FEATURE_START_ID;
     current_document_id_ = DOC_START_ID;
-    docid_list_.clear();
+    oldest_document_id_ = DOC_START_ID;
   }
 
   /**
