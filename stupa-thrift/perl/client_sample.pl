@@ -68,7 +68,7 @@ if ($@) {
 }
 
 # search
-my @queries = ('Alex');
+my @queries = ('Fred');
 my $max = 20;
 eval {
     my $results = $client->search($max, \@queries);
