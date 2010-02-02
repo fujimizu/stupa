@@ -6,7 +6,8 @@
 ================================================================
 
 Overview:
-  Stupa is C++ implementaion of Bayesian Sets algorithm.
+  Stupa is a search engine using Bayesian Sets algorithm. You can
+  search related documents with a high degree of accuracy.
 
 Install:
   % ./configure

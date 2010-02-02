@@ -28,3 +28,13 @@
 #include "util.h"
 
 #endif  // STUPA_STUPA_H
+
+
+/**
+ * @mainpage Stupa: C++ implementation of Bayesian Sets algorithm
+ *
+ * @section Introduction
+ *
+ * Stupa is a search engine using Bayesian Sets algorithm.
+ * You can search related documents with a high degree of accuracy.
+ */
