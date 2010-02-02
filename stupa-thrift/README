@@ -6,7 +6,7 @@
 ================================================================
 
 Overview:
-  This software is search engine using Stupa, C++ library of
+  This software is a search engine using Stupa, a C++ library of
   Bayesian Sets algorithm.
 
 Build:
@@ -22,13 +22,13 @@ Build:
 Usage:
   * start ThreadPool server and execute sample client
     % ./stupa_thread                   (start server)
-    % ./perl/client_sample.pl -thread  (execute client on other terminal)
+    % ./perl/client_sample.pl --thread  (execute client on the other terminal)
 
   * start Nonblocking server and execute sample client
     % ./stupa_nonblock                 (start server)
-    % ./perl/client_sample.pl -framed  (execute client on other terminal)
+    % ./perl/client_sample.pl --framed  (execute client on the other terminal)
 
-  * Create language binding
+  * Create language bindings
     % thrift --gen rb stupa.thrift   # ruby
     If you want other language bindinds, see Thift manual.
 
