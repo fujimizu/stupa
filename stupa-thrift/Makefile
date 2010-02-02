@@ -33,5 +33,6 @@ dist:
 
 check:
 
+StupaThrift_handler.o : StupaThrift_handler.h
 StupaThrift_server_thread.o : StupaThrift_handler.h
 StupaThrift_server_nonblock.o : StupaThrift_handler.h

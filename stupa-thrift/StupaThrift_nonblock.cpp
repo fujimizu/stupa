@@ -46,7 +46,8 @@ int main(int argc, char **argv) {
 }
 
 void start_nonblocking_thread_server(const ServerParam &param) {
-  shared_ptr<StupaThriftHandler> handler(new StupaThriftHandler(param.invsize));
+  shared_ptr<StupaThriftHandler> handler(
+    new StupaThriftHandler(param.invsize, param.max_doc));
   if (param.filename) handler->load(param.filename);
   shared_ptr<TProcessor> processor(new StupaThriftProcessor(handler));
   shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());

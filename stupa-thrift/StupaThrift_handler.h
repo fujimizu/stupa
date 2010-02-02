@@ -40,7 +40,8 @@ class StupaThriftHandler : virtual public StupaThriftIf {
   ReadWriteMutex lock_;                 ///< read-write lock
 
  public:
-  StupaThriftHandler(size_t invsize) : bssearch_(invsize) { }
+  StupaThriftHandler(size_t invsize, size_t max_doc)
+    : bssearch_(invsize, max_doc) { }
 
   /**
    * Add a document.
