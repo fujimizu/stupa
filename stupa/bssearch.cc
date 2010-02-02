@@ -239,7 +239,7 @@ void BayesianSetsSearch::load(std::ifstream &ifs) {
     str2did_[str] = did;
   }
 
-  while (max_documents_ && bs_.size() >= max_documents_) {
+  while (max_documents_ && bs_.size() > max_documents_) {
     delete_oldest_document();
   }
 }
