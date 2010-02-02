@@ -92,11 +92,12 @@ TEST(BayesianSetsSearchTest, AddDocumentLimitTest) {
   TestSet documents;
   set_input_documents(documents);
   size_t invsize = 100;
-  stupa::BayesianSetsSearch bssearch(invsize, documents.size() / 2);
+  size_t max_doc = documents.size() / 2;
+  stupa::BayesianSetsSearch bssearch(invsize, max_doc);
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
     bssearch.add_document(it->first, it->second);
   }
-  EXPECT_EQ(documents.size() / 2, bssearch.size());
+  EXPECT_EQ(max_doc, bssearch.size());
 
   std::vector<std::string> queries;
   std::vector<std::pair<std::string, stupa::Point> > results;
@@ -104,7 +105,7 @@ TEST(BayesianSetsSearchTest, AddDocumentLimitTest) {
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
     queries.push_back(it->first);
     bssearch.search(queries, results);
-    if (count < documents.size() / 2) {
+    if (count < max_doc) {
       EXPECT_TRUE(results.size() == 0);
     } else {
       EXPECT_TRUE(results.size() > 0);
@@ -168,6 +169,45 @@ TEST(BayesianSetsSearchTest, SaveLoadTest) {
     EXPECT_EQ(results[i].second, results_loaded[i].second);
   }
   
+  remove(SAVE_FILE);
+}
+
+/* save, load */
+TEST(BayesianSetsSearchTest, SaveLoadLimitTest) {
+  TestSet documents;
+  set_input_documents(documents);
+  stupa::BayesianSetsSearch bssearch;
+  for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
+    bssearch.add_document(it->first, it->second);
+  }
+  std::ofstream ofs(SAVE_FILE);
+  bssearch.save(ofs);
+  ofs.close();
+
+  size_t invsize = 100;
+  size_t max_doc = documents.size() / 2;
+  stupa::BayesianSetsSearch bssearch_lim(invsize, max_doc);
+  std::ifstream ifs(SAVE_FILE);
+  bssearch_lim.load(ifs);
+  ifs.close();
+  EXPECT_EQ(max_doc, bssearch_lim.size());
+
+  std::vector<std::string> queries;
+  std::vector<std::pair<std::string, stupa::Point> > results;
+  size_t count = 0;
+  for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
+    queries.push_back(it->first);
+    bssearch_lim.search(queries, results);
+    if (count < max_doc) {
+      EXPECT_TRUE(results.size() == 0);
+    } else {
+      EXPECT_TRUE(results.size() > 0);
+    }
+    queries.clear();
+    results.clear();
+    count++;
+  }
+
   remove(SAVE_FILE);
 }
 
