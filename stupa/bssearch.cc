@@ -66,7 +66,7 @@ void BayesianSetsSearch::delete_oldest_document() {
 void BayesianSetsSearch::add_document(const std::string &document_id,
                                 const std::vector<std::string> &features) {
   if (document_id.empty() || features.empty()) return;
-  if (bs_.size() == max_documents_) delete_oldest_document();
+  if (max_documents_ && bs_.size() == max_documents_) delete_oldest_document();
 
   std::vector<FeatureId> feature_ids;
   Str2FeatureId::iterator fit;
