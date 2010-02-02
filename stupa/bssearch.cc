@@ -47,14 +47,17 @@ void BayesianSetsSearch::lookup_inverted_index(
  * Delete the oldest document.
  */
 void BayesianSetsSearch::delete_oldest_document() {
-  DocumentId oldest_id = docid_list_.front();
   std::vector<FeatureId> features;
-  bs_.feature(oldest_id, features);
-  inv_.delete_document(oldest_id, features);
-  bs_.delete_document(oldest_id);
-  str2did_.erase(did2str_[oldest_id]);
-  did2str_.erase(oldest_id);
-  docid_list_.pop_front();
+  bs_.feature(oldest_document_id_, features);
+  inv_.delete_document(oldest_document_id_, features);
+  bs_.delete_document(oldest_document_id_);
+  str2did_.erase(did2str_[oldest_document_id_]);
+  did2str_.erase(oldest_document_id_);
+  oldest_document_id_++;
+  while (oldest_document_id_ <= current_document_id_
+         && did2str_.find(oldest_document_id_) == did2str_.end()) {
+    oldest_document_id_++;
+  }
 }
 
 /**
@@ -63,7 +66,7 @@ void BayesianSetsSearch::delete_oldest_document() {
 void BayesianSetsSearch::add_document(const std::string &document_id,
                                 const std::vector<std::string> &features) {
   if (document_id.empty() || features.empty()) return;
-  if (docid_list_.size() == max_documents_) delete_oldest_document();
+  if (bs_.size() == max_documents_) delete_oldest_document();
 
   std::vector<FeatureId> feature_ids;
   Str2FeatureId::iterator fit;
@@ -93,7 +96,6 @@ void BayesianSetsSearch::add_document(const std::string &document_id,
     did2str_[current_document_id_] = document_id;
     bs_.add_document(current_document_id_, feature_ids);
     inv_.add_document(current_document_id_, feature_ids);
-    docid_list_.push_back(current_document_id_);
     current_document_id_++;
   }
 }
@@ -105,17 +107,17 @@ void BayesianSetsSearch::add_document(const std::string &document_id,
 void BayesianSetsSearch::delete_document(const std::string &document_id) {
   Str2DocId::iterator sdit = str2did_.find(document_id);
   if (sdit != str2did_.end()) {
-    std::vector<FeatureId> features;
-    bs_.feature(sdit->second, features);
-    inv_.delete_document(sdit->second, features);
-    bs_.delete_document(sdit->second);
-    std::deque<DocumentId>::iterator it =
-      lower_bound(docid_list_.begin(), docid_list_.end(), sdit->second);
-    if (*it == sdit->second) docid_list_.erase(it);
-    str2did_.erase(sdit);
-
-    DocId2Str::iterator dsit = did2str_.find(sdit->second);
-    if (dsit != did2str_.end()) did2str_.erase(dsit);
+    if (sdit->second == oldest_document_id_) {
+      delete_oldest_document();
+    } else {
+      std::vector<FeatureId> features;
+      bs_.feature(sdit->second, features);
+      inv_.delete_document(sdit->second, features);
+      bs_.delete_document(sdit->second);
+      str2did_.erase(sdit);
+      DocId2Str::iterator dsit = did2str_.find(sdit->second);
+      if (dsit != did2str_.end()) did2str_.erase(dsit);
+    }
   }
 }
 
@@ -151,6 +153,7 @@ void BayesianSetsSearch::search(const std::vector<std::string> &queries,
 void BayesianSetsSearch::save(std::ofstream &ofs) const {
   ofs.write((const char *)&current_feature_id_, sizeof(current_feature_id_));
   ofs.write((const char *)&current_document_id_, sizeof(current_document_id_));
+  ofs.write((const char *)&oldest_document_id_, sizeof(oldest_document_id_));
   ofs.write((const char *)&max_documents_, sizeof(max_documents_));
   bs_.save(ofs);
   inv_.save(ofs);
@@ -194,17 +197,16 @@ void BayesianSetsSearch::load(std::ifstream &ifs) {
   clear();
   ifs.read((char *)&current_feature_id_, sizeof(current_feature_id_));
   ifs.read((char *)&current_document_id_, sizeof(current_document_id_));
+  ifs.read((char *)&oldest_document_id_, sizeof(oldest_document_id_));
   ifs.read((char *)&max_documents_, sizeof(max_documents_));
   bs_.load(ifs);
   inv_.load(ifs);
 
   size_t size;
   ifs.read((char *)&size, sizeof(size));
-  docid_list_.resize(size);
   for (size_t i = 0; i < size; i++) {
     DocumentId did;
     ifs.read((char *)&did, sizeof(did));
-    docid_list_[i] = did;
     std::string str;
     size_t ssize;
     ifs.read((char *)&ssize, sizeof(ssize));
@@ -212,7 +214,6 @@ void BayesianSetsSearch::load(std::ifstream &ifs) {
     ifs.read((char *)&str[0], sizeof(str[0]) * ssize);
     did2str_[did] = str;
   }
-  sort(docid_list_.begin(), docid_list_.end());
 
   ifs.read((char *)&size, sizeof(size));
   for (size_t i = 0; i < size; i++) {
