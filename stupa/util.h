@@ -94,7 +94,7 @@ void init_hash_map(const KeyType &empty_key, HashType &hmap) {
  * Compare pair items.
  * @param left  item
  * @param right item
- * @return bool return true if left_value > right_value
+ * @return return true if left_value > right_value
  */
 template<typename KeyType, typename ValueType>
 bool greater_pair(const std::pair<KeyType, ValueType> &left,
@@ -112,7 +112,7 @@ bool greater_pair(const std::pair<KeyType, ValueType> &left,
  * Compare pair items by absolute value.
  * @param left  item
  * @param right item
- * @return bool return true if abs(left_value) > abs(right_value)
+ * @return return true if abs(left_value) > abs(right_value)
  */
 template<typename KeyType, typename ValueType>
 bool greater_pair_abs(const std::pair<KeyType, ValueType> &left,
