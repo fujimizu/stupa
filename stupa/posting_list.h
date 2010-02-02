@@ -249,19 +249,46 @@ class VarBytePostingList {
  */
 class PforPostingList {
  public:
+  /**
+   * Add the identifier of a document id.
+   * @param id the identifier of a document
+   */
   void add(uint64_t id) {
   }
+  /**
+   * Delete the identifier of a document from posting list.
+   * @param id the identifier of a document
+   */
   void remove(uint64_t id) {
   }
+  /**
+   * Clear positing list.
+   */
   void clear() {
   }
+  /**
+   * Get the list of the identifiers of stored documents.
+   * @param v output list
+   */
   void list(std::vector<uint64_t> &v) const {
   }
+  /**
+   * Check whether posting list is empty or not.
+   * @return if empty return true
+   */
   bool empty() const {
     return false;
   }
+  /**
+   * Save posting list to a file.
+   * @param ofs output stream
+   */
   void save(std::ofstream &ofs) const {
   }
+  /**
+   * Load posting list from a file.
+   * @param ifs input stream
+   */
   void load(std::ifstream &ifs) {
   }
 };
