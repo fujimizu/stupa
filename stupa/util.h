@@ -180,7 +180,7 @@ double get_time();
 /**
  * Get random ASCII string.
  * @param max max size of output string
- * @param output string
+ * @param result output string
  */
 void random_string(size_t max, std::string &result);
 
