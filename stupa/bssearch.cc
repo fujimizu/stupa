@@ -118,9 +118,9 @@ void BayesianSetsSearch::delete_document(const std::string &document_id) {
       bs_.feature(sdit->second, features);
       inv_.delete_document(sdit->second, features);
       bs_.delete_document(sdit->second);
-      str2did_.erase(sdit);
       DocId2Str::iterator dsit = did2str_.find(sdit->second);
       if (dsit != did2str_.end()) did2str_.erase(dsit);
+      str2did_.erase(sdit);
     }
   }
 }
