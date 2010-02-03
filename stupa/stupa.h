@@ -17,8 +17,8 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#ifndef STUPA_STUPA_H
-#define STUPA_STUPA_H
+#ifndef STUPA_STUPA_H_
+#define STUPA_STUPA_H_
 
 #include "config.h"
 #include "bayesian_sets.h"
@@ -27,7 +27,7 @@
 #include "bssearch.h"
 #include "util.h"
 
-#endif  // STUPA_STUPA_H
+#endif  // STUPA_STUPA_H_
 
 
 /**

@@ -34,7 +34,7 @@ typedef std::map<stupa::FeatureId, std::vector<stupa::DocumentId> > Count;
 const size_t NUM_DOC                  = 100;  ///< the number of documents
 const size_t NUM_FEATURE              = 20;   ///< the number of feature
 const stupa::FeatureId MAX_FEATURE_ID = 100;  ///< maximu feature id
-const char *SAVE_FILE                 = "invtest_saved.tmp"; ///< save filename
+const char *SAVE_FILE                 = "invtest_saved.tmp";  ///< save filename
 
 /* function prototypes */
 static void set_input_documents(TestSet &documents, Count &feature_count);
@@ -52,7 +52,8 @@ static void set_input_documents(TestSet &documents, Count &feature_count) {
     check[stupa::FEATURE_DELETED_ID] = true;
     size_t cnt = 0;
     while (cnt < NUM_FEATURE) {
-      stupa::FeatureId fid = static_cast<stupa::FeatureId>(rand()) % MAX_FEATURE_ID;
+      stupa::FeatureId fid =
+        static_cast<stupa::FeatureId>(rand()) % MAX_FEATURE_ID;
       if (check.find(fid) == check.end()) {
         feature.push_back(fid);
         check[fid] = true;

@@ -17,9 +17,9 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
+#include <gtest/gtest.h>
 #include <cstdlib>
 #include <ctime>
-#include <gtest/gtest.h>
 #include <fstream>
 #include <map>
 #include <vector>
@@ -32,16 +32,17 @@ typedef std::map<stupa::DocumentId, std::vector<stupa::FeatureId> > TestSet;
 typedef std::map<stupa::FeatureId, size_t> Count;
 
 /* constants */
-const size_t NUM_DOC                  = 100; ///< the number of documents
-const size_t NUM_FEATURE              = 20;  ///< the number of feature
-const size_t NUM_CANDIDATE            = 30;  ///< the number of candidates
-const stupa::FeatureId MAX_FEATURE_ID = 100; ///< maximum identifier of feature
+const size_t NUM_DOC                  = 100;  ///< the number of documents
+const size_t NUM_FEATURE              = 20;   ///< the number of feature
+const size_t NUM_CANDIDATE            = 30;   ///< the number of candidates
+const stupa::FeatureId MAX_FEATURE_ID = 100;  ///< maximum identifier of feature
 
 /* function prototypes */
 static void set_input_documents();
 static void add_documents(stupa::BayesianSets &bs, const TestSet &documents);
-static void check_documents_and_features(
-  const stupa::BayesianSets &bs, const TestSet &documents, const Count &features);
+static void check_documents_and_features(const stupa::BayesianSets &bs,
+                                         const TestSet &documents,
+                                         const Count &features);
 static void check_search_results(
   const std::map<stupa::DocumentId, bool> &candidates,
   const std::vector<std::pair<stupa::DocumentId, stupa::Point> > &results);
@@ -62,7 +63,8 @@ static void set_input_documents() {
     check[stupa::FEATURE_DELETED_ID] = true;
     size_t cnt = 0;
     while (cnt < NUM_FEATURE) {
-      stupa::FeatureId fid = static_cast<stupa::FeatureId>(rand()) % MAX_FEATURE_ID;
+      stupa::FeatureId fid =
+        static_cast<stupa::FeatureId>(rand()) % MAX_FEATURE_ID;
       if (check.find(fid) == check.end()) {
         feature.push_back(fid);
         check[fid] = true;
@@ -87,8 +89,8 @@ static void add_documents(stupa::BayesianSets &bs, const TestSet &documents) {
 static void check_documents_and_features(
   const stupa::BayesianSets &bs, const TestSet &documents,
   const Count &features) {
-  for (stupa::BayesianSets::DocumentMap::const_iterator dit = bs.documents().begin();
-     dit != bs.documents().end(); ++dit) {
+  stupa::BayesianSets::DocumentMap::const_iterator dit;
+  for (dit = bs.documents().begin(); dit != bs.documents().end(); ++dit) {
     // check added documents
     TestSet::const_iterator tit = documents.find(dit->first);
     EXPECT_TRUE(tit != documents.end());
@@ -113,8 +115,8 @@ static void check_documents_and_features(
 static void check_search_results(
   const std::map<stupa::DocumentId, bool> &candidates,
   const std::vector<std::pair<stupa::DocumentId, stupa::Point> > &results) {
-  EXPECT_TRUE(results.size() > 0);
-  EXPECT_TRUE(results.size() <= candidates.size());
+  EXPECT_LT(0, results.size());
+  EXPECT_LE(results.size(), candidates.size());
   stupa::Point prev_score = 0;
   for (size_t i = 0; i < results.size(); i++) {
     if (i > 0) EXPECT_TRUE(results[i].second <= prev_score);
@@ -182,7 +184,7 @@ TEST(BayesianSetsTest, UpdateDocumentTest) {
     features[documents[id+1][i]]++;
   }
   documents[id] = documents[id+1];
-  bs.add_document(id, documents[id+1]); // update
+  bs.add_document(id, documents[id+1]);  // update
 
   EXPECT_EQ(NUM_DOC, bs.size());
   check_documents_and_features(bs, documents, features);
@@ -204,12 +206,12 @@ TEST(BayesianSetsTest, SearchAllTest) {
 
   queries.push_back(stupa::DOC_START_ID);
   bs.search_by_document(queries, results, bs.size());
-  check_search_results(candidates, results); // size_of_queries == 1
+  check_search_results(candidates, results);  // size_of_queries == 1
   results.clear();
   queries.push_back(stupa::DOC_START_ID+1);
   queries.push_back(stupa::DOC_START_ID+2);
   bs.search_by_document(queries, results, bs.size());
-  check_search_results(candidates, results); // size_of_queries == 3
+  check_search_results(candidates, results);  // size_of_queries == 3
 }
 
 /* search some candidates */

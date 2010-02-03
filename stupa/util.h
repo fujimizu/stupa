@@ -17,12 +17,10 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#ifndef STUPA_UTIL_H
-#define STUPA_UTIL_H
+#ifndef STUPA_UTIL_H_
+#define STUPA_UTIL_H_
 
 #include <stdint.h>
-#include <sys/time.h>
-#include <cstdlib>
 #include <string>
 #include <vector>
 
@@ -241,4 +239,4 @@ class Random {
 
 } /* namespace stupa */
 
-#endif  // STUPA_UTIL_H
+#endif  // STUPA_UTIL_H_

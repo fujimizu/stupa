@@ -102,8 +102,8 @@ static int run_search(int argc, char **argv) {
     stupa::split_string(line, "\t", queries);
     bssearch.search(queries, results);
     for (size_t i = 0; i < results.size(); i++) {
-      printf("%s%s%f\n",
-             results[i].first.c_str(), stupa::DELIMITER.c_str(), results[i].second);
+      printf("%s%s%f\n", results[i].first.c_str(),
+             stupa::DELIMITER.c_str(), results[i].second);
     }
     queries.clear();
     results.clear();

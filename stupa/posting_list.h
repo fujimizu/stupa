@@ -17,13 +17,12 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#ifndef STUPA_POSTRING_LIST_H
-#define STUPA_POSTRING_LIST_H
+#ifndef STUPA_POSTING_LIST_H_
+#define STUPA_POSTING_LIST_H_
 
 #include <stdint.h>
 #include <algorithm>
 #include <fstream>
-#include <list>
 #include <vector>
 #include "util.h"
 
@@ -295,4 +294,4 @@ class PforPostingList {
 
 } /* namespace stupa */
 
-#endif  // STUPA_POSTRING_LIST_H
+#endif  // STUPA_POSTING_LIST_H_

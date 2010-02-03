@@ -17,9 +17,9 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
+#include <gtest/gtest.h>
 #include <cmath>
 #include <ctime>
-#include <gtest/gtest.h>
 #include <map>
 #include <utility>
 #include <vector>
@@ -28,9 +28,9 @@
 namespace {
 
 /* constants */
-const size_t NUM_PAIRS     = 100;    ///< number of pairs
-const size_t NUM_INTEGERS  = 10;     ///< number of integers
-const uint64_t MAX_INTEGER = 100000; ///< maximum integer
+const size_t NUM_PAIRS     = 100;     ///< number of pairs
+const size_t NUM_INTEGERS  = 10;      ///< number of integers
+const uint64_t MAX_INTEGER = 100000;  ///< maximum integer
 
 /* function prototypes */
 static void random_pairs(size_t size,
@@ -174,9 +174,8 @@ TEST(UtilTest, SplitStringTest) {
   splited.clear();
 
   // tab delimiter
-  input = "This	is	a	pen";
+  input = "This\tis\ta\tpen";
   stupa::split_string(input, "\t", splited);
-  //stupa::split_string(input, "	", splited);
   EXPECT_EQ(4, splited.size());
   EXPECT_EQ("This", splited[0]);
   EXPECT_EQ("is",   splited[1]);
@@ -194,7 +193,7 @@ TEST(UtilTest, SplitStringTest) {
   splited.clear();
 
   // tab delimiter
-  input = "あい	うえ	おか";
+  input = "あい\tうえ\tおか";
   stupa::split_string(input, "\t", splited);
   EXPECT_EQ(3, splited.size());
   EXPECT_EQ("あい", splited[0]);

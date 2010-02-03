@@ -17,11 +17,10 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#ifndef STUPA_INVERTED_INDEX_H
-#define STUPA_INVERTED_INDEX_H
+#ifndef STUPA_INVERTED_INDEX_H_
+#define STUPA_INVERTED_INDEX_H_
 
 #include <fstream>
-#include <list>
 #include <vector>
 #include "config.h"
 #include "bayesian_sets.h"
@@ -134,4 +133,4 @@ class InvertedIndex {
 
 } /* namespace stupa */
 
-#endif  // STUPA_INVERTED_INDEX_H
+#endif  // STUPA_INVERTED_INDEX_H_

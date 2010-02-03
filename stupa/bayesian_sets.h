@@ -17,15 +17,13 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#ifndef STUPA_BAYESIAN_SETS_H
-#define STUPA_BAYESIAN_SETS_H
+#ifndef STUPA_BAYESIAN_SETS_H_
+#define STUPA_BAYESIAN_SETS_H_
 
 #include <stdint.h>
-#include <cmath>
 #include <fstream>
 #include <utility>
 #include <vector>
-#include <cassert>
 #include "config.h"
 #include "util.h"
 
@@ -236,4 +234,4 @@ class BayesianSets {
 
 } /* namespace stupa */
 
-#endif  // STUPA_BAYESIAN_SETS_H
+#endif  // STUPA_BAYESIAN_SETS_H_
