@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Client sample in perl
+# Stupa client sample
 #
 
 use strict;
@@ -17,6 +17,7 @@ use Thrift::FramedTransport;
 use StupaThrift;
 
 my $socket = Thrift::Socket->new('localhost', 9090);
+#$socket->setRecvTimeout(100000);  # set timeout
 my $transport = $socket;
 if (@ARGV) {
     my $option = shift @ARGV;

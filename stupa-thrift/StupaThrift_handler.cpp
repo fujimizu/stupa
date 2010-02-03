@@ -22,7 +22,7 @@
 void usage(const char *progname) {
   fprintf(stderr, "Usage: %s [options]\n", progname);
   fprintf(stderr, " -p port     port number (default:%d)\n", PORT);
-  fprintf(stderr, " -d num      maximum number of inverted indexes (no limit)\n");
+  fprintf(stderr, " -d num      maximum number of documents (default: no limit)\n");
   fprintf(stderr, " -i size     maximum size of inverted indexes (default:%d)\n",
           static_cast<int>(INV_SIZE));
   fprintf(stderr, " -w nworker  number of worker thread (default:%d)\n",
