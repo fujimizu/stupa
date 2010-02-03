@@ -51,6 +51,17 @@ namespace __gnu_cxx {
       return hash<const char *>()(x.c_str());
     }
   };
+
+  template<> struct hash<long long> { 
+    size_t operator()(long long __x) const {
+      return __x;
+    }
+  };
+  template<> struct hash<unsigned long long> { 
+    size_t operator()(unsigned long  long __x) const {
+      return __x;
+    }
+  };
 }
 #endif
 
