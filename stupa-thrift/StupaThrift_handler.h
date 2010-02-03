@@ -22,6 +22,9 @@
 
 #include <fstream>
 #include <iostream>
+#include <string>
+#include <utility>
+#include <vector>
 #include "StupaThrift.h"
 #include <concurrency/Mutex.h>
 #include "stupa.h"
@@ -141,4 +144,4 @@ struct ServerParam {
 void usage(const char *progname);
 void parse_options(int argc, char **argv, ServerParam &param);
 
-#endif
+#endif  // StupaThrift_Handler_H
