@@ -65,7 +65,8 @@ struct Setting {
    */
   void show() {
     printf("[Load-test Setting]\n");
-    printf(" number of documents                        = %ld\n", dnum);
+    printf(" number of documents                        = %lld\n",
+           static_cast<unsigned long long>(dnum));
     printf(" number of the features of each document    = %ld\n", fnum);
     printf(" number of search queries                   = %ld\n", qnum);
     printf(" max size of posting list of inverted index = %ld\n\n", isiz);
