@@ -29,7 +29,7 @@
 
 /** Default value of maximum size of inverted indexes */
 const size_t DEFAULT_INV_SIZE = 100;
-const std::string PROMPT("query> ");
+const std::string PROMPT("Query> ");
 
 // function prototypes
 int main(int argc, char **argv);
@@ -108,6 +108,7 @@ static int run_search(int argc, char **argv) {
     }
     queries.clear();
     results.clear();
+    printf("\n");
     printf("%s", PROMPT.c_str());
   }
   return EXIT_SUCCESS;
