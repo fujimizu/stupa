@@ -67,9 +67,12 @@ struct Setting {
     printf("[Load-test Setting]\n");
     printf(" number of documents                        = %lld\n",
            static_cast<unsigned long long>(dnum));
-    printf(" number of the features of each document    = %ld\n", fnum);
-    printf(" number of search queries                   = %ld\n", qnum);
-    printf(" max size of posting list of inverted index = %ld\n\n", isiz);
+    printf(" number of the features of each document    = %lld\n",
+           static_cast<unsigned long long>(fnum));
+    printf(" number of search queries                   = %lld\n",
+           static_cast<unsigned long long>(qnum));
+    printf(" max size of posting list of inverted index = %lld\n\n",
+           static_cast<unsigned long long>(isiz));
   }
 };
 
@@ -256,7 +259,9 @@ class LoadTestId : public LoadTest {
     stupa::InvertedIndex::IndexHash::const_iterator it;
     for (it = inv_.index().begin(); it != inv_.index().end(); ++it) {
       it->second->list(list);
-      printf("%ld\t%ld\n", it->first, list.size());
+      printf("%lld\t%lld\n",
+             static_cast<unsigned long long>(it->first),
+             static_cast<unsigned long long>(list.size()));
       sum += list.size();
       list.clear();
     }
