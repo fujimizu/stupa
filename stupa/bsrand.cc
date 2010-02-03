@@ -212,7 +212,8 @@ class LoadTestId : public LoadTest {
     uint64_t cnt = 0;
     while (cnt < setting_.qnum) {
       stupa::DocumentId did =
-        static_cast<stupa::DocumentId>(rand()) % setting_.dnum + stupa::DOC_START_ID;
+        static_cast<stupa::DocumentId>(rand()) % setting_.dnum
+        + stupa::DOC_START_ID;
       if (check.find(did) == check.end()) {
         queries.push_back(did);
         check[did] = true;
@@ -238,8 +239,8 @@ class LoadTestId : public LoadTest {
       }
       feature_ids.clear();
     }
-    for (stupa::HashMap<stupa::FeatureId, bool>::type::iterator it = fidmap.begin();
-         it != fidmap.end(); ++it) {
+    stupa::HashMap<stupa::FeatureId, bool>::type::iterator it;
+    for (it = fidmap.begin(); it != fidmap.end(); ++it) {
       feature_ids.push_back(it->first);
     }
     inv_.lookup(feature_ids, result);
@@ -251,8 +252,8 @@ class LoadTestId : public LoadTest {
   void show_posting_size() const {
     uint64_t sum = 0;
     std::vector<stupa::DocumentId> list;
-    for (stupa::InvertedIndex::IndexHash::const_iterator it = inv_.index().begin();
-         it != inv_.index().end(); ++it) {
+    stupa::InvertedIndex::IndexHash::const_iterator it;
+    for (it = inv_.index().begin(); it != inv_.index().end(); ++it) {
       it->second->list(list);
       printf("%ld\t%ld\n", it->first, list.size());
       sum += list.size();
@@ -273,11 +274,12 @@ class LoadTestId : public LoadTest {
       inv_.add_document(did, features);
     }
     while (did++ < setting_.dnum + stupa::DOC_START_ID + NUM_LOOP) {
-      std::vector<stupa::FeatureId> *features = new std::vector<stupa::FeatureId>;
+      std::vector<stupa::FeatureId> *features =
+        new std::vector<stupa::FeatureId>;
       random_features(*features);
       ts_[did] = features;
     }
-  } 
+  }
 
   /**
    * Do searching for some times.
@@ -363,7 +365,7 @@ class LoadTestText : public LoadTest {
     size_t cnt = 0;
     while (cnt < setting_.fnum) {
       uint64_t n = rand() % setting_.dnum + stupa::FEATURE_START_ID;
-      //uint64_t n = zipf_rand(setting_.dnum, stupa::FEATURE_START_ID);
+      // uint64_t n = zipf_rand(setting_.dnum, stupa::FEATURE_START_ID);
       if (check.find(n) == check.end()) {
         ss << n;
         features.push_back(ss.str());
@@ -383,10 +385,12 @@ class LoadTestText : public LoadTest {
     while (did < setting_.dnum + NUM_LOOP) {
       std::string didstr;
       do {
+        /*
         std::stringstream ss;
         ss << did;
         didstr = ss.str();
-        //stupa::random_string(STR_LENGTH, didstr);
+        */
+        stupa::random_string(STR_LENGTH, didstr);
       } while (check.find(didstr) != check.end());
       check[didstr] = true;
       std::vector<std::string> *features = new std::vector<std::string>;

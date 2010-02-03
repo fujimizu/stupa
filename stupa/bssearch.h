@@ -17,12 +17,13 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#ifndef STUPA_BSSEARCH_H
-#define STUPA_BSSEARCH_H
+#ifndef STUPA_BSSEARCH_H_
+#define STUPA_BSSEARCH_H_
 
-#include <deque>
 #include <fstream>
-#include <set>
+#include <string>
+#include <utility>
+#include <vector>
 #include "bayesian_sets.h"
 #include "inverted_index.h"
 #include "util.h"
@@ -158,4 +159,4 @@ class BayesianSetsSearch {
 
 } /* namespace stupa */
 
-#endif  // STUPA_BSSEARCH_H
+#endif  // STUPA_BSSEARCH_H_

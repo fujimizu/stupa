@@ -106,9 +106,9 @@ TEST(BayesianSetsSearchTest, AddDocumentLimitTest) {
     queries.push_back(it->first);
     bssearch.search(queries, results);
     if (count < max_doc) {
-      EXPECT_TRUE(results.size() == 0);
+      EXPECT_EQ(0, results.size());
     } else {
-      EXPECT_TRUE(results.size() > 0);
+      EXPECT_LT(0, results.size());
     }
     queries.clear();
     results.clear();
@@ -130,10 +130,10 @@ TEST(BayesianSetsSearchTest, SearchTest) {
 
   std::vector<std::pair<std::string, stupa::Point> > results;
   bssearch.search(queries, results);
-  EXPECT_TRUE(results.size() > 0);
+  EXPECT_LT(0, results.size());
   for (size_t i = 0; i < results.size(); i++) {
     EXPECT_TRUE(documents.find(results[i].first) != documents.end());
-    EXPECT_TRUE(results[i].second > 0);
+    EXPECT_LT(0, results[i].second);
   }
 }
 
@@ -168,7 +168,7 @@ TEST(BayesianSetsSearchTest, SaveLoadTest) {
     EXPECT_EQ(results[i].first, results_loaded[i].first);
     EXPECT_EQ(results[i].second, results_loaded[i].second);
   }
-  
+
   remove(SAVE_FILE);
 }
 
@@ -199,9 +199,9 @@ TEST(BayesianSetsSearchTest, SaveLoadLimitTest) {
     queries.push_back(it->first);
     bssearch_lim.search(queries, results);
     if (count < max_doc) {
-      EXPECT_TRUE(results.size() == 0);
+      EXPECT_EQ(0, results.size());
     } else {
-      EXPECT_TRUE(results.size() > 0);
+      EXPECT_LT(0, results.size());
     }
     queries.clear();
     results.clear();
@@ -215,7 +215,7 @@ int main(int argc, char **argv) {
   unsigned int t = time(NULL);
   t = 1259062488;
   srand(t);
-  //srand((unsigned int)time(NULL));
+  // srand((unsigned int)time(NULL));
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

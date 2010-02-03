@@ -17,6 +17,8 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
+#include <algorithm>
+#include <set>
 #include "bssearch.h"
 
 namespace stupa {
@@ -25,7 +27,7 @@ namespace stupa {
  * Look up inverted indexes.
  */
 void BayesianSetsSearch::lookup_inverted_index(
-  const std::vector<DocumentId> &queries, 
+  const std::vector<DocumentId> &queries,
   std::vector<DocumentId> &results) const {
   std::set<FeatureId> fidset;
   std::vector<FeatureId> feature_ids;
@@ -135,7 +137,7 @@ void BayesianSetsSearch::search(const std::vector<std::string> &queries,
     if (it != str2did_.end()) query_ids.push_back(it->second);
   }
   if (query_ids.empty()) return;
-  
+
   std::vector<DocumentId> candidates;
   lookup_inverted_index(query_ids, candidates);
   std::vector<std::pair<DocumentId, Point> > pairs;
