@@ -101,14 +101,16 @@ static int run_search(int argc, char **argv) {
   printf("%s", PROMPT.c_str());
   while (std::getline(std::cin, line)) {
     stupa::split_string(line, "\t", queries);
+    double start = stupa::get_time();
     bssearch.search(queries, results);
+    double search_time = stupa::get_time() - start;
     for (size_t i = 0; i < results.size(); i++) {
       printf("%s%s%f\n", results[i].first.c_str(),
              stupa::DELIMITER.c_str(), results[i].second);
     }
+    printf("(search time: %.2fms)\n\n", search_time * 1000);
     queries.clear();
     results.clear();
-    printf("\n");
     printf("%s", PROMPT.c_str());
   }
   return EXIT_SUCCESS;
