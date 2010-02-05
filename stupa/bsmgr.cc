@@ -81,7 +81,7 @@ static int run_search(int argc, char **argv) {
     fprintf(stderr, "[ERROR]Cannot open file: %s\n", argv[2]);
     return EXIT_FAILURE;
   }
-  printf("Read input documents ...\n");
+  printf("Reading input documents ...\n");
   size_t invsize = argc == 4 ?
     static_cast<size_t>(atoi(argv[3])) : DEFAULT_INV_SIZE;
   if (invsize <= 0) {
