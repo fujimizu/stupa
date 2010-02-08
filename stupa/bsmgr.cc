@@ -36,7 +36,6 @@ int main(int argc, char **argv);
 static void usage(const char *progname);
 static int run_search(int argc, char **argv);
 static int run_save(int argc, char **argv);
-static void read_tsv(std::ifstream &ifs, stupa::BayesianSetsSearch &bssearch);
 
 int main(int argc, char **argv) {
   if (argc < 2) {
@@ -91,7 +90,7 @@ static int run_search(int argc, char **argv) {
 
   stupa::BayesianSetsSearch bssearch(invsize);
   if (stupa::get_extension(argv[2]) == "tsv") {
-    read_tsv(ifs, bssearch);
+    bssearch.read_tsvfile(ifs);
   } else {
     bssearch.load(ifs);
   }
@@ -143,28 +142,7 @@ static int run_save(int argc, char **argv) {
     return EXIT_FAILURE;
   }
   stupa::BayesianSetsSearch bssearch(invsize);
-  read_tsv(ifs, bssearch);
+  bssearch.read_tsvfile(ifs);
   bssearch.save(ofs);
   return EXIT_SUCCESS;
-}
-
-/**
- * Read input file and add documents to BayesianSets searcher.
- * @param ifs input stream
- * @param bssearch bayesian sets searcher
- */
-static void read_tsv(std::ifstream &ifs, stupa::BayesianSetsSearch &bssearch) {
-  std::string line;
-  while (std::getline(ifs, line)) {
-    if (!line.empty()) {
-      size_t p = line.find(stupa::DELIMITER);
-      std::string doc_name = line.substr(0, p);
-      line = line.substr(p + stupa::DELIMITER.size());
-      std::vector<std::string> features;
-      stupa::split_string(line, stupa::DELIMITER, features);
-      if (!doc_name.empty() && !features.empty()) {
-        bssearch.add_document(doc_name, features);
-      }
-    }
-  }
 }
