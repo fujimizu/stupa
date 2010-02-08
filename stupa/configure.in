@@ -15,7 +15,7 @@ MYLIBREV=1
 MYHEADERFILES="bayesian_sets.h inverted_index.h posting_list.h bssearch.h util.h stupa.h config.h"
 MYLIBRARYFILES="libstupa.a"
 MYLIBOBJFILES="bayesian_sets.o inverted_index.o posting_list.o bssearch.o util.o"
-MYCOMMANDFILES="bsmgr bsrand"
+MYCOMMANDFILES="stupactl stuparnd"
 MYTESTCOMMANDFILES="utiltest postest bsettest invtest bssrchtest"
 MYDOCUMENTFILES="COPYING README TODO"
 
