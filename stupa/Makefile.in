@@ -77,12 +77,12 @@ check : $(TESTCOMMANDFILES)
 
 check-valgrind : $(COMMANDFILES)
 	make RUNCMD="$(VALGRIND)" check > leak.log
-	$(VALGRIND) echo "Alex" | ./bsmgr search data/test1.tsv >> leak.log
-	$(VALGRIND) echo "Alex	Sam" | ./bsmgr search data/test1.tsv >> leak.log
-	$(VALGRIND) ./bsmgr save data/test1.tsv valgrind_saved.tmp 100 >> leak.log
-	$(VALGRIND) echo "Alex" | ./bsmgr search valgrind_saved.tmp >> leak.log
-	$(VALGRIND) ./bsrand 100 20 2 100 >> leak.log
-	$(VALGRIND) ./bsrand -text 100 20 2 100 >> leak.log
+	$(VALGRIND) echo "Alex" | ./stupactl search data/test1.tsv >> leak.log
+	$(VALGRIND) echo "Alex	Sam" | ./stupactl search data/test1.tsv >> leak.log
+	$(VALGRIND) ./stupactl save data/test1.tsv valgrind_saved.tmp 100 >> leak.log
+	$(VALGRIND) echo "Alex" | ./stupactl search valgrind_saved.tmp >> leak.log
+	$(VALGRIND) ./stuparnd 100 20 2 100 >> leak.log
+	$(VALGRIND) ./stuparnd -text 100 20 2 100 >> leak.log
 	grep ERROR leak.log
 	grep 'at exit' leak.log
 	rm valgrind_saved.tmp
@@ -158,10 +158,10 @@ libstupa.$(LIBVER).dylib : libstupa.$(LIBVER).$(LIBREV).0.dylib
 libstupa.dylib : libstupa.$(LIBVER).$(LIBREV).0.dylib
 	ln -f -s libstupa.$(LIBVER).$(LIBREV).0.dylib $@
 
-bsmgr : bsmgr.o $(LIBRARYFILES)
+stupactl : stupactl.o $(LIBRARYFILES)
 	$(LDENV) $(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) $(CMDLDFLAGS) -lstupa $(LIBS)
 
-bsrand : bsrand.o $(LIBRARYFILES)
+stuparnd : stuparnd.o $(LIBRARYFILES)
 	$(LDENV) $(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) $(CMDLDFLAGS) -lstupa $(LIBS)
 
 utiltest : utiltest.o $(LIBRARYFILES)
@@ -179,9 +179,9 @@ invtest : invtest.o $(LIBRARYFILES)
 bssrchtest : bssrchtest.o $(LIBRARYFILES)
 	$(LDENV) $(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) $(TESTLDFLAGS) -lstupa $(LIBS)
 
-bsmgr.o : bayesian_sets.h inverted_index.h config.h util.h
+stupactl.o : bayesian_sets.h inverted_index.h config.h util.h
 
-bsrand.o : bayesian_sets.h inverted_index.h config.h util.h
+stuparnd.o : bayesian_sets.h inverted_index.h config.h util.h
 
 bayesian_sets.o : bayesian_sets.h config.h util.h
 
