@@ -246,4 +246,20 @@ void BayesianSetsSearch::load(std::ifstream &ifs) {
   }
 }
 
+void BayesianSetsSearch::read_tsvfile(std::ifstream &ifs) {
+  std::string line;
+  while (std::getline(ifs, line)) {
+    if (!line.empty()) {
+      size_t p = line.find(stupa::DELIMITER);
+      std::string doc_name = line.substr(0, p);
+      line = line.substr(p + stupa::DELIMITER.size());
+      std::vector<std::string> features;
+      stupa::split_string(line, stupa::DELIMITER, features);
+      if (!doc_name.empty() && !features.empty()) {
+        add_document(doc_name, features);
+      }
+    }
+  }
+}
+
 } /* namespace stupa */

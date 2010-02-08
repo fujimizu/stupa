@@ -155,6 +155,12 @@ class BayesianSetsSearch {
    * @param ifs input stream
    */
   void load(std::ifstream &ifs);
+
+  /**
+   * Read input file and add documents to BayesianSets searcher.
+   * @param ifs input stream
+   */
+  void read_tsvfile(std::ifstream &ifs);
 };
 
 } /* namespace stupa */
