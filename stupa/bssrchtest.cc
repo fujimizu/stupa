@@ -104,7 +104,7 @@ TEST(BayesianSetsSearchTest, AddDocumentLimitTest) {
   size_t count = 0;
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
     queries.push_back(it->first);
-    bssearch.search(queries, results);
+    bssearch.search_by_document(queries, results);
     if (count < max_doc) {
       EXPECT_EQ(0, results.size());
     } else {
@@ -116,8 +116,8 @@ TEST(BayesianSetsSearchTest, AddDocumentLimitTest) {
   }
 }
 
-/* search */
-TEST(BayesianSetsSearchTest, SearchTest) {
+/* search_by_document */
+TEST(BayesianSetsSearchTest, SearchByDocumentTest) {
   TestSet documents;
   set_input_documents(documents);
   stupa::BayesianSetsSearch bssearch;
@@ -129,7 +129,28 @@ TEST(BayesianSetsSearchTest, SearchTest) {
   }
 
   std::vector<std::pair<std::string, stupa::Point> > results;
-  bssearch.search(queries, results);
+  bssearch.search_by_document(queries, results);
+  EXPECT_LT(0, results.size());
+  for (size_t i = 0; i < results.size(); i++) {
+    EXPECT_TRUE(documents.find(results[i].first) != documents.end());
+    EXPECT_LT(0, results[i].second);
+  }
+}
+
+/* search_by_feature */
+TEST(BayesianSetsSearchTest, SearchByFeatureTest) {
+  TestSet documents;
+  set_input_documents(documents);
+  stupa::BayesianSetsSearch bssearch;
+  std::vector<std::string> queries;
+  int count = 0;
+  for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
+    if (count++ % 3 == 0) queries.push_back(it->second.at(0));
+    bssearch.add_document(it->first, it->second);
+  }
+
+  std::vector<std::pair<std::string, stupa::Point> > results;
+  bssearch.search_by_feature(queries, results);
   EXPECT_LT(0, results.size());
   for (size_t i = 0; i < results.size(); i++) {
     EXPECT_TRUE(documents.find(results[i].first) != documents.end());
@@ -149,7 +170,7 @@ TEST(BayesianSetsSearchTest, SaveLoadTest) {
     bssearch.add_document(it->first, it->second);
   }
   std::vector<std::pair<std::string, stupa::Point> > results;
-  bssearch.search(queries, results);
+  bssearch.search_by_document(queries, results);
 
   std::ofstream ofs(SAVE_FILE);
   bssearch.save(ofs);
@@ -162,7 +183,7 @@ TEST(BayesianSetsSearchTest, SaveLoadTest) {
   EXPECT_EQ(documents.size(), bssearch.size());
 
   std::vector<std::pair<std::string, stupa::Point> > results_loaded;
-  bssearch.search(queries, results_loaded);
+  bssearch.search_by_document(queries, results_loaded);
   EXPECT_EQ(results.size(), results_loaded.size());
   for (size_t i = 0; i < results.size(); i++) {
     EXPECT_EQ(results[i].first, results_loaded[i].first);
@@ -197,7 +218,7 @@ TEST(BayesianSetsSearchTest, SaveLoadLimitTest) {
   size_t count = 0;
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
     queries.push_back(it->first);
-    bssearch_lim.search(queries, results);
+    bssearch_lim.search_by_document(queries, results);
     if (count < max_doc) {
       EXPECT_EQ(0, results.size());
     } else {

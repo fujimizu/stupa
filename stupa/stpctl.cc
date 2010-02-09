@@ -120,7 +120,7 @@ static int run_search(int argc, char **argv) {
   while (std::getline(std::cin, line)) {
     stupa::split_string(line, "\t", queries);
     double start = stupa::get_time();
-    bssearch.search(queries, results);
+    bssearch.search_by_document(queries, results);
     double search_time = stupa::get_time() - start;
     for (size_t i = 0; i < results.size(); i++) {
       printf("%s%s%f\n", results[i].first.c_str(),

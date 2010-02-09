@@ -432,7 +432,7 @@ class LoadTestText : public LoadTest {
           cnt++;
         }
       }
-      bssearch_.search(queries, results, MAX_RESULT);
+      bssearch_.search_by_document(queries, results, MAX_RESULT);
     }
   }
 

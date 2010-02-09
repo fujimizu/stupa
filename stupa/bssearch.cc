@@ -26,7 +26,7 @@ namespace stupa {
 /**
  * Look up inverted indexes.
  */
-void BayesianSetsSearch::lookup_inverted_index(
+void BayesianSetsSearch::lookup_inverted_index_by_document(
   const std::vector<DocumentId> &queries,
   std::vector<DocumentId> &results) const {
   std::set<FeatureId> fidset;
@@ -126,22 +126,53 @@ void BayesianSetsSearch::delete_document(const std::string &document_id) {
 }
 
 /**
- * Search related documents.
+ * Search related documents using queries of document ids.
  */
-void BayesianSetsSearch::search(const std::vector<std::string> &queries,
-                          std::vector<std::pair<std::string, Point> > &results,
-                          size_t max) const {
-  std::vector<DocumentId> query_ids;
+void BayesianSetsSearch::search_by_document(
+  const std::vector<std::string> &queries,
+  std::vector<std::pair<std::string, Point> > &results, size_t max) const {
+  std::vector<DocumentId> document_ids;
   for (size_t i = 0; i < queries.size(); i++) {
     Str2DocId::const_iterator it = str2did_.find(queries[i]);
-    if (it != str2did_.end()) query_ids.push_back(it->second);
+    if (it != str2did_.end()) document_ids.push_back(it->second);
   }
-  if (query_ids.empty()) return;
+  if (document_ids.empty()) return;
 
   std::vector<DocumentId> candidates;
-  lookup_inverted_index(query_ids, candidates);
+  lookup_inverted_index_by_document(document_ids, candidates);
   std::vector<std::pair<DocumentId, Point> > pairs;
-  bs_.search_by_document(query_ids, candidates, pairs, max);
+  bs_.search_by_document(document_ids, candidates, pairs, max);
+  for (size_t i = 0; i < pairs.size(); i++) {
+    DocId2Str::const_iterator it = did2str_.find(pairs[i].first);
+    if (it != did2str_.end()) {
+      results.push_back(
+        std::pair<std::string, Point>(it->second, pairs[i].second));
+    }
+  }
+}
+
+/**
+ * Search related documents using queries of feature ids.
+ */
+void BayesianSetsSearch::search_by_feature(
+  const std::vector<std::string> &queries,
+  std::vector<std::pair<std::string, Point> > &results, size_t max) const {
+  std::set<FeatureId> fidset;
+  for (size_t i = 0; i < queries.size(); i++) {
+    Str2FeatureId::const_iterator it = str2fid_.find(queries[i]);
+    if (it != str2fid_.end()) fidset.insert(it->second);
+  }
+  std::vector<FeatureId> feature_ids;
+  for (std::set<FeatureId>::iterator it = fidset.begin();
+       it != fidset.end(); ++it) {
+    feature_ids.push_back(*it);
+  }
+  if (feature_ids.empty()) return;
+
+  std::vector<DocumentId> candidates;
+  inv_.lookup(feature_ids, candidates);
+  std::vector<std::pair<DocumentId, Point> > pairs;
+  bs_.search_by_feature(feature_ids, candidates, pairs, max);
   for (size_t i = 0; i < pairs.size(); i++) {
     DocId2Str::const_iterator it = did2str_.find(pairs[i].first);
     if (it != did2str_.end()) {
