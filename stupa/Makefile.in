@@ -79,8 +79,11 @@ check-valgrind : $(COMMANDFILES)
 	make RUNCMD="$(VALGRIND)" check > leak.log
 	$(VALGRIND) echo "Alex" | ./stpctl search data/test1.tsv >> leak.log
 	$(VALGRIND) echo "Alex	Sam" | ./stpctl search data/test1.tsv >> leak.log
+	$(VALGRIND) echo "Rock" | ./stpctl search -f data/test1.tsv >> leak.log
+	$(VALGRIND) echo "Rock	Pop" | ./stpctl search -f data/test1.tsv >> leak.log
 	$(VALGRIND) ./stpctl save data/test1.tsv valgrind_saved.tmp 100 >> leak.log
-	$(VALGRIND) echo "Alex" | ./stpctl search valgrind_saved.tmp >> leak.log
+	$(VALGRIND) echo "Alex" | ./stpctl search -b valgrind_saved.tmp >> leak.log
+	$(VALGRIND) echo "Rock" | ./stpctl search -b -f valgrind_saved.tmp >> leak.log
 	$(VALGRIND) ./stprand 100 20 2 100 >> leak.log
 	$(VALGRIND) ./stprand -text 100 20 2 100 >> leak.log
 	grep ERROR leak.log
