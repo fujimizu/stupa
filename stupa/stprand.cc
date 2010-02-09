@@ -509,7 +509,7 @@ int main(int argc, char **argv) {
 static void usage(const char *progname) {
   fprintf(stderr, "%s : Bayesian Sets load-test tool\n\n", progname);
   fprintf(stderr, "Usage:\n");
-  fprintf(stderr, "%% %s [-text] dnum fnum qnum isiz\n", progname);
+  fprintf(stderr, " %% %s [-text] dnum fnum qnum isiz\n", progname);
   fprintf(stderr, "     dnum : number of documents\n");
   fprintf(stderr, "     fnum : number of the features of each document\n");
   fprintf(stderr, "     qnum : number of search queries\n");
