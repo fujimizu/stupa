@@ -78,9 +78,11 @@ static void load_file(stupa::BayesianSetsSearch &bssearch,
 static void usage(const char *progname) {
   fprintf(stderr, "%s: Bayesian Sets utility\n\n", progname);
   fprintf(stderr, "Usage:\n");
-  fprintf(stderr, " %% %s search [-b] file [invsize]\n", progname);
+  fprintf(stderr, " %% %s search [-b][-f] file [invsize]\n", progname);
   fprintf(stderr, " %% %s save [-b] infile outfile [invsize]\n", progname);
   fprintf(stderr, "    -b        read binary format file\n");
+  fprintf(stderr, "    -f        search by feature strings\n");
+  fprintf(stderr, "              (default: search by document identifier strings)\n");
   fprintf(stderr, "    invsize   maximum size of inverted indexes (default:%d)\n",
           static_cast<int>(DEFAULT_INV_SIZE));
   std::exit(EXIT_FAILURE);
@@ -95,11 +97,16 @@ static int run_search(int argc, char **argv) {
   const char *progname = argv[0];
   if (argc < 3) usage(progname);
   bool is_binary = false;
+  bool by_feature = false;
   const char *path = NULL;
   size_t invsize = 0;
   for (int i = 2; i < argc; i++) {
-    if (!strcmp(argv[i], "-b")) {
-      is_binary = true;
+    if (argv[i][0] == '-') {
+      if (!strcmp(argv[i], "-b")) {
+        is_binary = true;
+      } else if (!strcmp(argv[i], "-f")) {
+        by_feature = true;
+      }
     } else if (!path) {
       path = argv[i];
     } else if (!invsize) {
@@ -120,7 +127,11 @@ static int run_search(int argc, char **argv) {
   while (std::getline(std::cin, line)) {
     stupa::split_string(line, "\t", queries);
     double start = stupa::get_time();
-    bssearch.search_by_document(queries, results);
+    if (by_feature) {
+      bssearch.search_by_feature(queries, results);
+    } else {
+      bssearch.search_by_document(queries, results);
+    }
     double search_time = stupa::get_time() - start;
     for (size_t i = 0; i < results.size(); i++) {
       printf("%s%s%f\n", results[i].first.c_str(),
@@ -172,6 +183,6 @@ static int run_save(int argc, char **argv) {
   printf("Writing data to the output file ... ");
   fflush(stdout);
   bssearch.save(ofs);
-  printf("finish\n");
+  printf("finished\n");
   return EXIT_SUCCESS;
 }
