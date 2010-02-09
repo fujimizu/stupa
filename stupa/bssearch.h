@@ -63,8 +63,9 @@ class BayesianSetsSearch {
    * @param queries list of document ids of input queries
    * @paran results list of document ids of output candidates
    */
-  void lookup_inverted_index(const std::vector<DocumentId> &queries,
-                             std::vector<DocumentId> &results) const;
+  void lookup_inverted_index_by_document(
+    const std::vector<DocumentId> &queries,
+    std::vector<DocumentId> &results) const;
 
   /**
    * Delete the oldest document.
@@ -136,14 +137,24 @@ class BayesianSetsSearch {
   }
 
   /**
-   * Search related documents.
+   * Search related documents using queries of document ids.
    * @param queries list of query strings as document identifiers
    * @param results list of the pairs of document-identifier string and points
    * @param max maximum number of output pairs
    */
-  void search(const std::vector<std::string> &queries,
-              std::vector<std::pair<std::string, Point> > &results,
-              size_t max = MAX_RESULT) const;
+  void search_by_document(const std::vector<std::string> &queries,
+                          std::vector<std::pair<std::string, Point> > &results,
+                          size_t max = MAX_RESULT) const;
+
+  /**
+   * Search related documents using queries of feature ids.
+   * @param queries list of query strings as feature identifiers
+   * @param results list of the pairs of document-identifier string and points
+   * @param max maximum number of output pairs
+   */
+  void search_by_feature(const std::vector<std::string> &queries,
+                         std::vector<std::pair<std::string, Point> > &results,
+                         size_t max = MAX_RESULT) const;
 
   /**
    * Save status (bayesian sets object, inverted indexes, ..) to a file.
