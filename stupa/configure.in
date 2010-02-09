@@ -3,13 +3,13 @@
 #================================================================
 
 # Package name
-AC_INIT(stupa, 0.0.1, fujisawa@bayon.cc)
+AC_INIT(stupa, 0.0.2, fujisawa@bayon.cc)
 AC_CONFIG_HEADER([config.h])
 AC_DEFINE([AUTHOR], ["Mizuki Fujisawa"], [author name])
 
 # Package information
 MYLIBVER=0
-MYLIBREV=1
+MYLIBREV=2
 
 # Targets
 MYHEADERFILES="bayesian_sets.h inverted_index.h posting_list.h bssearch.h util.h stupa.h config.h"

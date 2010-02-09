@@ -48,11 +48,11 @@ class BayesianSetsSearch {
   /** maximum size of inverted index */
   static const size_t MAX_INVERT_SIZE = 100;
 
+  BayesianSets bs_;                 ///< bayesian sets object
+  InvertedIndex inv_;               ///< inverted index
   FeatureId current_feature_id_;    ///< current(highest) feature id
   DocumentId current_document_id_;  ///< current(highest) document id
   DocumentId oldest_document_id_;   ///< oldest document id
-  BayesianSets bs_;                 ///< bayesian sets object
-  InvertedIndex inv_;               ///< inverted index
   DocId2Str did2str_;               ///< mapping from document id to string
   Str2DocId str2did_;               ///< mapping from string to document id
   Str2FeatureId str2fid_;           ///< mapping from string to feature id
@@ -78,12 +78,13 @@ class BayesianSetsSearch {
    * @param max_doc maximum number of documents
    */
   BayesianSetsSearch(size_t invsize = MAX_INVERT_SIZE,
-                     size_t max_doc = 0)
-    : current_feature_id_(FEATURE_START_ID),
+                     size_t max_doc = 0,
+                     Point c = BayesianSets::DEFAULT_C)
+    : bs_(c), inv_(invsize),
+      current_feature_id_(FEATURE_START_ID),
       current_document_id_(DOC_START_ID),
       oldest_document_id_(DOC_START_ID),
       max_documents_(max_doc) {
-    inv_.set_max(invsize);
     init_hash_map(DOC_EMPTY_ID, did2str_);
     init_hash_map("", str2did_);
     init_hash_map("", str2fid_);
