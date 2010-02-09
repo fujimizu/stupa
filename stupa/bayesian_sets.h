@@ -55,12 +55,10 @@ class BayesianSets {
   /** type definition of the vector of a document */
   typedef HashMap<FeatureId, Point>::type Vector;
 
- private:
   /** Default value of c parameter of bayesian sets algorithm */
   static const Point  DEFAULT_C = 2.0;
-  /** Default value of the maximum number of output documents */
-  static const size_t MAX_SEARCH_RESULT = 100;
 
+ private:
   DocumentMap documents_;       ///< Documents
   FeatureCount feature_count_;  ///< Count of the features of input documents
   Point c_;                     ///< c parameter of bayesian sets algorithm
@@ -183,7 +181,7 @@ class BayesianSets {
    */
   void search_by_document(const std::vector<DocumentId> &queries,
                           std::vector<std::pair<DocumentId, Point> > &results,
-                          size_t max = MAX_SEARCH_RESULT) const;
+                          size_t max) const;
 
   /**
    * Search related documents from candidates using queries of document ids.
@@ -195,7 +193,7 @@ class BayesianSets {
   void search_by_document(const std::vector<DocumentId> &queries,
                           const std::vector<DocumentId> &candidates,
                           std::vector<std::pair<DocumentId, Point> > &results,
-                          size_t max = MAX_SEARCH_RESULT) const;
+                          size_t max) const;
 
   /**
    * Search related documents from all documents using queries of feature ids.
@@ -205,7 +203,7 @@ class BayesianSets {
    */
   void search_by_feature(const std::vector<FeatureId> &feature_ids,
                          std::vector<std::pair<DocumentId, Point> > &results,
-                         size_t max = MAX_SEARCH_RESULT) const;
+                         size_t max) const;
 
   /**
    * Search related documents from candidates using queries of feature ids.
@@ -217,7 +215,7 @@ class BayesianSets {
   void search_by_feature(const std::vector<FeatureId> &feature_ids,
                          const std::vector<DocumentId> &candidates,
                          std::vector<std::pair<DocumentId, Point> > &results,
-                         size_t max = MAX_SEARCH_RESULT) const;
+                         size_t max) const;
 
   /**
    * Save documents to a file.

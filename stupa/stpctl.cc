@@ -34,14 +34,13 @@ const std::string PROMPT("Query> ");
 // function prototypes
 int main(int argc, char **argv);
 static void usage(const char *progname);
+static void load_file(stupa::BayesianSetsSearch &bssearch,
+                      const char *path, bool is_binary, size_t invsize);
 static int run_search(int argc, char **argv);
 static int run_save(int argc, char **argv);
 
 int main(int argc, char **argv) {
-  if (argc < 2) {
-    usage(argv[0]);
-    return EXIT_FAILURE;
-  }
+  if (argc < 2) usage(argv[0]);
   std::string command(argv[1]);
   if (command == "search") {
     return run_search(argc, argv);
@@ -49,8 +48,27 @@ int main(int argc, char **argv) {
     return run_save(argc, argv);
   } else {
     usage(argv[0]);
-    return EXIT_FAILURE;
   }
+}
+
+static void load_file(stupa::BayesianSetsSearch &bssearch,
+                      const char *path, bool is_binary, size_t invsize) {
+  std::ifstream ifs(path);
+  if (!ifs) {
+    fprintf(stderr, "[ERROR]Cannot open file: %s\n", path);
+    std::exit(EXIT_FAILURE);
+  }
+  if (is_binary) {
+    printf("Reading input documents (Binary, invsize:ignored) ... ");
+    fflush(stdout);
+    bssearch.load(ifs);
+  } else {
+    printf("Reading input documents (Text, invsize:%d) ... ",
+           static_cast<int>(invsize));
+    fflush(stdout);
+    bssearch.read_tsvfile(ifs);
+  }
+  printf("%d documents\n", static_cast<int>(bssearch.size()));
 }
 
 /**
@@ -60,9 +78,12 @@ int main(int argc, char **argv) {
 static void usage(const char *progname) {
   fprintf(stderr, "%s: Bayesian Sets utility\n\n", progname);
   fprintf(stderr, "Usage:\n");
-  fprintf(stderr, " %% %s search file [invsize]  (default_invsize=%d)\n",
-          progname, static_cast<int>(DEFAULT_INV_SIZE));
-  fprintf(stderr, " %% %s save infile outfile [invsize]\n", progname);
+  fprintf(stderr, " %% %s search [-b] file [invsize]\n", progname);
+  fprintf(stderr, " %% %s save [-b] infile outfile [invsize]\n", progname);
+  fprintf(stderr, "    -b        read binary format file\n");
+  fprintf(stderr, "    invsize   maximum size of inverted indexes (default:%d)\n",
+          static_cast<int>(DEFAULT_INV_SIZE));
+  std::exit(EXIT_FAILURE);
 }
 
 /**
@@ -71,29 +92,27 @@ static void usage(const char *progname) {
  * @param argv argument strings
  */
 static int run_search(int argc, char **argv) {
-  if (argc < 3) {
-    usage(argv[0]);
-    return EXIT_FAILURE;
+  const char *progname = argv[0];
+  if (argc < 3) usage(progname);
+  bool is_binary = false;
+  const char *path = NULL;
+  size_t invsize = 0;
+  for (int i = 2; i < argc; i++) {
+    if (!strcmp(argv[i], "-b")) {
+      is_binary = true;
+    } else if (!path) {
+      path = argv[i];
+    } else if (!invsize) {
+      invsize = atoi(argv[i]);
+    } else {
+      usage(progname);
+    }
   }
-  std::ifstream ifs(argv[2]);
-  if (!ifs) {
-    fprintf(stderr, "[ERROR]Cannot open file: %s\n", argv[2]);
-    return EXIT_FAILURE;
-  }
-  printf("Reading input documents ...\n");
-  size_t invsize = argc == 4 ?
-    static_cast<size_t>(atoi(argv[3])) : DEFAULT_INV_SIZE;
-  if (invsize <= 0) {
-    fprintf(stderr, "[ERROR]Size of inverted index must be greater than zero.");
-    return EXIT_FAILURE;
-  }
-
+  if (!path) usage(progname);
+  if (invsize <= 0) invsize = DEFAULT_INV_SIZE;
   stupa::BayesianSetsSearch bssearch(invsize);
-  if (stupa::get_extension(argv[2]) == "tsv") {
-    bssearch.read_tsvfile(ifs);
-  } else {
-    bssearch.load(ifs);
-  }
+  load_file(bssearch, path, is_binary, invsize);
+
   std::vector<std::string> queries;
   std::vector<std::pair<std::string, stupa::Point> > results;
   std::string line;
@@ -121,28 +140,38 @@ static int run_search(int argc, char **argv) {
  * @param argv argument strings
  */
 static int run_save(int argc, char **argv) {
-  if (argc < 4) {
-    usage(argv[0]);
-    return EXIT_FAILURE;
+  const char *progname = argv[0];
+  if (argc < 4) usage(progname);
+  bool is_binary = false;
+  const char *inpath = NULL;
+  const char *outpath = NULL;
+  size_t invsize = 0;
+  for (int i = 2; i < argc; i++) {
+    if (!strcmp(argv[i], "-b")) {
+      is_binary = true;
+    } else if (!inpath) {
+      inpath = argv[i];
+    } else if (!outpath) {
+      outpath = argv[i];
+    } else if (!invsize) {
+      invsize = atoi(argv[i]);
+    } else {
+      usage(progname);
+    }
   }
-  std::ifstream ifs(argv[2]);
-  if (!ifs) {
-    fprintf(stderr, "[ERROR]Cannot open file: %s\n", argv[2]);
-    return EXIT_FAILURE;
-  }
-  std::ofstream ofs(argv[3]);
+  if (!inpath || !outpath) usage(progname);
+
+  std::ofstream ofs(outpath);
   if (!ofs) {
-    fprintf(stderr, "[ERROR]Cannot open file: %s\n", argv[3]);
+    fprintf(stderr, "[ERROR]Cannot open file: %s\n", outpath);
     return EXIT_FAILURE;
   }
-  size_t invsize = argc == 5 ?
-    static_cast<size_t>(atoi(argv[4])) : DEFAULT_INV_SIZE;
-  if (invsize <= 0) {
-    fprintf(stderr, "[ERROR]Size of inverted index must be greater than zero.");
-    return EXIT_FAILURE;
-  }
+  if (invsize <= 0) invsize = DEFAULT_INV_SIZE;
   stupa::BayesianSetsSearch bssearch(invsize);
-  bssearch.read_tsvfile(ifs);
+  load_file(bssearch, inpath, is_binary, invsize);
+  printf("Writing data to the output file ... ");
+  fflush(stdout);
   bssearch.save(ofs);
+  printf("finish\n");
   return EXIT_SUCCESS;
 }

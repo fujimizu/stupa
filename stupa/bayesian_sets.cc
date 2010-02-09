@@ -226,7 +226,6 @@ void BayesianSets::search_by_feature(
  * Save documents to a file.
  */
 void BayesianSets::save(std::ofstream &ofs) const {
-  ofs.write((const char *)&c_, sizeof(c_));
   size_t dsiz = documents_.size();
   ofs.write((const char *)&dsiz, sizeof(dsiz));
   for (DocumentMap::const_iterator it = documents_.begin();
@@ -250,7 +249,6 @@ void BayesianSets::save(std::ofstream &ofs) const {
  */
 void BayesianSets::load(std::ifstream &ifs) {
   clear();
-  ifs.read((char *)&c_, sizeof(c_));
   size_t dsiz;
   ifs.read((char *)&dsiz, sizeof(dsiz));
   for (size_t i = 0; i < dsiz; i++) {

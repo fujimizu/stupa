@@ -110,7 +110,6 @@ void InvertedIndex::lookup(const std::vector<FeatureId> &feature_ids,
  * Save inverted indexes to a file.
  */
 void InvertedIndex::save(std::ofstream &ofs) const {
-  ofs.write((const char *)&max_posting_, sizeof(max_posting_));
   size_t isiz = index_.size();
   ofs.write((const char *)&isiz, sizeof(isiz));
   for (IndexHash::const_iterator it = index_.begin();
@@ -125,7 +124,6 @@ void InvertedIndex::save(std::ofstream &ofs) const {
  */
 void InvertedIndex::load(std::ifstream &ifs) {
   clear();
-  ifs.read((char *)&max_posting_, sizeof(max_posting_));
   size_t isiz;
   ifs.read((char *)&isiz, sizeof(isiz));
   for (size_t i = 0; i < isiz; i++) {
