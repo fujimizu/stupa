@@ -68,12 +68,26 @@ if ($@) {
     exit 1;
 }
 
-# search
+# search by document ids
 my @queries = ('Fred');
 my $max = 20;
 eval {
-    my $results = $client->search($max, \@queries);
-    print "Search Result:\n";
+    my $results = $client->search_by_document($max, \@queries);
+    print "Search Result (by document ids):\n";
+    for (my $i = 0; $i < scalar @{ $results }; $i++) {
+        printf " %d\t%s\t%f\n", $i+1, $results->[$i]->name, $results->[$i]->point;
+    }
+};
+if ($@) {
+    print "[ERROR] ", $@->{message}, "\n";
+    exit 1;
+}
+
+# search by document ids
+@queries = ('Rock', 'Pop');
+eval {
+    my $results = $client->search_by_feature($max, \@queries);
+    print "Search Result (by feature ids):\n";
     for (my $i = 0; $i < scalar @{ $results }; $i++) {
         printf " %d\t%s\t%f\n", $i+1, $results->[$i]->name, $results->[$i]->point;
     }

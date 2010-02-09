@@ -378,9 +378,9 @@ sub write {
   return $xfer;
 }
 
-package StupaThrift_search_args;
+package StupaThrift_search_by_document_args;
 use base qw(Class::Accessor);
-StupaThrift_search_args->mk_accessors( qw( max query ) );
+StupaThrift_search_by_document_args->mk_accessors( qw( max query ) );
 
 sub new {
   my $classname = shift;
@@ -400,7 +400,7 @@ sub new {
 }
 
 sub getName {
-  return 'StupaThrift_search_args';
+  return 'StupaThrift_search_by_document_args';
 }
 
 sub read {
@@ -453,7 +453,7 @@ sub read {
 sub write {
   my ($self, $output) = @_;
   my $xfer   = 0;
-  $xfer += $output->writeStructBegin('StupaThrift_search_args');
+  $xfer += $output->writeStructBegin('StupaThrift_search_by_document_args');
   if (defined $self->{max}) {
     $xfer += $output->writeFieldBegin('max', TType::I64, 1);
     $xfer += $output->writeI64($self->{max});
@@ -478,9 +478,9 @@ sub write {
   return $xfer;
 }
 
-package StupaThrift_search_result;
+package StupaThrift_search_by_document_result;
 use base qw(Class::Accessor);
-StupaThrift_search_result->mk_accessors( qw( success ) );
+StupaThrift_search_by_document_result->mk_accessors( qw( success ) );
 
 sub new {
   my $classname = shift;
@@ -496,7 +496,7 @@ sub new {
 }
 
 sub getName {
-  return 'StupaThrift_search_result';
+  return 'StupaThrift_search_by_document_result';
 }
 
 sub read {
@@ -544,7 +544,7 @@ sub read {
 sub write {
   my ($self, $output) = @_;
   my $xfer   = 0;
-  $xfer += $output->writeStructBegin('StupaThrift_search_result');
+  $xfer += $output->writeStructBegin('StupaThrift_search_by_document_result');
   if (defined $self->{success}) {
     $xfer += $output->writeFieldBegin('success', TType::LIST, 0);
     {
@@ -553,6 +553,192 @@ sub write {
         foreach my $iter20 (@{$self->{success}}) 
         {
           $xfer += ${iter20}->write($output);
+        }
+      }
+      $output->writeListEnd();
+    }
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package StupaThrift_search_by_feature_args;
+use base qw(Class::Accessor);
+StupaThrift_search_by_feature_args->mk_accessors( qw( max query ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{max} = undef;
+  $self->{query} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{max}) {
+      $self->{max} = $vals->{max};
+    }
+    if (defined $vals->{query}) {
+      $self->{query} = $vals->{query};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'StupaThrift_search_by_feature_args';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::I64) {
+        $xfer += $input->readI64(\$self->{max});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::LIST) {
+        {
+          my $_size21 = 0;
+          $self->{query} = [];
+          my $_etype24 = 0;
+          $xfer += $input->readListBegin(\$_etype24, \$_size21);
+          for (my $_i25 = 0; $_i25 < $_size21; ++$_i25)
+          {
+            my $elem26 = undef;
+            $xfer += $input->readString(\$elem26);
+            push(@{$self->{query}},$elem26);
+          }
+          $xfer += $input->readListEnd();
+        }
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('StupaThrift_search_by_feature_args');
+  if (defined $self->{max}) {
+    $xfer += $output->writeFieldBegin('max', TType::I64, 1);
+    $xfer += $output->writeI64($self->{max});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{query}) {
+    $xfer += $output->writeFieldBegin('query', TType::LIST, 2);
+    {
+      $output->writeListBegin(TType::STRING, scalar(@{$self->{query}}));
+      {
+        foreach my $iter27 (@{$self->{query}}) 
+        {
+          $xfer += $output->writeString($iter27);
+        }
+      }
+      $output->writeListEnd();
+    }
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package StupaThrift_search_by_feature_result;
+use base qw(Class::Accessor);
+StupaThrift_search_by_feature_result->mk_accessors( qw( success ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{success} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{success}) {
+      $self->{success} = $vals->{success};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'StupaThrift_search_by_feature_result';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^0$/ && do{      if ($ftype == TType::LIST) {
+        {
+          my $_size28 = 0;
+          $self->{success} = [];
+          my $_etype31 = 0;
+          $xfer += $input->readListBegin(\$_etype31, \$_size28);
+          for (my $_i32 = 0; $_i32 < $_size28; ++$_i32)
+          {
+            my $elem33 = undef;
+            $elem33 = new SearchResult();
+            $xfer += $elem33->read($input);
+            push(@{$self->{success}},$elem33);
+          }
+          $xfer += $input->readListEnd();
+        }
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('StupaThrift_search_by_feature_result');
+  if (defined $self->{success}) {
+    $xfer += $output->writeFieldBegin('success', TType::LIST, 0);
+    {
+      $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
+      {
+        foreach my $iter34 (@{$self->{success}}) 
+        {
+          $xfer += ${iter34}->write($output);
         }
       }
       $output->writeListEnd();
@@ -846,7 +1032,15 @@ sub size{
   die 'implement interface';
 }
 
-sub search{
+sub search_by_document{
+  my $self = shift;
+  my $max = shift;
+  my $query = shift;
+
+  die 'implement interface';
+}
+
+sub search_by_feature{
   my $self = shift;
   my $max = shift;
   my $query = shift;
@@ -901,12 +1095,20 @@ sub size{
   return $self->{impl}->size();
 }
 
-sub search{
+sub search_by_document{
   my ($self, $request) = @_;
 
   my $max = ($request->{'max'}) ? $request->{'max'} : undef;
   my $query = ($request->{'query'}) ? $request->{'query'} : undef;
-  return $self->{impl}->search($max, $query);
+  return $self->{impl}->search_by_document($max, $query);
+}
+
+sub search_by_feature{
+  my ($self, $request) = @_;
+
+  my $max = ($request->{'max'}) ? $request->{'max'} : undef;
+  my $query = ($request->{'query'}) ? $request->{'query'} : undef;
+  return $self->{impl}->search_by_feature($max, $query);
 }
 
 sub save{
@@ -1059,22 +1261,22 @@ sub recv_size{
   }
   die "size failed: unknown result";
 }
-sub search{
+sub search_by_document{
   my $self = shift;
   my $max = shift;
   my $query = shift;
 
-    $self->send_search($max, $query);
-  return $self->recv_search();
+    $self->send_search_by_document($max, $query);
+  return $self->recv_search_by_document();
 }
 
-sub send_search{
+sub send_search_by_document{
   my $self = shift;
   my $max = shift;
   my $query = shift;
 
-  $self->{output}->writeMessageBegin('search', TMessageType::CALL, $self->{seqid});
-  my $args = new StupaThrift_search_args();
+  $self->{output}->writeMessageBegin('search_by_document', TMessageType::CALL, $self->{seqid});
+  my $args = new StupaThrift_search_by_document_args();
   $args->{max} = $max;
   $args->{query} = $query;
   $args->write($self->{output});
@@ -1082,7 +1284,7 @@ sub send_search{
   $self->{output}->getTransport()->flush();
 }
 
-sub recv_search{
+sub recv_search_by_document{
   my $self = shift;
 
   my $rseqid = 0;
@@ -1096,14 +1298,60 @@ sub recv_search{
     $self->{input}->readMessageEnd();
     die $x;
   }
-  my $result = new StupaThrift_search_result();
+  my $result = new StupaThrift_search_by_document_result();
   $result->read($self->{input});
   $self->{input}->readMessageEnd();
 
   if (defined $result->{success} ) {
     return $result->{success};
   }
-  die "search failed: unknown result";
+  die "search_by_document failed: unknown result";
+}
+sub search_by_feature{
+  my $self = shift;
+  my $max = shift;
+  my $query = shift;
+
+    $self->send_search_by_feature($max, $query);
+  return $self->recv_search_by_feature();
+}
+
+sub send_search_by_feature{
+  my $self = shift;
+  my $max = shift;
+  my $query = shift;
+
+  $self->{output}->writeMessageBegin('search_by_feature', TMessageType::CALL, $self->{seqid});
+  my $args = new StupaThrift_search_by_feature_args();
+  $args->{max} = $max;
+  $args->{query} = $query;
+  $args->write($self->{output});
+  $self->{output}->writeMessageEnd();
+  $self->{output}->getTransport()->flush();
+}
+
+sub recv_search_by_feature{
+  my $self = shift;
+
+  my $rseqid = 0;
+  my $fname;
+  my $mtype = 0;
+
+  $self->{input}->readMessageBegin(\$fname, \$mtype, \$rseqid);
+  if ($mtype == TMessageType::EXCEPTION) {
+    my $x = new TApplicationException();
+    $x->read($self->{input});
+    $self->{input}->readMessageEnd();
+    die $x;
+  }
+  my $result = new StupaThrift_search_by_feature_result();
+  $result->read($self->{input});
+  $self->{input}->readMessageEnd();
+
+  if (defined $result->{success} ) {
+    return $result->{success};
+  }
+  die "search_by_feature failed: unknown result";
 }
 sub save{
   my $self = shift;
@@ -1264,14 +1512,27 @@ sub process_size {
     $output->getTransport()->flush();
 }
 
-sub process_search {
+sub process_search_by_document {
     my ($self, $seqid, $input, $output) = @_;
-    my $args = new StupaThrift_search_args();
+    my $args = new StupaThrift_search_by_document_args();
     $args->read($input);
     $input->readMessageEnd();
-    my $result = new StupaThrift_search_result();
-    $result->{success} = $self->{handler}->search($args->max, $args->query);
-    $output->writeMessageBegin('search', TMessageType::REPLY, $seqid);
+    my $result = new StupaThrift_search_by_document_result();
+    $result->{success} = $self->{handler}->search_by_document($args->max, $args->query);
+    $output->writeMessageBegin('search_by_document', TMessageType::REPLY, $seqid);
+    $result->write($output);
+    $output->writeMessageEnd();
+    $output->getTransport()->flush();
+}
+
+sub process_search_by_feature {
+    my ($self, $seqid, $input, $output) = @_;
+    my $args = new StupaThrift_search_by_feature_args();
+    $args->read($input);
+    $input->readMessageEnd();
+    my $result = new StupaThrift_search_by_feature_result();
+    $result->{success} = $self->{handler}->search_by_feature($args->max, $args->query);
+    $output->writeMessageBegin('search_by_feature', TMessageType::REPLY, $seqid);
     $result->write($output);
     $output->writeMessageEnd();
     $output->getTransport()->flush();

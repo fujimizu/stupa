@@ -78,16 +78,38 @@ class StupaThriftHandler : virtual public StupaThriftIf {
   }
 
   /**
-   * Search related documents.
+   * Search related documents using queries of document ids.
    * @param _return search result
    * @param max maximum number of output documents
    * @param query the identifiers of query documents
    */
-  void search(std::vector<SearchResult> &_return, const int64_t max,
-              const std::vector<std::string> &query) {
+  void search_by_document(std::vector<SearchResult> & _return,
+                          const int64_t max,
+                          const std::vector<std::string> & query) {
     RWGuard m(lock_, 0);
     std::vector<std::pair<std::string, double> > results;
-    bssearch_.search(query, results, max);
+    bssearch_.search_by_document(query, results, max);
+    _return.resize(results.size());
+    for (size_t i = 0; i < results.size(); i++) {
+      SearchResult sr;
+      sr.name = results[i].first;
+      sr.point = results[i].second;
+      _return[i] = sr;
+    }
+  }
+
+  /**
+   * Search related documents using queries of feature ids.
+   * @param _return search result
+   * @param max maximum number of output documents
+   * @param query the identifiers of query features
+   */
+  void search_by_feature(std::vector<SearchResult> & _return,
+                          const int64_t max,
+                          const std::vector<std::string> & query) {
+    RWGuard m(lock_, 0);
+    std::vector<std::pair<std::string, double> > results;
+    bssearch_.search_by_feature(query, results, max);
     _return.resize(results.size());
     for (size_t i = 0; i < results.size(); i++) {
       SearchResult sr;
@@ -130,12 +152,15 @@ class StupaThriftHandler : virtual public StupaThriftIf {
   }
 };
 
+/**
+ * Parameters to start stupa server
+ */
 struct ServerParam {
-  int port;
-  size_t max_doc;
-  int workerCount;
-  size_t invsize;
-  char *filename;
+  int    port;         ///< port number.
+  size_t max_doc;      ///< maximum number of documents.
+  int    workerCount;  ///< the number of worker threads.
+  size_t invsize;      ///< maximum size of inverted indexes.
+  char   *filename;    ///< path of input file.
 
   ServerParam() : port(PORT), max_doc(0), workerCount(WORKER_COUNT),
                   invsize(INV_SIZE), filename(NULL) { }
