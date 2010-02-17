@@ -21,6 +21,7 @@
 #define STUPA_UTIL_H_
 
 #include <stdint.h>
+#include <cmath>
 #include <string>
 #include <vector>
 
@@ -35,16 +36,18 @@
 #include <map>
 #endif
 
-/* isnan for win32 */
+/* isnan */
+#ifndef isnan
 #ifdef _WIN32
 #include <cfloat>
 #define isnan(x) _isnan(x)
+#else
+#define isnan(x) (x != x)
+#endif
 #endif
 
-/**
- * Hash function of string key for __gnu_cxx::hash_map.
- */
-#if !defined(HAVE_GOOGLE_DENSE_HASH_MAP) && defined(HAVE_EXT_HASH_MAP)
+/* hash function of string key for __gnu_cxx::hash_map */
+#if (defined(_WIN32) || !defined(HAVE_GOOGLE_DENSE_HASH_MAP)) && defined(HAVE_EXT_HASH_MAP)
 namespace __gnu_cxx {
   template<> struct hash<std::string> {
     size_t operator() (const std::string &x) const {
