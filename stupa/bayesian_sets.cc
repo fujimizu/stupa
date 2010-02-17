@@ -81,7 +81,7 @@ void BayesianSets::make_weight_vector(const Vector &query_vector,
       Point val_beta = (average == 1.0) ?
         0 : log(1.0 + (num_query - qit->second) / (c_ * (1.0 - average)));
       double val_weight = val_alpha - val_beta;
-      if (!std::isnan(val_weight) && val_weight != 0) {
+      if (!isnan(val_weight) && val_weight != 0) {
         weight_vector[qit->first] = val_weight;
       }
     }
