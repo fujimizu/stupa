@@ -1,5 +1,5 @@
 CXX = g++
-VERSION = 0.0.2
+VERSION = 0.0.3
 CXXFLAGS = -O3 -Wall
 LDFLAGS = -L/usr/local/lib -L../stupa
 INCLUDES = -I/usr/local/include/thrift -I/usr/local/include/stupa/ -I../stupa
