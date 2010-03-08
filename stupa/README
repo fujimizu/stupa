@@ -1,13 +1,13 @@
 ================================================================
- Stupa : C++ implementaion of Bayesian Sets
+ Stupa : An Associative Search Engine
  (http://code.google.com/p/stupa)
 
  Copyright(C) Mizuki Fujisawa <fujisawa@bayon.cc>
 ================================================================
 
 Overview:
-  Stupa is a search engine using Bayesian Sets algorithm. You can
-  search related documents with a high degree of accuracy.
+  Stupa is an associative search engine.
+  You can search related documents with a high degree of accuracy.
 
 Install:
   % ./configure
@@ -45,10 +45,3 @@ Requirement:
 
 License:
   GPL2 (Gnu General Public License Version 2)
-
-  Bayesian Sets algorithm is a patented technology.
-  Thus you should note that this software embodies a method
-  for which the following patent has been issued:
-    "INFORMATION RETRIEVAL SYSTEM AND METHOD USING A BAYESIAN
-    ALGORITHM BASED ON PROBABILISTIC SIMILARITY SCORES"
-    Patent-URL:http://www.wipo.int/pctdb/en/wo.jsp?WO=2007063328

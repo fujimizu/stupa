@@ -1,5 +1,5 @@
 //
-// Bayesian Sets Search class using bayesian sets algorithm and inverted index
+// Stupa Search using inverted index
 //
 // Copyright(C) 2010  Mizuki Fujisawa <fujisawa@bayon.cc>
 //
@@ -19,20 +19,20 @@
 
 #include <algorithm>
 #include <set>
-#include "bssearch.h"
+#include "search.h"
 
 namespace stupa {
 
 /**
  * Look up inverted indexes.
  */
-void BayesianSetsSearch::lookup_inverted_index_by_document(
+void StupaSearch::lookup_inverted_index_by_document(
   const std::vector<DocumentId> &queries,
   std::vector<DocumentId> &results) const {
   std::set<FeatureId> fidset;
   std::vector<FeatureId> feature_ids;
   for (size_t i = 0; i < queries.size(); i++) {
-    bs_.feature(queries[i], feature_ids);
+    model_->feature(queries[i], feature_ids);
     for (size_t i = 0; i < feature_ids.size(); i++) {
       fidset.insert(feature_ids[i]);
     }
@@ -48,11 +48,11 @@ void BayesianSetsSearch::lookup_inverted_index_by_document(
 /**
  * Delete the oldest document.
  */
-void BayesianSetsSearch::delete_oldest_document() {
+void StupaSearch::delete_oldest_document() {
   std::vector<FeatureId> features;
-  bs_.feature(oldest_document_id_, features);
+  model_->feature(oldest_document_id_, features);
   inv_.delete_document(oldest_document_id_, features);
-  bs_.delete_document(oldest_document_id_);
+  model_->delete_document(oldest_document_id_);
   str2did_.erase(did2str_[oldest_document_id_]);
   did2str_.erase(oldest_document_id_);
   oldest_document_id_++;
@@ -63,12 +63,12 @@ void BayesianSetsSearch::delete_oldest_document() {
 }
 
 /**
- * Add a document to bayesian sets object and inverted indexes.
+ * Add a document to search model object and inverted indexes.
  */
-void BayesianSetsSearch::add_document(const std::string &document_id,
+void StupaSearch::add_document(const std::string &document_id,
                                 const std::vector<std::string> &features) {
   if (document_id.empty() || features.empty()) return;
-  while (max_documents_ && bs_.size() >= max_documents_) {
+  while (max_documents_ && model_->size() >= max_documents_) {
     delete_oldest_document();
   }
 
@@ -91,33 +91,33 @@ void BayesianSetsSearch::add_document(const std::string &document_id,
   Str2DocId::iterator dit = str2did_.find(document_id);
   if (dit != str2did_.end()) {
     std::vector<FeatureId> old_feature;
-    bs_.feature(dit->second, old_feature);
+    model_->feature(dit->second, old_feature);
     inv_.delete_document(dit->second, old_feature);
-    bs_.add_document(dit->second, feature_ids);
+    model_->add_document(dit->second, feature_ids);
     inv_.add_document(dit->second, feature_ids);
   } else {
     str2did_[document_id] = current_document_id_;
     did2str_[current_document_id_] = document_id;
-    bs_.add_document(current_document_id_, feature_ids);
+    model_->add_document(current_document_id_, feature_ids);
     inv_.add_document(current_document_id_, feature_ids);
     current_document_id_++;
   }
 }
 
 /**
- * Delete a document from bayesian sets object and inverted indexes.
+ * Delete a document from search model object and inverted indexes.
  * @param document_id identifier string of a document
  */
-void BayesianSetsSearch::delete_document(const std::string &document_id) {
+void StupaSearch::delete_document(const std::string &document_id) {
   Str2DocId::iterator sdit = str2did_.find(document_id);
   if (sdit != str2did_.end()) {
     if (sdit->second == oldest_document_id_) {
       delete_oldest_document();
     } else {
       std::vector<FeatureId> features;
-      bs_.feature(sdit->second, features);
+      model_->feature(sdit->second, features);
       inv_.delete_document(sdit->second, features);
-      bs_.delete_document(sdit->second);
+      model_->delete_document(sdit->second);
       DocId2Str::iterator dsit = did2str_.find(sdit->second);
       if (dsit != did2str_.end()) did2str_.erase(dsit);
       str2did_.erase(sdit);
@@ -128,7 +128,7 @@ void BayesianSetsSearch::delete_document(const std::string &document_id) {
 /**
  * Search related documents using queries of document ids.
  */
-void BayesianSetsSearch::search_by_document(
+void StupaSearch::search_by_document(
   const std::vector<std::string> &queries,
   std::vector<std::pair<std::string, Point> > &results, size_t max) const {
   std::vector<DocumentId> document_ids;
@@ -141,7 +141,7 @@ void BayesianSetsSearch::search_by_document(
   std::vector<DocumentId> candidates;
   lookup_inverted_index_by_document(document_ids, candidates);
   std::vector<std::pair<DocumentId, Point> > pairs;
-  bs_.search_by_document(document_ids, candidates, pairs, max);
+  model_->search_by_document(document_ids, candidates, pairs, max);
   for (size_t i = 0; i < pairs.size(); i++) {
     DocId2Str::const_iterator it = did2str_.find(pairs[i].first);
     if (it != did2str_.end()) {
@@ -154,7 +154,7 @@ void BayesianSetsSearch::search_by_document(
 /**
  * Search related documents using queries of feature ids.
  */
-void BayesianSetsSearch::search_by_feature(
+void StupaSearch::search_by_feature(
   const std::vector<std::string> &queries,
   std::vector<std::pair<std::string, Point> > &results, size_t max) const {
   std::set<FeatureId> fidset;
@@ -172,7 +172,7 @@ void BayesianSetsSearch::search_by_feature(
   std::vector<DocumentId> candidates;
   inv_.lookup(feature_ids, candidates);
   std::vector<std::pair<DocumentId, Point> > pairs;
-  bs_.search_by_feature(feature_ids, candidates, pairs, max);
+  model_->search_by_feature(feature_ids, candidates, pairs, max);
   for (size_t i = 0; i < pairs.size(); i++) {
     DocId2Str::const_iterator it = did2str_.find(pairs[i].first);
     if (it != did2str_.end()) {
@@ -183,13 +183,13 @@ void BayesianSetsSearch::search_by_feature(
 }
 
 /**
- * Save status (bayesian sets object, inverted indexes, ..) to a file.
+ * Save status (search model object, inverted indexes, ..) to a file.
  */
-void BayesianSetsSearch::save(std::ofstream &ofs) const {
+void StupaSearch::save(std::ofstream &ofs) const {
   ofs.write((const char *)&current_feature_id_, sizeof(current_feature_id_));
   ofs.write((const char *)&current_document_id_, sizeof(current_document_id_));
   ofs.write((const char *)&oldest_document_id_, sizeof(oldest_document_id_));
-  bs_.save(ofs);
+  model_->save(ofs);
   inv_.save(ofs);
 
   size_t size;
@@ -225,14 +225,14 @@ void BayesianSetsSearch::save(std::ofstream &ofs) const {
 }
 
 /**
- * Load status (bayesian sets object, inverted indexes, ..) from a file.
+ * Load status (search model object, inverted indexes, ..) from a file.
  */
-void BayesianSetsSearch::load(std::ifstream &ifs) {
+void StupaSearch::load(std::ifstream &ifs) {
   clear();
   ifs.read((char *)&current_feature_id_, sizeof(current_feature_id_));
   ifs.read((char *)&current_document_id_, sizeof(current_document_id_));
   ifs.read((char *)&oldest_document_id_, sizeof(oldest_document_id_));
-  bs_.load(ifs);
+  model_->load(ifs);
   inv_.load(ifs);
 
   size_t size;
@@ -272,12 +272,15 @@ void BayesianSetsSearch::load(std::ifstream &ifs) {
     str2did_[str] = did;
   }
 
-  while (max_documents_ && bs_.size() > max_documents_) {
+  while (max_documents_ && model_->size() > max_documents_) {
     delete_oldest_document();
   }
 }
 
-void BayesianSetsSearch::read_tsvfile(std::ifstream &ifs) {
+/**
+ * Read input file and add documents.
+ */
+void StupaSearch::read_tsvfile(std::ifstream &ifs) {
   std::string line;
   while (std::getline(ifs, line)) {
     if (!line.empty()) {

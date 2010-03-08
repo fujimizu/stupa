@@ -1,5 +1,5 @@
 //
-// Tests for BayesianSets searcher class
+// Tests for Stupa Search class
 //
 // Copyright(C) 2010  Mizuki Fujisawa <fujisawa@bayon.cc>
 //
@@ -20,7 +20,7 @@
 #include <gtest/gtest.h>
 #include <map>
 #include <vector>
-#include "bssearch.h"
+#include "search.h"
 #include "util.h"
 
 namespace {
@@ -32,7 +32,7 @@ typedef std::map<std::string, std::vector<std::string> > TestSet;
 const size_t NUM_DOC     = 100;  ///< the number of documents
 const size_t NUM_FEATURE = 20;   ///< the number of features
 const size_t STR_LENGTH  = 10;   ///< maximum length of feature strings
-const char *SAVE_FILE    = "bssearchtest_saved.tmp";  ///< save filename
+const char *SAVE_FILE    = "searchtest_saved.tmp";  ///< save filename
 
 /* function prototypes */
 static void set_input_documents(TestSet &documents);
@@ -65,46 +65,47 @@ static void set_input_documents(TestSet &documents) {
 } /* namespace */
 
 /* add_document */
-TEST(BayesianSetsSearchTest, AddDocumentTest) {
+TEST(StupaSearchTest, AddDocumentTest) {
   TestSet documents;
   set_input_documents(documents);
-  stupa::BayesianSetsSearch bssearch;
+  stupa::StupaSearch stpsearch;
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
-    bssearch.add_document(it->first, it->second);
+    stpsearch.add_document(it->first, it->second);
   }
-  EXPECT_EQ(documents.size(), bssearch.size());
+  EXPECT_EQ(documents.size(), stpsearch.size());
 
   int count = 0;
   size_t deleted = 0;
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
     if (count++ % 2 == 0) {
-      bssearch.delete_document(it->first);
+      stpsearch.delete_document(it->first);
       deleted++;
     }
   }
-  EXPECT_EQ(documents.size() - deleted, bssearch.size());
+  EXPECT_EQ(documents.size() - deleted, stpsearch.size());
 
-  bssearch.clear();
-  EXPECT_EQ(0, bssearch.size());
+  stpsearch.clear();
+  EXPECT_EQ(0, stpsearch.size());
 }
 
-TEST(BayesianSetsSearchTest, AddDocumentLimitTest) {
+TEST(StupaSearchTest, AddDocumentLimitTest) {
   TestSet documents;
   set_input_documents(documents);
   size_t invsize = 100;
   size_t max_doc = documents.size() / 2;
-  stupa::BayesianSetsSearch bssearch(invsize, max_doc);
+  stupa::StupaSearch stpsearch(stupa::SearchModel::INNER_PRODUCT,
+                               invsize, max_doc);
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
-    bssearch.add_document(it->first, it->second);
+    stpsearch.add_document(it->first, it->second);
   }
-  EXPECT_EQ(max_doc, bssearch.size());
+  EXPECT_EQ(max_doc, stpsearch.size());
 
   std::vector<std::string> queries;
   std::vector<std::pair<std::string, stupa::Point> > results;
   size_t count = 0;
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
     queries.push_back(it->first);
-    bssearch.search_by_document(queries, results);
+    stpsearch.search_by_document(queries, results);
     if (count < max_doc) {
       EXPECT_EQ(0, results.size());
     } else {
@@ -117,19 +118,19 @@ TEST(BayesianSetsSearchTest, AddDocumentLimitTest) {
 }
 
 /* search_by_document */
-TEST(BayesianSetsSearchTest, SearchByDocumentTest) {
+TEST(StupaSearchTest, SearchByDocumentTest) {
   TestSet documents;
   set_input_documents(documents);
-  stupa::BayesianSetsSearch bssearch;
+  stupa::StupaSearch stpsearch;
   std::vector<std::string> queries;
   int count = 0;
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
     if (count++ % 3 == 0) queries.push_back(it->first);
-    bssearch.add_document(it->first, it->second);
+    stpsearch.add_document(it->first, it->second);
   }
 
   std::vector<std::pair<std::string, stupa::Point> > results;
-  bssearch.search_by_document(queries, results);
+  stpsearch.search_by_document(queries, results);
   EXPECT_LT(0, results.size());
   for (size_t i = 0; i < results.size(); i++) {
     EXPECT_TRUE(documents.find(results[i].first) != documents.end());
@@ -138,19 +139,19 @@ TEST(BayesianSetsSearchTest, SearchByDocumentTest) {
 }
 
 /* search_by_feature */
-TEST(BayesianSetsSearchTest, SearchByFeatureTest) {
+TEST(StupaSearchTest, SearchByFeatureTest) {
   TestSet documents;
   set_input_documents(documents);
-  stupa::BayesianSetsSearch bssearch;
+  stupa::StupaSearch stpsearch;
   std::vector<std::string> queries;
   int count = 0;
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
     if (count++ % 3 == 0) queries.push_back(it->second.at(0));
-    bssearch.add_document(it->first, it->second);
+    stpsearch.add_document(it->first, it->second);
   }
 
   std::vector<std::pair<std::string, stupa::Point> > results;
-  bssearch.search_by_feature(queries, results);
+  stpsearch.search_by_feature(queries, results);
   EXPECT_LT(0, results.size());
   for (size_t i = 0; i < results.size(); i++) {
     EXPECT_TRUE(documents.find(results[i].first) != documents.end());
@@ -159,31 +160,31 @@ TEST(BayesianSetsSearchTest, SearchByFeatureTest) {
 }
 
 /* save, load */
-TEST(BayesianSetsSearchTest, SaveLoadTest) {
+TEST(StupaSearchTest, SaveLoadTest) {
   TestSet documents;
   set_input_documents(documents);
-  stupa::BayesianSetsSearch bssearch;
+  stupa::StupaSearch stpsearch;
   std::vector<std::string> queries;
   int count = 0;
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
     if (count++ % 3 == 0) queries.push_back(it->first);
-    bssearch.add_document(it->first, it->second);
+    stpsearch.add_document(it->first, it->second);
   }
   std::vector<std::pair<std::string, stupa::Point> > results;
-  bssearch.search_by_document(queries, results);
+  stpsearch.search_by_document(queries, results);
 
   std::ofstream ofs(SAVE_FILE);
-  bssearch.save(ofs);
+  stpsearch.save(ofs);
   ofs.close();
-  bssearch.clear();
+  stpsearch.clear();
 
   std::ifstream ifs(SAVE_FILE);
-  bssearch.load(ifs);
+  stpsearch.load(ifs);
   ifs.close();
-  EXPECT_EQ(documents.size(), bssearch.size());
+  EXPECT_EQ(documents.size(), stpsearch.size());
 
   std::vector<std::pair<std::string, stupa::Point> > results_loaded;
-  bssearch.search_by_document(queries, results_loaded);
+  stpsearch.search_by_document(queries, results_loaded);
   EXPECT_EQ(results.size(), results_loaded.size());
   for (size_t i = 0; i < results.size(); i++) {
     EXPECT_EQ(results[i].first, results_loaded[i].first);
@@ -194,31 +195,32 @@ TEST(BayesianSetsSearchTest, SaveLoadTest) {
 }
 
 /* save, load */
-TEST(BayesianSetsSearchTest, SaveLoadLimitTest) {
+TEST(StupaSearchTest, SaveLoadLimitTest) {
   TestSet documents;
   set_input_documents(documents);
-  stupa::BayesianSetsSearch bssearch;
+  stupa::StupaSearch stpsearch;
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
-    bssearch.add_document(it->first, it->second);
+    stpsearch.add_document(it->first, it->second);
   }
   std::ofstream ofs(SAVE_FILE);
-  bssearch.save(ofs);
+  stpsearch.save(ofs);
   ofs.close();
 
   size_t invsize = 100;
   size_t max_doc = documents.size() / 2;
-  stupa::BayesianSetsSearch bssearch_lim(invsize, max_doc);
+  stupa::StupaSearch stpsearch_lim(stupa::SearchModel::INNER_PRODUCT,
+                                   invsize, max_doc);
   std::ifstream ifs(SAVE_FILE);
-  bssearch_lim.load(ifs);
+  stpsearch_lim.load(ifs);
   ifs.close();
-  EXPECT_EQ(max_doc, bssearch_lim.size());
+  EXPECT_EQ(max_doc, stpsearch_lim.size());
 
   std::vector<std::string> queries;
   std::vector<std::pair<std::string, stupa::Point> > results;
   size_t count = 0;
   for (TestSet::iterator it = documents.begin(); it != documents.end(); ++it) {
     queries.push_back(it->first);
-    bssearch_lim.search_by_document(queries, results);
+    stpsearch_lim.search_by_document(queries, results);
     if (count < max_doc) {
       EXPECT_EQ(0, results.size());
     } else {

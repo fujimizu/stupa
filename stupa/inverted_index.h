@@ -23,7 +23,7 @@
 #include <fstream>
 #include <vector>
 #include "config.h"
-#include "bayesian_sets.h"
+#include "identifier.h"
 #include "posting_list.h"
 #include "util.h"
 

@@ -3,7 +3,7 @@
 #================================================================
 
 # Package name
-AC_INIT(stupa, 0.0.3, fujisawa@bayon.cc)
+AC_INIT(stupa, 0.1.0, fujisawa@bayon.cc)
 AC_CONFIG_HEADER([config.h])
 AC_DEFINE([AUTHOR], ["Mizuki Fujisawa"], [author name])
 
@@ -12,11 +12,11 @@ MYLIBVER=0
 MYLIBREV=2
 
 # Targets
-MYHEADERFILES="bayesian_sets.h inverted_index.h posting_list.h bssearch.h util.h stupa.h config.h"
+MYHEADERFILES="identifier.h search_model.h inverted_index.h posting_list.h search.h util.h stupa.h config.h"
 MYLIBRARYFILES="libstupa.a"
-MYLIBOBJFILES="bayesian_sets.o inverted_index.o posting_list.o bssearch.o util.o"
+MYLIBOBJFILES="search_model.o inverted_index.o posting_list.o search.o util.o"
 MYCOMMANDFILES="stpctl stprand"
-MYTESTCOMMANDFILES="utiltest postest bsettest invtest bssrchtest"
+MYTESTCOMMANDFILES="utiltest postest modeltest invtest searchtest"
 MYDOCUMENTFILES="COPYING README TODO"
 
 # Building paths

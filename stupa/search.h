@@ -1,5 +1,5 @@
 //
-// Bayesian Sets Search class using bayesian sets algorithm and inverted index
+// Stupa Search using inverted index
 //
 // Copyright(C) 2010  Mizuki Fujisawa <fujisawa@bayon.cc>
 //
@@ -17,24 +17,24 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#ifndef STUPA_BSSEARCH_H_
-#define STUPA_BSSEARCH_H_
+#ifndef STUPA_SEARCH_H_
+#define STUPA_SEARCH_H_
 
 #include <fstream>
 #include <string>
 #include <utility>
 #include <vector>
-#include "bayesian_sets.h"
+#include "identifier.h"
+#include "search_model.h"
 #include "inverted_index.h"
 #include "util.h"
 
 namespace stupa {
 
 /**
- * Bayesian Sets Search class
- * (Bayesian Sets with Inverted Index)
+ * Stupa Search class
  */
-class BayesianSetsSearch {
+class StupaSearch {
  private:
   /** Type definition of <document id, string> map */
   typedef HashMap<DocumentId, std::string>::type DocId2Str;
@@ -48,7 +48,7 @@ class BayesianSetsSearch {
   /** maximum size of inverted index */
   static const size_t MAX_INVERT_SIZE = 100;
 
-  BayesianSets bs_;                 ///< bayesian sets object
+  SearchModel *model_;              ///< search model
   InvertedIndex inv_;               ///< inverted index
   FeatureId current_feature_id_;    ///< current(highest) feature id
   DocumentId current_document_id_;  ///< current(highest) document id
@@ -75,17 +75,24 @@ class BayesianSetsSearch {
  public:
   /**
    * Constructor.
+   * @param type type of search model
    * @param invsize maximum size of inverted indexes
    * @param max_doc maximum number of documents
    */
-  BayesianSetsSearch(size_t invsize = MAX_INVERT_SIZE,
-                     size_t max_doc = 0,
-                     Point c = BayesianSets::DEFAULT_C)
-    : bs_(c), inv_(invsize),
+  StupaSearch(SearchModel::Type type = SearchModel::INNER_PRODUCT,
+              size_t invsize = MAX_INVERT_SIZE, size_t max_doc = 0)
+    : inv_(invsize),
       current_feature_id_(FEATURE_START_ID),
       current_document_id_(DOC_START_ID),
       oldest_document_id_(DOC_START_ID),
       max_documents_(max_doc) {
+    if (type == SearchModel::INNER_PRODUCT) {
+      model_ = new SearchModelInnerProduct();
+    } else if (type == SearchModel::COSINE) {
+      model_ = new SearchModelCosine();
+    } else {
+      model_ = new SearchModelCosine();
+    }
     init_hash_map(DOC_EMPTY_ID, did2str_);
     init_hash_map("", str2did_);
     init_hash_map("", str2fid_);
@@ -99,16 +106,16 @@ class BayesianSetsSearch {
   /**
    * Destructor.
    */
-  ~BayesianSetsSearch() { }
+  ~StupaSearch() { delete model_; }
 
   /**
    * Get the number of stored documents.
    * @return the number of stored documents
    */
-  size_t size() const { return bs_.size(); }
+  size_t size() const { return model_->size(); }
 
   /**
-   * Add a document to bayesian sets object and inverted indexes.
+   * Add a document to search model object and inverted indexes.
    * @param document_id identifier string of a document
    * @param features feature strings of a document
    */
@@ -116,17 +123,17 @@ class BayesianSetsSearch {
                     const std::vector<std::string> &features);
 
   /**
-   * Delete a document from bayesian sets object and inverted indexes.
+   * Delete a document from search model object and inverted indexes.
    * @param document_id identifier string of a document
    */
   void delete_document(const std::string& document_id);
 
   /**
-   * Clear documents from bayesian sets object and inverted index, mapping,
+   * Clear documents from search model object and inverted index, mapping,
    * and initialize identifiers of documents and features.
    */
   void clear() {
-    bs_.clear();
+    model_->clear();
     inv_.clear();
     did2str_.clear();
     str2did_.clear();
@@ -157,19 +164,19 @@ class BayesianSetsSearch {
                          size_t max = MAX_RESULT) const;
 
   /**
-   * Save status (bayesian sets object, inverted indexes, ..) to a file.
+   * Save status (search model object, inverted indexes, ..) to a file.
    * @param ofs output stream
    */
   void save(std::ofstream &ofs) const;
 
   /**
-   * Load status (bayesian sets object, inverted indexes, ..) from a file.
+   * Load status (search model object, inverted indexes, ..) from a file.
    * @param ifs input stream
    */
   void load(std::ifstream &ifs);
 
   /**
-   * Read input file and add documents to BayesianSets searcher.
+   * Read input file and add documents.
    * @param ifs input stream
    */
   void read_tsvfile(std::ifstream &ifs);
@@ -177,4 +184,4 @@ class BayesianSetsSearch {
 
 } /* namespace stupa */
 
-#endif  // STUPA_BSSEARCH_H_
+#endif  // STUPA_SEARCH_H_

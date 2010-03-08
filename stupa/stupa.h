@@ -21,20 +21,21 @@
 #define STUPA_STUPA_H_
 
 #include "config.h"
-#include "bayesian_sets.h"
+#include "identifier.h"
+#include "search_model.h"
 #include "inverted_index.h"
 #include "posting_list.h"
-#include "bssearch.h"
+#include "search.h"
 #include "util.h"
 
 #endif  // STUPA_STUPA_H_
 
 
 /**
- * @mainpage Stupa: C++ implementation of Bayesian Sets algorithm
+ * @mainpage Stupa: An Associative Search Engine
  *
  * @section Introduction
  *
- * Stupa is a search engine using Bayesian Sets algorithm.
+ * Stupa is an associative search engine.
  * You can search related documents with a high degree of accuracy.
  */
