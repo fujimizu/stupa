@@ -32,7 +32,7 @@
 
 
 /**
- * @mainpage Stupa: An Associative Search Engine
+ * @mainpage Stupa: Associative Search Engine
  *
  * @section Introduction
  *
