@@ -1,5 +1,5 @@
 //
-// Bayesian Sets command line tool
+// Stupa Search command line tool
 //
 // Copyright(C) 2010  Mizuki Fujisawa <fujisawa@bayon.cc>
 //
@@ -34,7 +34,7 @@ const std::string PROMPT("Query> ");
 // function prototypes
 int main(int argc, char **argv);
 static void usage(const char *progname);
-static void load_file(stupa::BayesianSetsSearch &bssearch,
+static void load_file(stupa::StupaSearch &stpsearch,
                       const char *path, bool is_binary, size_t invsize);
 static int run_search(int argc, char **argv);
 static int run_save(int argc, char **argv);
@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
   }
 }
 
-static void load_file(stupa::BayesianSetsSearch &bssearch,
+static void load_file(stupa::StupaSearch &stpsearch,
                       const char *path, bool is_binary, size_t invsize) {
   std::ifstream ifs(path);
   if (!ifs) {
@@ -61,14 +61,14 @@ static void load_file(stupa::BayesianSetsSearch &bssearch,
   if (is_binary) {
     printf("Reading input documents (Binary, invsize:ignored) ... ");
     fflush(stdout);
-    bssearch.load(ifs);
+    stpsearch.load(ifs);
   } else {
     printf("Reading input documents (Text, invsize:%d) ... ",
            static_cast<int>(invsize));
     fflush(stdout);
-    bssearch.read_tsvfile(ifs);
+    stpsearch.read_tsvfile(ifs);
   }
-  printf("%d documents\n", static_cast<int>(bssearch.size()));
+  printf("%d documents\n", static_cast<int>(stpsearch.size()));
 }
 
 /**
@@ -76,7 +76,7 @@ static void load_file(stupa::BayesianSetsSearch &bssearch,
  * @param progname name of this program
  */
 static void usage(const char *progname) {
-  fprintf(stderr, "%s: Bayesian Sets utility\n\n", progname);
+  fprintf(stderr, "%s: Stupa Search utility\n\n", progname);
   fprintf(stderr, "Usage:\n");
   fprintf(stderr, " %% %s search [-b][-f] file [invsize]\n", progname);
   fprintf(stderr, " %% %s save [-b] infile outfile [invsize]\n", progname);
@@ -117,8 +117,8 @@ static int run_search(int argc, char **argv) {
   }
   if (!path) usage(progname);
   if (invsize <= 0) invsize = DEFAULT_INV_SIZE;
-  stupa::BayesianSetsSearch bssearch(invsize);
-  load_file(bssearch, path, is_binary, invsize);
+  stupa::StupaSearch stpsearch(stupa::SearchModel::INNER_PRODUCT, invsize);
+  load_file(stpsearch, path, is_binary, invsize);
 
   std::vector<std::string> queries;
   std::vector<std::pair<std::string, stupa::Point> > results;
@@ -128,9 +128,9 @@ static int run_search(int argc, char **argv) {
     stupa::split_string(line, "\t", queries);
     double start = stupa::get_time();
     if (by_feature) {
-      bssearch.search_by_feature(queries, results);
+      stpsearch.search_by_feature(queries, results);
     } else {
-      bssearch.search_by_document(queries, results);
+      stpsearch.search_by_document(queries, results);
     }
     double search_time = stupa::get_time() - start;
     for (size_t i = 0; i < results.size(); i++) {
@@ -178,11 +178,11 @@ static int run_save(int argc, char **argv) {
     return EXIT_FAILURE;
   }
   if (invsize <= 0) invsize = DEFAULT_INV_SIZE;
-  stupa::BayesianSetsSearch bssearch(invsize);
-  load_file(bssearch, inpath, is_binary, invsize);
+  stupa::StupaSearch stpsearch(stupa::SearchModel::INNER_PRODUCT, invsize);
+  load_file(stpsearch, inpath, is_binary, invsize);
   printf("Writing data to the output file ... ");
   fflush(stdout);
-  bssearch.save(ofs);
+  stpsearch.save(ofs);
   printf("finished\n");
   return EXIT_SUCCESS;
 }

@@ -67,9 +67,9 @@ test : $(TESTCOMMANDFILES)
 check : $(TESTCOMMANDFILES)
 	$(RUNENV) $(RUNCMD) ./utiltest
 	$(RUNENV) $(RUNCMD) ./postest
-	$(RUNENV) $(RUNCMD) ./bsettest
+	$(RUNENV) $(RUNCMD) ./modeltest
 	$(RUNENV) $(RUNCMD) ./invtest
-	$(RUNENV) $(RUNCMD) ./bssrchtest
+	$(RUNENV) $(RUNCMD) ./searchtest
 	@printf '\n'
 	@printf '#================================================================\n'
 	@printf '# Checking completed.\n'
@@ -173,36 +173,36 @@ utiltest : utiltest.o $(LIBRARYFILES)
 postest : postest.o $(LIBRARYFILES)
 	$(LDENV) $(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) $(TESTLDFLAGS) -lstupa $(LIBS)
 
-bsettest : bsettest.o $(LIBRARYFILES)
+modeltest : modeltest.o $(LIBRARYFILES)
 	$(LDENV) $(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) $(TESTLDFLAGS) -lstupa $(LIBS)
 
 invtest : invtest.o $(LIBRARYFILES)
 	$(LDENV) $(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) $(TESTLDFLAGS) -lstupa $(LIBS)
 
-bssrchtest : bssrchtest.o $(LIBRARYFILES)
+searchtest : searchtest.o $(LIBRARYFILES)
 	$(LDENV) $(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) $(TESTLDFLAGS) -lstupa $(LIBS)
 
-stpctl.o : bayesian_sets.h inverted_index.h config.h util.h
+stpctl.o : search_model.h inverted_index.h search.h config.h util.h identifier.h
 
-stprand.o : bayesian_sets.h inverted_index.h config.h util.h
+stprand.o : search_model.h inverted_index.h search.h config.h util.h identifier.h
 
-bayesian_sets.o : bayesian_sets.h config.h util.h
+search_model.o : search_model.h config.h util.h identifier.h
 
-inverted_index.o : bayesian_sets.h inverted_index.h posting_list.h config.h util.h
+inverted_index.o : inverted_index.h posting_list.h config.h util.h identifier.h
 
-posting_list.o : bayesian_sets.h posting_list.h config.h util.h
+posting_list.o : posting_list.h config.h util.h
 
-bssearch.o : bayesian_sets.h inverted_index.h posting_list.h bssearch.h config.h util.h
+search.o : search_model.h inverted_index.h posting_list.h search.h config.h util.h identifier.h
 
 utiltest.o : config.h util.h
 
 postest.o : posting_list.h config.h util.h
 
-bsettest.o : bayesian_sets.h config.h util.h
+modeltest.o : search_model.h config.h util.h identifier.h
 
-invtest.o : bayesian_sets.h inverted_index.h posting_list.h config.h util.h
+invtest.o : inverted_index.h posting_list.h config.h util.h identifier.h
 
-bssrchtest.o : bayesian_sets.h inverted_index.h posting_list.h bssearch.h config.h util.h
+searchtest.o : search_model.h inverted_index.h posting_list.h search.h config.h util.h identifier.h
 
 util.o : config.h util.h
 

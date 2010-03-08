@@ -1,5 +1,5 @@
 //
-// Bayesian Sets load-test tool using randomly generated data
+// Stupa load-test tool using randomly generated data
 //
 // Copyright(C) 2010  Mizuki Fujisawa <fujisawa@bayon.cc>
 //
@@ -182,9 +182,9 @@ class LoadTestId : public LoadTest {
   typedef stupa::HashMap<stupa::DocumentId,
                        std::vector<stupa::FeatureId> *>::type TestSetId;
 
-  TestSetId ts_;              ///< test data
-  stupa::BayesianSets bs_;    ///< bayesian sets
-  stupa::InvertedIndex inv_;  ///< inverted index
+  TestSetId ts_;                          ///< test data
+  stupa::SearchModelInnerProduct model_;  ///< search model
+  stupa::InvertedIndex inv_;              ///< inverted index
 
   /**
    * Set random features.
@@ -237,7 +237,7 @@ class LoadTestId : public LoadTest {
     stupa::init_hash_map(stupa::FEATURE_EMPTY_ID, fidmap);
     std::vector<stupa::FeatureId> feature_ids;
     for (size_t i = 0; i < queries.size(); i++) {
-      bs_.feature(queries[i], feature_ids);
+      model_.feature(queries[i], feature_ids);
       for (size_t i = 0; i < feature_ids.size(); i++) {
         fidmap[feature_ids[i]] = true;
       }
@@ -276,7 +276,7 @@ class LoadTestId : public LoadTest {
     while (did++ < setting_.dnum + stupa::DOC_START_ID) {
       std::vector<stupa::FeatureId> features;
       random_features(features);
-      bs_.add_document(did, features);
+      model_.add_document(did, features);
       inv_.add_document(did, features);
     }
     while (did++ < setting_.dnum + stupa::DOC_START_ID + NUM_LOOP) {
@@ -300,7 +300,7 @@ class LoadTestId : public LoadTest {
       results.clear();
       random_queries(queries);
       lookup_inverted_index(queries, candidates);
-      bs_.search_by_document(queries, candidates, results, MAX_RESULT);
+      model_.search_by_document(queries, candidates, results, MAX_RESULT);
     }
   }
 
@@ -309,7 +309,7 @@ class LoadTestId : public LoadTest {
    */
   void add_loop() {
     for (TestSetId::const_iterator it = ts_.begin(); it != ts_.end(); ++it) {
-      bs_.add_document(it->first, *it->second);
+      model_.add_document(it->first, *it->second);
       inv_.add_document(it->first, *it->second);
     }
   }
@@ -320,8 +320,8 @@ class LoadTestId : public LoadTest {
   void delete_loop() {
     std::vector<stupa::FeatureId> features;
     for (TestSetId::const_iterator it = ts_.begin(); it != ts_.end(); ++it) {
-      bs_.feature(it->first, features);
-      bs_.delete_document(it->first);
+      model_.feature(it->first, features);
+      model_.delete_document(it->first);
       inv_.delete_document(it->first, features);
       features.clear();
     }
@@ -358,7 +358,7 @@ class LoadTestText : public LoadTest {
   typedef stupa::HashMap<std::string, std::vector<std::string> *>::type TestSetText;
 
   TestSetText ts_;                      ///< test data
-  stupa::BayesianSetsSearch bssearch_;  ///< search
+  stupa::StupaSearch stpsearch_;        ///< search
   std::vector<std::string> documents_;  ///< identifier string of documents
 
   /**
@@ -402,7 +402,7 @@ class LoadTestText : public LoadTest {
       std::vector<std::string> *features = new std::vector<std::string>;
       random_features(*features);
       if (did < setting_.dnum) {
-        bssearch_.add_document(didstr, *features);
+        stpsearch_.add_document(didstr, *features);
         documents_.push_back(didstr);
         delete features;
       } else {
@@ -432,7 +432,7 @@ class LoadTestText : public LoadTest {
           cnt++;
         }
       }
-      bssearch_.search_by_document(queries, results, MAX_RESULT);
+      stpsearch_.search_by_document(queries, results, MAX_RESULT);
     }
   }
 
@@ -442,7 +442,7 @@ class LoadTestText : public LoadTest {
   void add_loop() {
     for (TestSetText::const_iterator it = ts_.begin();
          it != ts_.end(); ++it) {
-      bssearch_.add_document(it->first, *it->second);
+      stpsearch_.add_document(it->first, *it->second);
     }
   }
 
@@ -452,7 +452,7 @@ class LoadTestText : public LoadTest {
   void delete_loop() {
     for (TestSetText::const_iterator it = ts_.begin();
          it != ts_.end(); ++it) {
-      bssearch_.delete_document(it->first);
+      stpsearch_.delete_document(it->first);
     }
   }
 
@@ -462,7 +462,8 @@ class LoadTestText : public LoadTest {
    * @param setting load-test setting
    */
   explicit LoadTestText(const Setting &setting)
-    : LoadTest(setting), bssearch_(setting.isiz) {
+    : LoadTest(setting),
+      stpsearch_(stupa::SearchModel::INNER_PRODUCT, setting.isiz) {
     stupa::init_hash_map("", ts_);
   }
 
@@ -507,7 +508,7 @@ int main(int argc, char **argv) {
  * @param progname name of this program
  */
 static void usage(const char *progname) {
-  fprintf(stderr, "%s : Bayesian Sets load-test tool\n\n", progname);
+  fprintf(stderr, "%s : Stupa load-test tool\n\n", progname);
   fprintf(stderr, "Usage:\n");
   fprintf(stderr, " %% %s [-text] dnum fnum qnum isiz\n", progname);
   fprintf(stderr, "     dnum : number of documents\n");

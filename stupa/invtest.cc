@@ -21,7 +21,8 @@
 #include <fstream>
 #include <map>
 #include <vector>
-#include "bayesian_sets.h"
+#include "identifier.h"
+#include "search_model.h"
 #include "inverted_index.h"
 
 namespace {
