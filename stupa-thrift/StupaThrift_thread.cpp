@@ -1,5 +1,5 @@
 //
-// Search server implementation using Bayesian Sets
+// Search server implementation with Thrift
 //
 // Copyright(C) 2010  Mizuki Fujisawa <fujisawa@bayon.cc>
 //

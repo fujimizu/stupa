@@ -1,5 +1,5 @@
 //
-// Search server implementation using Bayesian Sets
+// Search server implementation with Thrift
 //
 // Copyright(C) 2010  Mizuki Fujisawa <fujisawa@bayon.cc>
 //
@@ -39,12 +39,12 @@ const size_t INV_SIZE  = 100;
 
 class StupaThriftHandler : virtual public StupaThriftIf {
  private:
-  stupa::BayesianSetsSearch bssearch_;  ///< Bayesian Sets search
-  ReadWriteMutex lock_;                 ///< read-write lock
+  stupa::StupaSearch stpsearch_;  ///< stupa search
+  ReadWriteMutex lock_;          ///< read-write lock
 
  public:
   StupaThriftHandler(size_t invsize, size_t max_doc)
-    : bssearch_(invsize, max_doc) { }
+    : stpsearch_(stupa::SearchModel::INNER_PRODUCT, invsize, max_doc) { }
 
   /**
    * Add a document.
@@ -55,7 +55,7 @@ class StupaThriftHandler : virtual public StupaThriftIf {
                     const std::vector<std::string> &features) {
     if (document_id.empty() || features.empty()) return;
     RWGuard m(lock_, 1);
-    bssearch_.add_document(document_id, features);
+    stpsearch_.add_document(document_id, features);
   }
 
   /**
@@ -65,7 +65,7 @@ class StupaThriftHandler : virtual public StupaThriftIf {
   void delete_document(const std::string &document_id) {
     if (document_id.empty()) return;
     RWGuard m(lock_, 1);
-    bssearch_.delete_document(document_id);
+    stpsearch_.delete_document(document_id);
   }
 
   /**
@@ -74,7 +74,7 @@ class StupaThriftHandler : virtual public StupaThriftIf {
    */
   int64_t size() {
     RWGuard m(lock_, 0);
-    return static_cast<uint64_t>(bssearch_.size());
+    return static_cast<uint64_t>(stpsearch_.size());
   }
 
   /**
@@ -88,7 +88,7 @@ class StupaThriftHandler : virtual public StupaThriftIf {
                           const std::vector<std::string> & query) {
     RWGuard m(lock_, 0);
     std::vector<std::pair<std::string, double> > results;
-    bssearch_.search_by_document(query, results, max);
+    stpsearch_.search_by_document(query, results, max);
     _return.resize(results.size());
     for (size_t i = 0; i < results.size(); i++) {
       SearchResult sr;
@@ -109,7 +109,7 @@ class StupaThriftHandler : virtual public StupaThriftIf {
                           const std::vector<std::string> & query) {
     RWGuard m(lock_, 0);
     std::vector<std::pair<std::string, double> > results;
-    bssearch_.search_by_feature(query, results, max);
+    stpsearch_.search_by_feature(query, results, max);
     _return.resize(results.size());
     for (size_t i = 0; i < results.size(); i++) {
       SearchResult sr;
@@ -131,7 +131,7 @@ class StupaThriftHandler : virtual public StupaThriftIf {
       return false;
     }
     RWGuard m(lock_, 0);
-    bssearch_.save(ofs);
+    stpsearch_.save(ofs);
     return true;
   }
 
@@ -147,7 +147,7 @@ class StupaThriftHandler : virtual public StupaThriftIf {
       return false;
     }
     RWGuard m(lock_, 1);
-    bssearch_.load(ifs);
+    stpsearch_.load(ifs);
     return true;
   }
 };

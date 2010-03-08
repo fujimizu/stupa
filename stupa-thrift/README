@@ -1,13 +1,13 @@
 ================================================================
- Stupa Server : search engine using Bayesian Sets algorithm
+ Stupa Server : an Associative Search Engine
  (http://code.google.com/p/stupa)
 
  Copyright(C) Mizuki Fujisawa <fujisawa@bayon.cc>
 ================================================================
 
 Overview:
-  This software is a search engine using Stupa, a C++ library of
-  Bayesian Sets algorithm.
+  This software is a server implementation of Stupa,
+  an associative search engine.
 
 Build:
   * Build all
@@ -41,10 +41,3 @@ Requirement
 
 License:
   GPL2 (Gnu General Public License Version 2)
-
-  Bayesian Sets algorithm is a patented technology.
-  Thus you should note that this software embodies a method
-  for which the following patent has been issued:
-    "INFORMATION RETRIEVAL SYSTEM AND METHOD USING A BAYESIAN
-    ALGORITHM BASED ON PROBABILISTIC SIMILARITY SCORES"
-    Patent-URL:http://www.wipo.int/pctdb/en/wo.jsp?WO=2007063328
