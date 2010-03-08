@@ -1718,8 +1718,8 @@ _ACEOF
 
 
 # Package information
-MYLIBVER=0
-MYLIBREV=2
+MYLIBVER=1
+MYLIBREV=0
 
 # Targets
 MYHEADERFILES="identifier.h search_model.h inverted_index.h posting_list.h search.h util.h stupa.h config.h"
