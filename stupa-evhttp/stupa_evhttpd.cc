@@ -24,7 +24,6 @@
 #include "handler.h"
 
 const int PORT          = 147258;
-const int WORKER_COUNT  = 4;
 const size_t INV_SIZE   = 100;
 const size_t MAX_RESULT = 50;
 
@@ -34,12 +33,10 @@ const size_t MAX_RESULT = 50;
 struct Param {
   int    port;         ///< port number.
   size_t max_doc;      ///< maximum number of documents.
-  int    workerCount;  ///< the number of worker threads.
   size_t invsize;      ///< maximum size of inverted indexes.
   char   *filename;    ///< path of input file.
 
-  Param() : port(PORT), max_doc(0), workerCount(WORKER_COUNT),
-            invsize(INV_SIZE), filename(NULL) { }
+  Param() : port(PORT), max_doc(0), invsize(INV_SIZE), filename(NULL) { }
 };
 
 /* function prototypes */
@@ -79,8 +76,6 @@ void usage(const char *progname) {
   fprintf(stderr, " -d num      maximum number of documents (default: no limit)\n");
   fprintf(stderr, " -i size     maximum size of inverted indexes (default:%d)\n",
           static_cast<int>(INV_SIZE));
-  fprintf(stderr, " -w nworker  number of worker thread (default:%d)\n",
-          WORKER_COUNT);
   fprintf(stderr, " -f file     load a file (binary format)\n");
   fprintf(stderr, " -h          show help message\n");
   exit(EXIT_FAILURE);
@@ -103,9 +98,6 @@ void parse_options(int argc, char **argv, Param &param) {
       ++i;
     } else if (!strcmp(argv[i], "-i")) {
       param.invsize = atoi(argv[++i]);
-      ++i;
-    } else if (!strcmp(argv[i], "-w")) {
-      param.workerCount = atoi(argv[++i]);
       ++i;
     } else if (!strcmp(argv[i], "-f")) {
       param.filename = argv[++i];
