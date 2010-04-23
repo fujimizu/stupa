@@ -1,0 +1,32 @@
+================================================================
+ Stupa Server : an Associative Search Engine
+ (http://code.google.com/p/stupa)
+
+ Copyright(C) Mizuki Fujisawa <fujisawa@bayon.cc>
+================================================================
+
+Overview:
+  This software is a server implementation of Stupa,
+  an associative search engine.
+
+Build:
+  * Build all
+    % make
+
+Usage:
+  * Start stupa search server
+    % stupa_evhttpd [options]
+       -p port     port number (default:147258)
+       -d num      maximum number of documents (default: no limit)
+       -i size     maximum size of inverted indexes (default:100)
+       -w nworker  number of worker thread (default:4)
+       -f file     load a file (binary format)
+       -h          show help message
+
+Requirement
+  * C++ compiler with STL (Standard Template Library)
+  * Stupa C++ library
+  * libevent <http://www.monkey.org/~provos/libevent/>
+
+License:
+  GPL2 (Gnu General Public License Version 2)
