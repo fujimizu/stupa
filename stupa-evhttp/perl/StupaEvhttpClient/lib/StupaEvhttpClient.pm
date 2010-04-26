@@ -22,7 +22,7 @@ sub new {
     my $timeout = $argv{timeout} || TIMEOUT;
     my $curl = WWW::Curl::Easy->new;
     $curl->setopt(CURLOPT_TIMEOUT, $timeout);
-    $curl->setopt(CURLOPT_HTTPHEADER, ['Connection: Keep-Alive']);
+    $curl->setopt(CURLOPT_HTTPHEADER, ['Connection: keep-alive']);
     $self->SUPER::new({
         host => $argv{host},
         port => $argv{port},
