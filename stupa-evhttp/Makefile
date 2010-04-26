@@ -29,5 +29,6 @@ dist:
 
 check:
 
-handler.o : handler.h
+stupa_evhttpd.o : handler.h
+handler.o : handler.h lock.h
 lock.o : lock.h
