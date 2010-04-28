@@ -49,7 +49,7 @@ class StupaSearchHandler {
   void add_document(const std::string &document_id,
                     const std::vector<std::string> &features) {
     if (document_id.empty() || features.empty()) return;
-    RWGuard m(lock_, 1);
+    RWGuard m(lock_, true);
     stpsearch_.add_document(document_id, features);
   }
 
@@ -59,7 +59,7 @@ class StupaSearchHandler {
    */
   void delete_document(const std::string &document_id) {
     if (document_id.empty()) return;
-    RWGuard m(lock_, 1);
+    RWGuard m(lock_, true);
     stpsearch_.delete_document(document_id);
   }
 
@@ -68,7 +68,7 @@ class StupaSearchHandler {
    * @return the number of documents
    */
   int64_t size() {
-    RWGuard m(lock_, 0);
+    RWGuard m(lock_, false);
     return static_cast<uint64_t>(stpsearch_.size());
   }
 
@@ -82,7 +82,7 @@ class StupaSearchHandler {
     const std::vector<std::string> & query,
     std::vector<std::pair<std::string, double> > &results,
     const int64_t max) {
-    RWGuard m(lock_, 0);
+    RWGuard m(lock_, false);
     stpsearch_.search_by_document(query, results, max);
   }
 
@@ -96,7 +96,7 @@ class StupaSearchHandler {
     const std::vector<std::string> & query,
     std::vector<std::pair<std::string, double> > &results,
     const int64_t max) {
-    RWGuard m(lock_, 0);
+    RWGuard m(lock_, false);
     stpsearch_.search_by_feature(query, results, max);
   }
 
@@ -111,7 +111,7 @@ class StupaSearchHandler {
       fprintf(stderr, "Cannot open file %s\n", filename.c_str());
       return false;
     }
-    RWGuard m(lock_, 0);
+    RWGuard m(lock_, false);
     stpsearch_.save(ofs);
     return true;
   }
@@ -127,7 +127,7 @@ class StupaSearchHandler {
       fprintf(stderr, "Cannot open file %s\n", filename.c_str());
       return false;
     }
-    RWGuard m(lock_, 1);
+    RWGuard m(lock_, true);
     stpsearch_.load(ifs);
     return true;
   }
