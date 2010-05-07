@@ -19,6 +19,7 @@
 
 #include <pthread.h>
 #include <cstdlib>
+#include <cstdio>
 #include <iostream>
 #include "lock.h"
 
