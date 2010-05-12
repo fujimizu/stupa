@@ -17,8 +17,9 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#include <iostream>
+#include <csignal>
 #include <sys/queue.h>
+#include <iostream>
 #include <event.h>
 #include <evhttp.h>
 #include "handler.h"
@@ -368,6 +369,7 @@ void load_handler(evhttp_request *req, void *arg) {
  * @param port port number
  */
 void start_server(const Param &param) {
+  signal(SIGPIPE, SIG_IGN);  // ignore sigpipe
   event_init();
   evhttp *httpd = evhttp_start("0.0.0.0", param.port);
   if (!httpd) {
