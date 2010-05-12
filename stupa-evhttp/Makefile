@@ -23,7 +23,7 @@ dist:
 	rm -fr $(PACKAGE)
 	mkdir $(PACKAGE)
 	cp -r *.h *.cc Makefile README COPYING perl $(PACKAGE)
-	rm -rf $(PACKAGE)/perl/.svn; rm -rf $(PACKAGE)/perl/lib/.svn
+#	find $(PACKAGE) -name .svn | xargs rm -rf
 	tar cvzf $(PACKAGE).tar.gz $(PACKAGE)
 	rm -fr $(PACKAGE)
 
