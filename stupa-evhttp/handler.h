@@ -21,7 +21,7 @@
 #define STUPA_HANDLER_H_
 
 #include <cstring>
-#include "lock.h"
+#include "thread.h"
 #include "stupa.h"
 
 namespace stupa {

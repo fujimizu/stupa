@@ -21,7 +21,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <iostream>
-#include "lock.h"
+#include "thread.h"
 
 namespace stupa {
 

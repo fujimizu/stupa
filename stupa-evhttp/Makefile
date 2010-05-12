@@ -4,7 +4,7 @@ CXXFLAGS = -O3 -Wall
 LDFLAGS = -L/usr/local/lib -L../stupa
 INCLUDES = -I/usr/local/include -I/usr/local/include/stupa/ -I../stupa
 LIBS =  -levent -lstupa
-OBJ = handler.o lock.o stupa_evhttpd.o
+OBJ = handler.o thread.o stupa_evhttpd.o
 TARGET = stupa_evhttpd
 PACKAGE = stupa-evhttp-$(VERSION)
 
@@ -30,5 +30,5 @@ dist:
 check:
 
 stupa_evhttpd.o : handler.h
-handler.o : handler.h lock.h
-lock.o : lock.h
+handler.o : handler.h thread.h
+thread.o : thread.h
