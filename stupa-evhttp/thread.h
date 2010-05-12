@@ -26,63 +26,6 @@
 namespace stupa {
 
 /**
- * Thread pool.
- */
-class ThreadPool {
- private:
-  typedef std::queue<void *> Queue;
-  Queue queue_;
-  size_t num_threads_;
-  size_t max_task_;
-  bool shutdown_;
-  pthread_t *threads_;
-  pthread_mutex_t queue_mutex_;
-  pthread_cond_t queue_cond_;
-
-  void create_threads(void *(*func)(void *)) {
-    threads_ = new pthread_t[num_threads_];
-    for (size_t i = 0; i < num_threads_; i++) {
-      pthread_create(&threads_[i], NULL, func, this);
-    }
-  }
-
- public:
-  ThreadPool(size_t num_threads, size_t max_task)
-    : num_threads_(num_threads), max_task_(max_task), shutdown_(false) {
-    pthread_mutex_init(&queue_mutex_, NULL);
-    pthread_cond_init(&queue_cond_, NULL);
-  }
-
-  ~ThreadPool() {
-    clear();
-    pthread_cond_broadcast(&queue_cond_);
-    for (size_t i = 0; i < num_threads_; i++) {
-      pthread_join(threads_[i], NULL);
-    }
-    delete threads_;
-  }
-
-  void start(void *(*func)(void *)) {
-    create_threads(func);
-    while (true) {
-    }
-  }
-
-  void add(void *task) {
-    pthread_mutex_lock(&queue_mutex_);
-    queue_.push(task);
-    pthread_cond_signal(&queue_cond_);
-    pthread_mutex_unlock(&queue_mutex_);
-  }
-
-  void clear() {
-    pthread_mutex_lock(&queue_mutex_);
-    while (!queue_.empty()) queue_.pop();
-    pthread_mutex_unlock(&queue_mutex_);
-  }
-};
-
-/**
  * Read-Write lock.
  */
 class ReadWriteLock {
@@ -137,6 +80,66 @@ class RWGuard {
 
  private:
   const ReadWriteLock &rwlock_;
+};
+
+/**
+ * Thread pool.
+ */
+class ThreadPool {
+ private:
+  typedef std::queue<void *> Queue;
+  Queue queue_;
+  size_t num_threads_;
+  size_t max_task_;
+  bool shutdown_;
+  pthread_t *threads_;
+  pthread_mutex_t queue_mutex_;
+  pthread_cond_t queue_cond_;
+
+ public:
+  ThreadPool(size_t num_threads, size_t max_task)
+    : num_threads_(num_threads), max_task_(max_task), shutdown_(false) {
+    pthread_mutex_init(&queue_mutex_, NULL);
+    pthread_cond_init(&queue_cond_, NULL);
+  }
+
+  ~ThreadPool() {
+    clear();
+    pthread_cond_broadcast(&queue_cond_);
+    if (!threads_) return;
+    for (size_t i = 0; i < num_threads_; i++) {
+      pthread_join(threads_[i], NULL);
+    }
+    delete threads_;
+  }
+
+  void init(void *(*func)(void *)) {
+    threads_ = new pthread_t[num_threads_];
+    for (size_t i = 0; i < num_threads_; i++) {
+      pthread_create(&threads_[i], NULL, func, this);
+    }
+  }
+
+  void add(void *task) {
+    pthread_mutex_lock(&queue_mutex_);
+    queue_.push(task);
+    pthread_cond_signal(&queue_cond_);
+    pthread_mutex_unlock(&queue_mutex_);
+  }
+
+  void clear() {
+    pthread_mutex_lock(&queue_mutex_);
+    while (!queue_.empty()) queue_.pop();
+    pthread_mutex_unlock(&queue_mutex_);
+  }
+
+  pthread_mutex_t *queue_mutex() { return &queue_mutex_; };
+
+  pthread_cond_t *queue_cond() { return &queue_cond_; };
+
+  Queue *queue() { return &queue_; }
+
+  bool is_shutdown() { return shutdown_; }
 };
 
 } /* namespace stupa */
