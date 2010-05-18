@@ -315,7 +315,6 @@ void fsearch_handler(evhttp_request *req, void *arg) {
  * @param arg optional argument
  */
 void save_handler(evhttp_request *req, void *arg) {
-  exit(1);
   stupa::StupaSearchHandler *handler =
     reinterpret_cast<stupa::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
