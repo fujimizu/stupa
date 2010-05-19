@@ -92,3 +92,8 @@ printf "Load (file: $filename): ";
 $ret = $client->load($filename);
 $message = $ret ? "succeeded" : "failed";
 print "$message\n";
+
+## clear
+print "Clear status\n";
+$client->clear();
+printf "Size: %d\n\n", $client->size();

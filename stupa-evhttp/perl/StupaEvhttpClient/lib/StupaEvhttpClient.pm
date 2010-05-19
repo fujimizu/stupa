@@ -84,6 +84,13 @@ sub size {
     return $size;
 }
 
+sub clear {
+    my $self = shift;
+    my $url = $self->_make_request_url('clear');
+    my ($ret, $response) = $self->_send_request($url);
+    return if $ret != 0 || !$response;
+}
+
 sub search_by_document {
     my ($self, $document_ids, $max) = @_;
     return if !$document_ids;
@@ -108,7 +115,7 @@ sub search_by_feature {
     my %option;
     $option{query} = join "\t", @{ $feature_ids };
     $option{max} = $max if $max > 0;
-    my $url = $self->_make_request_url('dsearch', \%option);
+    my $url = $self->_make_request_url('fsearch', \%option);
     my ($ret, $response) = $self->_send_request($url);
     return if $ret != 0 || !$response;
     my %results;
