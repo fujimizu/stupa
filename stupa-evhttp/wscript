@@ -1,0 +1,57 @@
+#!/usr/bin/env python
+# -*- conding: utf-8 -*-
+
+import unittestw
+
+APPNAME = 'stupa-evhttp'
+VERSION = '0.0.1'
+
+srcdir = '.'
+blddir = 'build'
+
+import Scripting
+Scripting.dist_exts += ['.o', '.svn']
+
+def set_options(opt):
+    opt.tool_options('compiler_cxx')
+    opt.tool_options('unittest')
+
+def configure(conf):
+    conf.check_tool('compiler_cxx')
+
+    # check libraries
+    conf.check_cxx(lib = 'pthread', mandatory = True)
+    conf.check_cxx(lib = 'event', mandatory = True)
+    conf.check_cxx(lib = 'stupa', mandatory = True)
+    #conf.check_cxx(lib = 'gtest')
+    conf.check_cxx(header_name = 'evhttp.h', mandatory = True)
+    conf.check_cxx(header_name = 'event.h', mandatory = True)
+    conf.check_cxx(header_name = 'stupa.h', mandatory = True)
+
+    conf.env.CXXFLAGS += ['-O2', '-Wall']
+    conf.env.LIBPATH  += ['/usr/local/lib']
+
+    #conf.write_config_header('config.h')
+
+def build(bld):
+    task1 = bld(
+        features = 'cxx cprogram',
+        source   = 'stupa_evhttpd.cc handler.cc thread.cc',
+        name     = 'stupa_evhttpd',
+        target   = 'stupa_evhttpd',
+        includes = '. /usr/local/include/stupa',
+        lib      = ['event', 'pthread', 'stupa']
+    )
+    task2 = bld(
+        features = 'cxx cprogram test',
+        source   = 'handler_test.cc handler.cc thread.cc',
+        target   = 'handler_test',
+        includes = '. /usr/local/include/stupa',
+        lib      = ['gtest', 'pthread', 'stupa'],)
+
+    bld.add_post_fun(unittestw.summary)
+
+def dist_hook():
+  import Scripting
+#  Scripting.g_gz = 'gz'
+#  Scripting.dist_exts += ['.o', '.svn']
