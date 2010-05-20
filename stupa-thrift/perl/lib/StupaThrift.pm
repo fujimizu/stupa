@@ -378,6 +378,98 @@ sub write {
   return $xfer;
 }
 
+package StupaThrift_clear_args;
+use base qw(Class::Accessor);
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'StupaThrift_clear_args';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('StupaThrift_clear_args');
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package StupaThrift_clear_result;
+use base qw(Class::Accessor);
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'StupaThrift_clear_result';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('StupaThrift_clear_result');
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
 package StupaThrift_search_by_document_args;
 use base qw(Class::Accessor);
 StupaThrift_search_by_document_args->mk_accessors( qw( max query ) );
@@ -1032,6 +1124,12 @@ sub size{
   die 'implement interface';
 }
 
+sub clear{
+  my $self = shift;
+
+  die 'implement interface';
+}
+
 sub search_by_document{
   my $self = shift;
   my $max = shift;
@@ -1093,6 +1191,12 @@ sub size{
   my ($self, $request) = @_;
 
   return $self->{impl}->size();
+}
+
+sub clear{
+  my ($self, $request) = @_;
+
+  return $self->{impl}->clear();
 }
 
 sub search_by_document{
@@ -1260,6 +1364,43 @@ sub recv_size{
     return $result->{success};
   }
   die "size failed: unknown result";
+}
+sub clear{
+  my $self = shift;
+
+    $self->send_clear();
+  $self->recv_clear();
+}
+
+sub send_clear{
+  my $self = shift;
+
+  $self->{output}->writeMessageBegin('clear', TMessageType::CALL, $self->{seqid});
+  my $args = new StupaThrift_clear_args();
+  $args->write($self->{output});
+  $self->{output}->writeMessageEnd();
+  $self->{output}->getTransport()->flush();
+}
+
+sub recv_clear{
+  my $self = shift;
+
+  my $rseqid = 0;
+  my $fname;
+  my $mtype = 0;
+
+  $self->{input}->readMessageBegin(\$fname, \$mtype, \$rseqid);
+  if ($mtype == TMessageType::EXCEPTION) {
+    my $x = new TApplicationException();
+    $x->read($self->{input});
+    $self->{input}->readMessageEnd();
+    die $x;
+  }
+  my $result = new StupaThrift_clear_result();
+  $result->read($self->{input});
+  $self->{input}->readMessageEnd();
+
+  return;
 }
 sub search_by_document{
   my $self = shift;
@@ -1507,6 +1648,19 @@ sub process_size {
     my $result = new StupaThrift_size_result();
     $result->{success} = $self->{handler}->size();
     $output->writeMessageBegin('size', TMessageType::REPLY, $seqid);
+    $result->write($output);
+    $output->writeMessageEnd();
+    $output->getTransport()->flush();
+}
+
+sub process_clear {
+    my ($self, $seqid, $input, $output) = @_;
+    my $args = new StupaThrift_clear_args();
+    $args->read($input);
+    $input->readMessageEnd();
+    my $result = new StupaThrift_clear_result();
+    $self->{handler}->clear();
+    $output->writeMessageBegin('clear', TMessageType::REPLY, $seqid);
     $result->write($output);
     $output->writeMessageEnd();
     $output->getTransport()->flush();

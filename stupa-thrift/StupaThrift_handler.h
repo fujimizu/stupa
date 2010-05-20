@@ -69,12 +69,20 @@ class StupaThriftHandler : virtual public StupaThriftIf {
   }
 
   /**
-   * Get the number of documents
+   * Get the number of documents.
    * @return the number of documents
    */
   int64_t size() {
     RWGuard m(lock_, 0);
     return static_cast<uint64_t>(stpsearch_.size());
+  }
+
+  /**
+   * Clear status.
+   */
+  void clear() {
+    RWGuard m(lock_, 1);
+    stpsearch_.clear();
   }
 
   /**

@@ -17,6 +17,7 @@ class StupaThriftIf {
   virtual void add_document(const std::string& document_id, const std::vector<std::string> & features) = 0;
   virtual void delete_document(const std::string& document_id) = 0;
   virtual int64_t size() = 0;
+  virtual void clear() = 0;
   virtual void search_by_document(std::vector<SearchResult> & _return, const int64_t max, const std::vector<std::string> & query) = 0;
   virtual void search_by_feature(std::vector<SearchResult> & _return, const int64_t max, const std::vector<std::string> & query) = 0;
   virtual bool save(const std::string& filename) = 0;
@@ -35,6 +36,9 @@ class StupaThriftNull : virtual public StupaThriftIf {
   int64_t size() {
     int64_t _return = 0;
     return _return;
+  }
+  void clear() {
+    return;
   }
   void search_by_document(std::vector<SearchResult> & /* _return */, const int64_t /* max */, const std::vector<std::string> & /* query */) {
     return;
@@ -83,8 +87,8 @@ class StupaThrift_add_document_args {
 
   bool operator < (const StupaThrift_add_document_args & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -97,7 +101,7 @@ class StupaThrift_add_document_pargs {
   const std::string* document_id;
   const std::vector<std::string> * features;
 
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -120,8 +124,8 @@ class StupaThrift_add_document_result {
 
   bool operator < (const StupaThrift_add_document_result & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -132,7 +136,7 @@ class StupaThrift_add_document_presult {
   virtual ~StupaThrift_add_document_presult() throw() {}
 
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
 };
 
@@ -163,8 +167,8 @@ class StupaThrift_delete_document_args {
 
   bool operator < (const StupaThrift_delete_document_args & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -176,7 +180,7 @@ class StupaThrift_delete_document_pargs {
 
   const std::string* document_id;
 
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -199,8 +203,8 @@ class StupaThrift_delete_document_result {
 
   bool operator < (const StupaThrift_delete_document_result & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -211,7 +215,7 @@ class StupaThrift_delete_document_presult {
   virtual ~StupaThrift_delete_document_presult() throw() {}
 
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
 };
 
@@ -234,8 +238,8 @@ class StupaThrift_size_args {
 
   bool operator < (const StupaThrift_size_args & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -246,7 +250,7 @@ class StupaThrift_size_pargs {
   virtual ~StupaThrift_size_pargs() throw() {}
 
 
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -277,8 +281,8 @@ class StupaThrift_size_result {
 
   bool operator < (const StupaThrift_size_result & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -295,7 +299,77 @@ class StupaThrift_size_presult {
     bool success;
   } __isset;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+
+};
+
+class StupaThrift_clear_args {
+ public:
+
+  StupaThrift_clear_args() {
+  }
+
+  virtual ~StupaThrift_clear_args() throw() {}
+
+
+  bool operator == (const StupaThrift_clear_args & /* rhs */) const
+  {
+    return true;
+  }
+  bool operator != (const StupaThrift_clear_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const StupaThrift_clear_args & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class StupaThrift_clear_pargs {
+ public:
+
+
+  virtual ~StupaThrift_clear_pargs() throw() {}
+
+
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class StupaThrift_clear_result {
+ public:
+
+  StupaThrift_clear_result() {
+  }
+
+  virtual ~StupaThrift_clear_result() throw() {}
+
+
+  bool operator == (const StupaThrift_clear_result & /* rhs */) const
+  {
+    return true;
+  }
+  bool operator != (const StupaThrift_clear_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const StupaThrift_clear_result & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class StupaThrift_clear_presult {
+ public:
+
+
+  virtual ~StupaThrift_clear_presult() throw() {}
+
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
 };
 
@@ -330,8 +404,8 @@ class StupaThrift_search_by_document_args {
 
   bool operator < (const StupaThrift_search_by_document_args & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -344,7 +418,7 @@ class StupaThrift_search_by_document_pargs {
   const int64_t* max;
   const std::vector<std::string> * query;
 
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -375,8 +449,8 @@ class StupaThrift_search_by_document_result {
 
   bool operator < (const StupaThrift_search_by_document_result & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -393,7 +467,7 @@ class StupaThrift_search_by_document_presult {
     bool success;
   } __isset;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
 };
 
@@ -428,8 +502,8 @@ class StupaThrift_search_by_feature_args {
 
   bool operator < (const StupaThrift_search_by_feature_args & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -442,7 +516,7 @@ class StupaThrift_search_by_feature_pargs {
   const int64_t* max;
   const std::vector<std::string> * query;
 
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -473,8 +547,8 @@ class StupaThrift_search_by_feature_result {
 
   bool operator < (const StupaThrift_search_by_feature_result & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -491,7 +565,7 @@ class StupaThrift_search_by_feature_presult {
     bool success;
   } __isset;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
 };
 
@@ -522,8 +596,8 @@ class StupaThrift_save_args {
 
   bool operator < (const StupaThrift_save_args & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -535,7 +609,7 @@ class StupaThrift_save_pargs {
 
   const std::string* filename;
 
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -566,8 +640,8 @@ class StupaThrift_save_result {
 
   bool operator < (const StupaThrift_save_result & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -584,7 +658,7 @@ class StupaThrift_save_presult {
     bool success;
   } __isset;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
 };
 
@@ -615,8 +689,8 @@ class StupaThrift_load_args {
 
   bool operator < (const StupaThrift_load_args & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -628,7 +702,7 @@ class StupaThrift_load_pargs {
 
   const std::string* filename;
 
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -659,8 +733,8 @@ class StupaThrift_load_result {
 
   bool operator < (const StupaThrift_load_result & ) const;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -677,28 +751,28 @@ class StupaThrift_load_presult {
     bool success;
   } __isset;
 
-  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
 };
 
 class StupaThriftClient : virtual public StupaThriftIf {
  public:
-  StupaThriftClient(boost::shared_ptr<apache::thrift::protocol::TProtocol> prot) :
+  StupaThriftClient(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> prot) :
     piprot_(prot),
     poprot_(prot) {
     iprot_ = prot.get();
     oprot_ = prot.get();
   }
-  StupaThriftClient(boost::shared_ptr<apache::thrift::protocol::TProtocol> iprot, boost::shared_ptr<apache::thrift::protocol::TProtocol> oprot) :
+  StupaThriftClient(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> iprot, boost::shared_ptr< ::apache::thrift::protocol::TProtocol> oprot) :
     piprot_(iprot),
     poprot_(oprot) {
     iprot_ = iprot.get();
     oprot_ = oprot.get();
   }
-  boost::shared_ptr<apache::thrift::protocol::TProtocol> getInputProtocol() {
+  boost::shared_ptr< ::apache::thrift::protocol::TProtocol> getInputProtocol() {
     return piprot_;
   }
-  boost::shared_ptr<apache::thrift::protocol::TProtocol> getOutputProtocol() {
+  boost::shared_ptr< ::apache::thrift::protocol::TProtocol> getOutputProtocol() {
     return poprot_;
   }
   void add_document(const std::string& document_id, const std::vector<std::string> & features);
@@ -710,6 +784,9 @@ class StupaThriftClient : virtual public StupaThriftIf {
   int64_t size();
   void send_size();
   int64_t recv_size();
+  void clear();
+  void send_clear();
+  void recv_clear();
   void search_by_document(std::vector<SearchResult> & _return, const int64_t max, const std::vector<std::string> & query);
   void send_search_by_document(const int64_t max, const std::vector<std::string> & query);
   void recv_search_by_document(std::vector<SearchResult> & _return);
@@ -723,38 +800,40 @@ class StupaThriftClient : virtual public StupaThriftIf {
   void send_load(const std::string& filename);
   bool recv_load();
  protected:
-  boost::shared_ptr<apache::thrift::protocol::TProtocol> piprot_;
-  boost::shared_ptr<apache::thrift::protocol::TProtocol> poprot_;
-  apache::thrift::protocol::TProtocol* iprot_;
-  apache::thrift::protocol::TProtocol* oprot_;
+  boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
+  boost::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot_;
+  ::apache::thrift::protocol::TProtocol* iprot_;
+  ::apache::thrift::protocol::TProtocol* oprot_;
 };
 
-class StupaThriftProcessor : virtual public apache::thrift::TProcessor {
+class StupaThriftProcessor : virtual public ::apache::thrift::TProcessor {
  protected:
   boost::shared_ptr<StupaThriftIf> iface_;
-  virtual bool process_fn(apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot, std::string& fname, int32_t seqid);
+  virtual bool process_fn(::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, std::string& fname, int32_t seqid);
  private:
-  std::map<std::string, void (StupaThriftProcessor::*)(int32_t, apache::thrift::protocol::TProtocol*, apache::thrift::protocol::TProtocol*)> processMap_;
-  void process_add_document(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
-  void process_delete_document(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
-  void process_size(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
-  void process_search_by_document(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
-  void process_search_by_feature(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
-  void process_save(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
-  void process_load(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
+  std::map<std::string, void (StupaThriftProcessor::*)(int32_t, ::apache::thrift::protocol::TProtocol*, ::apache::thrift::protocol::TProtocol*)> processMap_;
+  void process_add_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
+  void process_delete_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
+  void process_size(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
+  void process_clear(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
+  void process_search_by_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
+  void process_search_by_feature(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
+  void process_save(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
+  void process_load(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
  public:
   StupaThriftProcessor(boost::shared_ptr<StupaThriftIf> iface) :
     iface_(iface) {
     processMap_["add_document"] = &StupaThriftProcessor::process_add_document;
     processMap_["delete_document"] = &StupaThriftProcessor::process_delete_document;
     processMap_["size"] = &StupaThriftProcessor::process_size;
+    processMap_["clear"] = &StupaThriftProcessor::process_clear;
     processMap_["search_by_document"] = &StupaThriftProcessor::process_search_by_document;
     processMap_["search_by_feature"] = &StupaThriftProcessor::process_search_by_feature;
     processMap_["save"] = &StupaThriftProcessor::process_save;
     processMap_["load"] = &StupaThriftProcessor::process_load;
   }
 
-  virtual bool process(boost::shared_ptr<apache::thrift::protocol::TProtocol> piprot, boost::shared_ptr<apache::thrift::protocol::TProtocol> poprot);
+  virtual bool process(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot, boost::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot);
   virtual ~StupaThriftProcessor() {}
 };
 
@@ -792,6 +871,13 @@ class StupaThriftMultiface : virtual public StupaThriftIf {
       } else {
         ifaces_[i]->size();
       }
+    }
+  }
+
+  void clear() {
+    uint32_t sz = ifaces_.size();
+    for (uint32_t i = 0; i < sz; ++i) {
+      ifaces_[i]->clear();
     }
   }
 

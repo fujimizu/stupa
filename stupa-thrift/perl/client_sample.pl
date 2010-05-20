@@ -29,7 +29,7 @@ if (@ARGV) {
         $transport = Thrift::FramedTransport->new($socket, 1024, 1024);
     }
     else {
-        warn "Usage: $0 [--bufferd | --framed]\n";
+        warn "Usage: $0 [--buffered | --framed]\n";
         exit 1;
     }
 }
@@ -109,7 +109,14 @@ if ($@) {
     exit 1;
 }
 
-$transport->close;
+# clear status
+eval {
+    $client->clear();
+};
+if ($@) {
+    print "[ERROR] ", $@->{message}, "\n";
+    exit 1;
+}
 
 __DATA__
 Alex Pop R&B Rock

@@ -7,28 +7,28 @@
 
 
 
-uint32_t StupaThrift_add_document_args::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_add_document_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->document_id);
           this->__isset.document_id = true;
         } else {
@@ -36,11 +36,11 @@ uint32_t StupaThrift_add_document_args::read(apache::thrift::protocol::TProtocol
         }
         break;
       case 2:
-        if (ftype == apache::thrift::protocol::T_LIST) {
+        if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->features.clear();
             uint32_t _size0;
-            apache::thrift::protocol::TType _etype3;
+            ::apache::thrift::protocol::TType _etype3;
             iprot->readListBegin(_etype3, _size0);
             this->features.resize(_size0);
             uint32_t _i4;
@@ -67,15 +67,15 @@ uint32_t StupaThrift_add_document_args::read(apache::thrift::protocol::TProtocol
   return xfer;
 }
 
-uint32_t StupaThrift_add_document_args::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_add_document_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_add_document_args");
-  xfer += oprot->writeFieldBegin("document_id", apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("document_id", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->document_id);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("features", apache::thrift::protocol::T_LIST, 2);
+  xfer += oprot->writeFieldBegin("features", ::apache::thrift::protocol::T_LIST, 2);
   {
-    xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRING, this->features.size());
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, this->features.size());
     std::vector<std::string> ::const_iterator _iter5;
     for (_iter5 = this->features.begin(); _iter5 != this->features.end(); ++_iter5)
     {
@@ -89,15 +89,15 @@ uint32_t StupaThrift_add_document_args::write(apache::thrift::protocol::TProtoco
   return xfer;
 }
 
-uint32_t StupaThrift_add_document_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_add_document_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_add_document_pargs");
-  xfer += oprot->writeFieldBegin("document_id", apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("document_id", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->document_id)));
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("features", apache::thrift::protocol::T_LIST, 2);
+  xfer += oprot->writeFieldBegin("features", ::apache::thrift::protocol::T_LIST, 2);
   {
-    xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRING, (*(this->features)).size());
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, (*(this->features)).size());
     std::vector<std::string> ::const_iterator _iter6;
     for (_iter6 = (*(this->features)).begin(); _iter6 != (*(this->features)).end(); ++_iter6)
     {
@@ -111,22 +111,22 @@ uint32_t StupaThrift_add_document_pargs::write(apache::thrift::protocol::TProtoc
   return xfer;
 }
 
-uint32_t StupaThrift_add_document_result::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_add_document_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
@@ -143,7 +143,7 @@ uint32_t StupaThrift_add_document_result::read(apache::thrift::protocol::TProtoc
   return xfer;
 }
 
-uint32_t StupaThrift_add_document_result::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_add_document_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
@@ -154,22 +154,22 @@ uint32_t StupaThrift_add_document_result::write(apache::thrift::protocol::TProto
   return xfer;
 }
 
-uint32_t StupaThrift_add_document_presult::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_add_document_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
@@ -186,28 +186,28 @@ uint32_t StupaThrift_add_document_presult::read(apache::thrift::protocol::TProto
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_args::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_delete_document_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->document_id);
           this->__isset.document_id = true;
         } else {
@@ -226,10 +226,10 @@ uint32_t StupaThrift_delete_document_args::read(apache::thrift::protocol::TProto
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_args::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_delete_document_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_delete_document_args");
-  xfer += oprot->writeFieldBegin("document_id", apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("document_id", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->document_id);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -237,10 +237,10 @@ uint32_t StupaThrift_delete_document_args::write(apache::thrift::protocol::TProt
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_delete_document_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_delete_document_pargs");
-  xfer += oprot->writeFieldBegin("document_id", apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("document_id", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->document_id)));
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -248,22 +248,22 @@ uint32_t StupaThrift_delete_document_pargs::write(apache::thrift::protocol::TPro
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_result::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_delete_document_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
@@ -280,7 +280,7 @@ uint32_t StupaThrift_delete_document_result::read(apache::thrift::protocol::TPro
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_result::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_delete_document_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
@@ -291,22 +291,22 @@ uint32_t StupaThrift_delete_document_result::write(apache::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_presult::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_delete_document_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
@@ -323,22 +323,22 @@ uint32_t StupaThrift_delete_document_presult::read(apache::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t StupaThrift_size_args::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_size_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
@@ -355,7 +355,7 @@ uint32_t StupaThrift_size_args::read(apache::thrift::protocol::TProtocol* iprot)
   return xfer;
 }
 
-uint32_t StupaThrift_size_args::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_size_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_size_args");
   xfer += oprot->writeFieldStop();
@@ -363,7 +363,7 @@ uint32_t StupaThrift_size_args::write(apache::thrift::protocol::TProtocol* oprot
   return xfer;
 }
 
-uint32_t StupaThrift_size_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_size_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_size_pargs");
   xfer += oprot->writeFieldStop();
@@ -371,28 +371,28 @@ uint32_t StupaThrift_size_pargs::write(apache::thrift::protocol::TProtocol* opro
   return xfer;
 }
 
-uint32_t StupaThrift_size_result::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_size_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == apache::thrift::protocol::T_I64) {
+        if (ftype == ::apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(this->success);
           this->__isset.success = true;
         } else {
@@ -411,14 +411,14 @@ uint32_t StupaThrift_size_result::read(apache::thrift::protocol::TProtocol* ipro
   return xfer;
 }
 
-uint32_t StupaThrift_size_result::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_size_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("StupaThrift_size_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_I64, 0);
+    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_I64, 0);
     xfer += oprot->writeI64(this->success);
     xfer += oprot->writeFieldEnd();
   }
@@ -427,28 +427,28 @@ uint32_t StupaThrift_size_result::write(apache::thrift::protocol::TProtocol* opr
   return xfer;
 }
 
-uint32_t StupaThrift_size_presult::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_size_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == apache::thrift::protocol::T_I64) {
+        if (ftype == ::apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64((*(this->success)));
           this->__isset.success = true;
         } else {
@@ -467,28 +467,151 @@ uint32_t StupaThrift_size_presult::read(apache::thrift::protocol::TProtocol* ipr
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_args::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_clear_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t StupaThrift_clear_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  xfer += oprot->writeStructBegin("StupaThrift_clear_args");
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+uint32_t StupaThrift_clear_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  xfer += oprot->writeStructBegin("StupaThrift_clear_pargs");
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+uint32_t StupaThrift_clear_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t StupaThrift_clear_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+
+  uint32_t xfer = 0;
+
+  xfer += oprot->writeStructBegin("StupaThrift_clear_result");
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+uint32_t StupaThrift_clear_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t StupaThrift_search_by_document_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == apache::thrift::protocol::T_I64) {
+        if (ftype == ::apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(this->max);
           this->__isset.max = true;
         } else {
@@ -496,11 +619,11 @@ uint32_t StupaThrift_search_by_document_args::read(apache::thrift::protocol::TPr
         }
         break;
       case 2:
-        if (ftype == apache::thrift::protocol::T_LIST) {
+        if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->query.clear();
             uint32_t _size7;
-            apache::thrift::protocol::TType _etype10;
+            ::apache::thrift::protocol::TType _etype10;
             iprot->readListBegin(_etype10, _size7);
             this->query.resize(_size7);
             uint32_t _i11;
@@ -527,15 +650,15 @@ uint32_t StupaThrift_search_by_document_args::read(apache::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_args::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_search_by_document_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_search_by_document_args");
-  xfer += oprot->writeFieldBegin("max", apache::thrift::protocol::T_I64, 1);
+  xfer += oprot->writeFieldBegin("max", ::apache::thrift::protocol::T_I64, 1);
   xfer += oprot->writeI64(this->max);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("query", apache::thrift::protocol::T_LIST, 2);
+  xfer += oprot->writeFieldBegin("query", ::apache::thrift::protocol::T_LIST, 2);
   {
-    xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRING, this->query.size());
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, this->query.size());
     std::vector<std::string> ::const_iterator _iter12;
     for (_iter12 = this->query.begin(); _iter12 != this->query.end(); ++_iter12)
     {
@@ -549,15 +672,15 @@ uint32_t StupaThrift_search_by_document_args::write(apache::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_search_by_document_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_search_by_document_pargs");
-  xfer += oprot->writeFieldBegin("max", apache::thrift::protocol::T_I64, 1);
+  xfer += oprot->writeFieldBegin("max", ::apache::thrift::protocol::T_I64, 1);
   xfer += oprot->writeI64((*(this->max)));
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("query", apache::thrift::protocol::T_LIST, 2);
+  xfer += oprot->writeFieldBegin("query", ::apache::thrift::protocol::T_LIST, 2);
   {
-    xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRING, (*(this->query)).size());
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, (*(this->query)).size());
     std::vector<std::string> ::const_iterator _iter13;
     for (_iter13 = (*(this->query)).begin(); _iter13 != (*(this->query)).end(); ++_iter13)
     {
@@ -571,32 +694,32 @@ uint32_t StupaThrift_search_by_document_pargs::write(apache::thrift::protocol::T
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_result::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_search_by_document_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == apache::thrift::protocol::T_LIST) {
+        if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
             uint32_t _size14;
-            apache::thrift::protocol::TType _etype17;
+            ::apache::thrift::protocol::TType _etype17;
             iprot->readListBegin(_etype17, _size14);
             this->success.resize(_size14);
             uint32_t _i18;
@@ -623,16 +746,16 @@ uint32_t StupaThrift_search_by_document_result::read(apache::thrift::protocol::T
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_result::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_search_by_document_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("StupaThrift_search_by_document_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_LIST, 0);
+    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
-      xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->success.size());
+      xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, this->success.size());
       std::vector<SearchResult> ::const_iterator _iter19;
       for (_iter19 = this->success.begin(); _iter19 != this->success.end(); ++_iter19)
       {
@@ -647,32 +770,32 @@ uint32_t StupaThrift_search_by_document_result::write(apache::thrift::protocol::
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_presult::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_search_by_document_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == apache::thrift::protocol::T_LIST) {
+        if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
             uint32_t _size20;
-            apache::thrift::protocol::TType _etype23;
+            ::apache::thrift::protocol::TType _etype23;
             iprot->readListBegin(_etype23, _size20);
             (*(this->success)).resize(_size20);
             uint32_t _i24;
@@ -699,28 +822,28 @@ uint32_t StupaThrift_search_by_document_presult::read(apache::thrift::protocol::
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_args::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_search_by_feature_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == apache::thrift::protocol::T_I64) {
+        if (ftype == ::apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(this->max);
           this->__isset.max = true;
         } else {
@@ -728,11 +851,11 @@ uint32_t StupaThrift_search_by_feature_args::read(apache::thrift::protocol::TPro
         }
         break;
       case 2:
-        if (ftype == apache::thrift::protocol::T_LIST) {
+        if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->query.clear();
             uint32_t _size25;
-            apache::thrift::protocol::TType _etype28;
+            ::apache::thrift::protocol::TType _etype28;
             iprot->readListBegin(_etype28, _size25);
             this->query.resize(_size25);
             uint32_t _i29;
@@ -759,15 +882,15 @@ uint32_t StupaThrift_search_by_feature_args::read(apache::thrift::protocol::TPro
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_args::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_search_by_feature_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_search_by_feature_args");
-  xfer += oprot->writeFieldBegin("max", apache::thrift::protocol::T_I64, 1);
+  xfer += oprot->writeFieldBegin("max", ::apache::thrift::protocol::T_I64, 1);
   xfer += oprot->writeI64(this->max);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("query", apache::thrift::protocol::T_LIST, 2);
+  xfer += oprot->writeFieldBegin("query", ::apache::thrift::protocol::T_LIST, 2);
   {
-    xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRING, this->query.size());
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, this->query.size());
     std::vector<std::string> ::const_iterator _iter30;
     for (_iter30 = this->query.begin(); _iter30 != this->query.end(); ++_iter30)
     {
@@ -781,15 +904,15 @@ uint32_t StupaThrift_search_by_feature_args::write(apache::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_search_by_feature_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_search_by_feature_pargs");
-  xfer += oprot->writeFieldBegin("max", apache::thrift::protocol::T_I64, 1);
+  xfer += oprot->writeFieldBegin("max", ::apache::thrift::protocol::T_I64, 1);
   xfer += oprot->writeI64((*(this->max)));
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("query", apache::thrift::protocol::T_LIST, 2);
+  xfer += oprot->writeFieldBegin("query", ::apache::thrift::protocol::T_LIST, 2);
   {
-    xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRING, (*(this->query)).size());
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, (*(this->query)).size());
     std::vector<std::string> ::const_iterator _iter31;
     for (_iter31 = (*(this->query)).begin(); _iter31 != (*(this->query)).end(); ++_iter31)
     {
@@ -803,32 +926,32 @@ uint32_t StupaThrift_search_by_feature_pargs::write(apache::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_result::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_search_by_feature_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == apache::thrift::protocol::T_LIST) {
+        if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
             uint32_t _size32;
-            apache::thrift::protocol::TType _etype35;
+            ::apache::thrift::protocol::TType _etype35;
             iprot->readListBegin(_etype35, _size32);
             this->success.resize(_size32);
             uint32_t _i36;
@@ -855,16 +978,16 @@ uint32_t StupaThrift_search_by_feature_result::read(apache::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_result::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_search_by_feature_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("StupaThrift_search_by_feature_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_LIST, 0);
+    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
     {
-      xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->success.size());
+      xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRUCT, this->success.size());
       std::vector<SearchResult> ::const_iterator _iter37;
       for (_iter37 = this->success.begin(); _iter37 != this->success.end(); ++_iter37)
       {
@@ -879,32 +1002,32 @@ uint32_t StupaThrift_search_by_feature_result::write(apache::thrift::protocol::T
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_presult::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_search_by_feature_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == apache::thrift::protocol::T_LIST) {
+        if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
             uint32_t _size38;
-            apache::thrift::protocol::TType _etype41;
+            ::apache::thrift::protocol::TType _etype41;
             iprot->readListBegin(_etype41, _size38);
             (*(this->success)).resize(_size38);
             uint32_t _i42;
@@ -931,28 +1054,28 @@ uint32_t StupaThrift_search_by_feature_presult::read(apache::thrift::protocol::T
   return xfer;
 }
 
-uint32_t StupaThrift_save_args::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_save_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->filename);
           this->__isset.filename = true;
         } else {
@@ -971,10 +1094,10 @@ uint32_t StupaThrift_save_args::read(apache::thrift::protocol::TProtocol* iprot)
   return xfer;
 }
 
-uint32_t StupaThrift_save_args::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_save_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_save_args");
-  xfer += oprot->writeFieldBegin("filename", apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("filename", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->filename);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -982,10 +1105,10 @@ uint32_t StupaThrift_save_args::write(apache::thrift::protocol::TProtocol* oprot
   return xfer;
 }
 
-uint32_t StupaThrift_save_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_save_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_save_pargs");
-  xfer += oprot->writeFieldBegin("filename", apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("filename", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->filename)));
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -993,28 +1116,28 @@ uint32_t StupaThrift_save_pargs::write(apache::thrift::protocol::TProtocol* opro
   return xfer;
 }
 
-uint32_t StupaThrift_save_result::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_save_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == apache::thrift::protocol::T_BOOL) {
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->success);
           this->__isset.success = true;
         } else {
@@ -1033,14 +1156,14 @@ uint32_t StupaThrift_save_result::read(apache::thrift::protocol::TProtocol* ipro
   return xfer;
 }
 
-uint32_t StupaThrift_save_result::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_save_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("StupaThrift_save_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_BOOL, 0);
+    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_BOOL, 0);
     xfer += oprot->writeBool(this->success);
     xfer += oprot->writeFieldEnd();
   }
@@ -1049,28 +1172,28 @@ uint32_t StupaThrift_save_result::write(apache::thrift::protocol::TProtocol* opr
   return xfer;
 }
 
-uint32_t StupaThrift_save_presult::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_save_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == apache::thrift::protocol::T_BOOL) {
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool((*(this->success)));
           this->__isset.success = true;
         } else {
@@ -1089,28 +1212,28 @@ uint32_t StupaThrift_save_presult::read(apache::thrift::protocol::TProtocol* ipr
   return xfer;
 }
 
-uint32_t StupaThrift_load_args::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_load_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == apache::thrift::protocol::T_STRING) {
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->filename);
           this->__isset.filename = true;
         } else {
@@ -1129,10 +1252,10 @@ uint32_t StupaThrift_load_args::read(apache::thrift::protocol::TProtocol* iprot)
   return xfer;
 }
 
-uint32_t StupaThrift_load_args::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_load_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_load_args");
-  xfer += oprot->writeFieldBegin("filename", apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("filename", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->filename);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -1140,10 +1263,10 @@ uint32_t StupaThrift_load_args::write(apache::thrift::protocol::TProtocol* oprot
   return xfer;
 }
 
-uint32_t StupaThrift_load_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_load_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("StupaThrift_load_pargs");
-  xfer += oprot->writeFieldBegin("filename", apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("filename", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->filename)));
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -1151,28 +1274,28 @@ uint32_t StupaThrift_load_pargs::write(apache::thrift::protocol::TProtocol* opro
   return xfer;
 }
 
-uint32_t StupaThrift_load_result::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_load_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == apache::thrift::protocol::T_BOOL) {
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->success);
           this->__isset.success = true;
         } else {
@@ -1191,14 +1314,14 @@ uint32_t StupaThrift_load_result::read(apache::thrift::protocol::TProtocol* ipro
   return xfer;
 }
 
-uint32_t StupaThrift_load_result::write(apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t StupaThrift_load_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("StupaThrift_load_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_BOOL, 0);
+    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_BOOL, 0);
     xfer += oprot->writeBool(this->success);
     xfer += oprot->writeFieldEnd();
   }
@@ -1207,28 +1330,28 @@ uint32_t StupaThrift_load_result::write(apache::thrift::protocol::TProtocol* opr
   return xfer;
 }
 
-uint32_t StupaThrift_load_presult::read(apache::thrift::protocol::TProtocol* iprot) {
+uint32_t StupaThrift_load_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  apache::thrift::protocol::TType ftype;
+  ::apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using apache::thrift::protocol::TProtocolException;
+  using ::apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == apache::thrift::protocol::T_STOP) {
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == apache::thrift::protocol::T_BOOL) {
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool((*(this->success)));
           this->__isset.success = true;
         } else {
@@ -1256,7 +1379,7 @@ void StupaThriftClient::add_document(const std::string& document_id, const std::
 void StupaThriftClient::send_add_document(const std::string& document_id, const std::vector<std::string> & features)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("add_document", apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("add_document", ::apache::thrift::protocol::T_CALL, cseqid);
 
   StupaThrift_add_document_pargs args;
   args.document_id = &document_id;
@@ -1273,27 +1396,27 @@ void StupaThriftClient::recv_add_document()
 
   int32_t rseqid = 0;
   std::string fname;
-  apache::thrift::protocol::TMessageType mtype;
+  ::apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
-    apache::thrift::TApplicationException x;
+  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+    ::apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+  if (mtype != ::apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("add_document") != 0) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   StupaThrift_add_document_presult result;
   result.read(iprot_);
@@ -1312,7 +1435,7 @@ void StupaThriftClient::delete_document(const std::string& document_id)
 void StupaThriftClient::send_delete_document(const std::string& document_id)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("delete_document", apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("delete_document", ::apache::thrift::protocol::T_CALL, cseqid);
 
   StupaThrift_delete_document_pargs args;
   args.document_id = &document_id;
@@ -1328,27 +1451,27 @@ void StupaThriftClient::recv_delete_document()
 
   int32_t rseqid = 0;
   std::string fname;
-  apache::thrift::protocol::TMessageType mtype;
+  ::apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
-    apache::thrift::TApplicationException x;
+  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+    ::apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+  if (mtype != ::apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("delete_document") != 0) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   StupaThrift_delete_document_presult result;
   result.read(iprot_);
@@ -1367,7 +1490,7 @@ int64_t StupaThriftClient::size()
 void StupaThriftClient::send_size()
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("size", apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("size", ::apache::thrift::protocol::T_CALL, cseqid);
 
   StupaThrift_size_pargs args;
   args.write(oprot_);
@@ -1382,27 +1505,27 @@ int64_t StupaThriftClient::recv_size()
 
   int32_t rseqid = 0;
   std::string fname;
-  apache::thrift::protocol::TMessageType mtype;
+  ::apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
-    apache::thrift::TApplicationException x;
+  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+    ::apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+  if (mtype != ::apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("size") != 0) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   int64_t _return;
   StupaThrift_size_presult result;
@@ -1414,7 +1537,61 @@ int64_t StupaThriftClient::recv_size()
   if (result.__isset.success) {
     return _return;
   }
-  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "size failed: unknown result");
+  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "size failed: unknown result");
+}
+
+void StupaThriftClient::clear()
+{
+  send_clear();
+  recv_clear();
+}
+
+void StupaThriftClient::send_clear()
+{
+  int32_t cseqid = 0;
+  oprot_->writeMessageBegin("clear", ::apache::thrift::protocol::T_CALL, cseqid);
+
+  StupaThrift_clear_pargs args;
+  args.write(oprot_);
+
+  oprot_->writeMessageEnd();
+  oprot_->getTransport()->flush();
+  oprot_->getTransport()->writeEnd();
+}
+
+void StupaThriftClient::recv_clear()
+{
+
+  int32_t rseqid = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TMessageType mtype;
+
+  iprot_->readMessageBegin(fname, mtype, rseqid);
+  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+    ::apache::thrift::TApplicationException x;
+    x.read(iprot_);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw x;
+  }
+  if (mtype != ::apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+  }
+  if (fname.compare("clear") != 0) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
+  }
+  StupaThrift_clear_presult result;
+  result.read(iprot_);
+  iprot_->readMessageEnd();
+  iprot_->getTransport()->readEnd();
+
+  return;
 }
 
 void StupaThriftClient::search_by_document(std::vector<SearchResult> & _return, const int64_t max, const std::vector<std::string> & query)
@@ -1426,7 +1603,7 @@ void StupaThriftClient::search_by_document(std::vector<SearchResult> & _return, 
 void StupaThriftClient::send_search_by_document(const int64_t max, const std::vector<std::string> & query)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("search_by_document", apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("search_by_document", ::apache::thrift::protocol::T_CALL, cseqid);
 
   StupaThrift_search_by_document_pargs args;
   args.max = &max;
@@ -1443,27 +1620,27 @@ void StupaThriftClient::recv_search_by_document(std::vector<SearchResult> & _ret
 
   int32_t rseqid = 0;
   std::string fname;
-  apache::thrift::protocol::TMessageType mtype;
+  ::apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
-    apache::thrift::TApplicationException x;
+  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+    ::apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+  if (mtype != ::apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("search_by_document") != 0) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   StupaThrift_search_by_document_presult result;
   result.success = &_return;
@@ -1475,7 +1652,7 @@ void StupaThriftClient::recv_search_by_document(std::vector<SearchResult> & _ret
     // _return pointer has now been filled
     return;
   }
-  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "search_by_document failed: unknown result");
+  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "search_by_document failed: unknown result");
 }
 
 void StupaThriftClient::search_by_feature(std::vector<SearchResult> & _return, const int64_t max, const std::vector<std::string> & query)
@@ -1487,7 +1664,7 @@ void StupaThriftClient::search_by_feature(std::vector<SearchResult> & _return, c
 void StupaThriftClient::send_search_by_feature(const int64_t max, const std::vector<std::string> & query)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("search_by_feature", apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("search_by_feature", ::apache::thrift::protocol::T_CALL, cseqid);
 
   StupaThrift_search_by_feature_pargs args;
   args.max = &max;
@@ -1504,27 +1681,27 @@ void StupaThriftClient::recv_search_by_feature(std::vector<SearchResult> & _retu
 
   int32_t rseqid = 0;
   std::string fname;
-  apache::thrift::protocol::TMessageType mtype;
+  ::apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
-    apache::thrift::TApplicationException x;
+  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+    ::apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+  if (mtype != ::apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("search_by_feature") != 0) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   StupaThrift_search_by_feature_presult result;
   result.success = &_return;
@@ -1536,7 +1713,7 @@ void StupaThriftClient::recv_search_by_feature(std::vector<SearchResult> & _retu
     // _return pointer has now been filled
     return;
   }
-  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "search_by_feature failed: unknown result");
+  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "search_by_feature failed: unknown result");
 }
 
 bool StupaThriftClient::save(const std::string& filename)
@@ -1548,7 +1725,7 @@ bool StupaThriftClient::save(const std::string& filename)
 void StupaThriftClient::send_save(const std::string& filename)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("save", apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("save", ::apache::thrift::protocol::T_CALL, cseqid);
 
   StupaThrift_save_pargs args;
   args.filename = &filename;
@@ -1564,27 +1741,27 @@ bool StupaThriftClient::recv_save()
 
   int32_t rseqid = 0;
   std::string fname;
-  apache::thrift::protocol::TMessageType mtype;
+  ::apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
-    apache::thrift::TApplicationException x;
+  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+    ::apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+  if (mtype != ::apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("save") != 0) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   bool _return;
   StupaThrift_save_presult result;
@@ -1596,7 +1773,7 @@ bool StupaThriftClient::recv_save()
   if (result.__isset.success) {
     return _return;
   }
-  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "save failed: unknown result");
+  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "save failed: unknown result");
 }
 
 bool StupaThriftClient::load(const std::string& filename)
@@ -1608,7 +1785,7 @@ bool StupaThriftClient::load(const std::string& filename)
 void StupaThriftClient::send_load(const std::string& filename)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("load", apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("load", ::apache::thrift::protocol::T_CALL, cseqid);
 
   StupaThrift_load_pargs args;
   args.filename = &filename;
@@ -1624,27 +1801,27 @@ bool StupaThriftClient::recv_load()
 
   int32_t rseqid = 0;
   std::string fname;
-  apache::thrift::protocol::TMessageType mtype;
+  ::apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
-    apache::thrift::TApplicationException x;
+  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+    ::apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+  if (mtype != ::apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("load") != 0) {
-    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   bool _return;
   StupaThrift_load_presult result;
@@ -1656,25 +1833,25 @@ bool StupaThriftClient::recv_load()
   if (result.__isset.success) {
     return _return;
   }
-  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "load failed: unknown result");
+  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "load failed: unknown result");
 }
 
-bool StupaThriftProcessor::process(boost::shared_ptr<apache::thrift::protocol::TProtocol> piprot, boost::shared_ptr<apache::thrift::protocol::TProtocol> poprot) {
+bool StupaThriftProcessor::process(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot, boost::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot) {
 
-  apache::thrift::protocol::TProtocol* iprot = piprot.get();
-  apache::thrift::protocol::TProtocol* oprot = poprot.get();
+  ::apache::thrift::protocol::TProtocol* iprot = piprot.get();
+  ::apache::thrift::protocol::TProtocol* oprot = poprot.get();
   std::string fname;
-  apache::thrift::protocol::TMessageType mtype;
+  ::apache::thrift::protocol::TMessageType mtype;
   int32_t seqid;
 
   iprot->readMessageBegin(fname, mtype, seqid);
 
-  if (mtype != apache::thrift::protocol::T_CALL && mtype != apache::thrift::protocol::T_ONEWAY) {
-    iprot->skip(apache::thrift::protocol::T_STRUCT);
+  if (mtype != ::apache::thrift::protocol::T_CALL && mtype != ::apache::thrift::protocol::T_ONEWAY) {
+    iprot->skip(::apache::thrift::protocol::T_STRUCT);
     iprot->readMessageEnd();
     iprot->getTransport()->readEnd();
-    apache::thrift::TApplicationException x(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
-    oprot->writeMessageBegin(fname, apache::thrift::protocol::T_EXCEPTION, seqid);
+    ::apache::thrift::TApplicationException x(::apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    oprot->writeMessageBegin(fname, ::apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -1685,15 +1862,15 @@ bool StupaThriftProcessor::process(boost::shared_ptr<apache::thrift::protocol::T
   return process_fn(iprot, oprot, fname, seqid);
 }
 
-bool StupaThriftProcessor::process_fn(apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot, std::string& fname, int32_t seqid) {
-  std::map<std::string, void (StupaThriftProcessor::*)(int32_t, apache::thrift::protocol::TProtocol*, apache::thrift::protocol::TProtocol*)>::iterator pfn;
+bool StupaThriftProcessor::process_fn(::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, std::string& fname, int32_t seqid) {
+  std::map<std::string, void (StupaThriftProcessor::*)(int32_t, ::apache::thrift::protocol::TProtocol*, ::apache::thrift::protocol::TProtocol*)>::iterator pfn;
   pfn = processMap_.find(fname);
   if (pfn == processMap_.end()) {
-    iprot->skip(apache::thrift::protocol::T_STRUCT);
+    iprot->skip(::apache::thrift::protocol::T_STRUCT);
     iprot->readMessageEnd();
     iprot->getTransport()->readEnd();
-    apache::thrift::TApplicationException x(apache::thrift::TApplicationException::UNKNOWN_METHOD, "Invalid method name: '"+fname+"'");
-    oprot->writeMessageBegin(fname, apache::thrift::protocol::T_EXCEPTION, seqid);
+    ::apache::thrift::TApplicationException x(::apache::thrift::TApplicationException::UNKNOWN_METHOD, "Invalid method name: '"+fname+"'");
+    oprot->writeMessageBegin(fname, ::apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -1704,7 +1881,7 @@ bool StupaThriftProcessor::process_fn(apache::thrift::protocol::TProtocol* iprot
   return true;
 }
 
-void StupaThriftProcessor::process_add_document(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
+void StupaThriftProcessor::process_add_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
   StupaThrift_add_document_args args;
   args.read(iprot);
@@ -1715,8 +1892,8 @@ void StupaThriftProcessor::process_add_document(int32_t seqid, apache::thrift::p
   try {
     iface_->add_document(args.document_id, args.features);
   } catch (const std::exception& e) {
-    apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("add_document", apache::thrift::protocol::T_EXCEPTION, seqid);
+    ::apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("add_document", ::apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -1724,14 +1901,14 @@ void StupaThriftProcessor::process_add_document(int32_t seqid, apache::thrift::p
     return;
   }
 
-  oprot->writeMessageBegin("add_document", apache::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("add_document", ::apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_delete_document(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
+void StupaThriftProcessor::process_delete_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
   StupaThrift_delete_document_args args;
   args.read(iprot);
@@ -1742,8 +1919,8 @@ void StupaThriftProcessor::process_delete_document(int32_t seqid, apache::thrift
   try {
     iface_->delete_document(args.document_id);
   } catch (const std::exception& e) {
-    apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("delete_document", apache::thrift::protocol::T_EXCEPTION, seqid);
+    ::apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("delete_document", ::apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -1751,14 +1928,14 @@ void StupaThriftProcessor::process_delete_document(int32_t seqid, apache::thrift
     return;
   }
 
-  oprot->writeMessageBegin("delete_document", apache::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("delete_document", ::apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_size(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
+void StupaThriftProcessor::process_size(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
   StupaThrift_size_args args;
   args.read(iprot);
@@ -1770,8 +1947,8 @@ void StupaThriftProcessor::process_size(int32_t seqid, apache::thrift::protocol:
     result.success = iface_->size();
     result.__isset.success = true;
   } catch (const std::exception& e) {
-    apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("size", apache::thrift::protocol::T_EXCEPTION, seqid);
+    ::apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("size", ::apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -1779,14 +1956,41 @@ void StupaThriftProcessor::process_size(int32_t seqid, apache::thrift::protocol:
     return;
   }
 
-  oprot->writeMessageBegin("size", apache::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("size", ::apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_search_by_document(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
+void StupaThriftProcessor::process_clear(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
+{
+  StupaThrift_clear_args args;
+  args.read(iprot);
+  iprot->readMessageEnd();
+  iprot->getTransport()->readEnd();
+
+  StupaThrift_clear_result result;
+  try {
+    iface_->clear();
+  } catch (const std::exception& e) {
+    ::apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("clear", ::apache::thrift::protocol::T_EXCEPTION, seqid);
+    x.write(oprot);
+    oprot->writeMessageEnd();
+    oprot->getTransport()->flush();
+    oprot->getTransport()->writeEnd();
+    return;
+  }
+
+  oprot->writeMessageBegin("clear", ::apache::thrift::protocol::T_REPLY, seqid);
+  result.write(oprot);
+  oprot->writeMessageEnd();
+  oprot->getTransport()->flush();
+  oprot->getTransport()->writeEnd();
+}
+
+void StupaThriftProcessor::process_search_by_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
   StupaThrift_search_by_document_args args;
   args.read(iprot);
@@ -1798,8 +2002,8 @@ void StupaThriftProcessor::process_search_by_document(int32_t seqid, apache::thr
     iface_->search_by_document(result.success, args.max, args.query);
     result.__isset.success = true;
   } catch (const std::exception& e) {
-    apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("search_by_document", apache::thrift::protocol::T_EXCEPTION, seqid);
+    ::apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("search_by_document", ::apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -1807,14 +2011,14 @@ void StupaThriftProcessor::process_search_by_document(int32_t seqid, apache::thr
     return;
   }
 
-  oprot->writeMessageBegin("search_by_document", apache::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("search_by_document", ::apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_search_by_feature(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
+void StupaThriftProcessor::process_search_by_feature(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
   StupaThrift_search_by_feature_args args;
   args.read(iprot);
@@ -1826,8 +2030,8 @@ void StupaThriftProcessor::process_search_by_feature(int32_t seqid, apache::thri
     iface_->search_by_feature(result.success, args.max, args.query);
     result.__isset.success = true;
   } catch (const std::exception& e) {
-    apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("search_by_feature", apache::thrift::protocol::T_EXCEPTION, seqid);
+    ::apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("search_by_feature", ::apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -1835,14 +2039,14 @@ void StupaThriftProcessor::process_search_by_feature(int32_t seqid, apache::thri
     return;
   }
 
-  oprot->writeMessageBegin("search_by_feature", apache::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("search_by_feature", ::apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_save(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
+void StupaThriftProcessor::process_save(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
   StupaThrift_save_args args;
   args.read(iprot);
@@ -1854,8 +2058,8 @@ void StupaThriftProcessor::process_save(int32_t seqid, apache::thrift::protocol:
     result.success = iface_->save(args.filename);
     result.__isset.success = true;
   } catch (const std::exception& e) {
-    apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("save", apache::thrift::protocol::T_EXCEPTION, seqid);
+    ::apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("save", ::apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -1863,14 +2067,14 @@ void StupaThriftProcessor::process_save(int32_t seqid, apache::thrift::protocol:
     return;
   }
 
-  oprot->writeMessageBegin("save", apache::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("save", ::apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_load(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
+void StupaThriftProcessor::process_load(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
   StupaThrift_load_args args;
   args.read(iprot);
@@ -1882,8 +2086,8 @@ void StupaThriftProcessor::process_load(int32_t seqid, apache::thrift::protocol:
     result.success = iface_->load(args.filename);
     result.__isset.success = true;
   } catch (const std::exception& e) {
-    apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("load", apache::thrift::protocol::T_EXCEPTION, seqid);
+    ::apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("load", ::apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -1891,7 +2095,7 @@ void StupaThriftProcessor::process_load(int32_t seqid, apache::thrift::protocol:
     return;
   }
 
-  oprot->writeMessageBegin("load", apache::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("load", ::apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
