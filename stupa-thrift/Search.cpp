@@ -3,11 +3,11 @@
  *
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  */
-#include "StupaThrift.h"
+#include "Search.h"
 
+namespace stupa { namespace thrift {
 
-
-uint32_t StupaThrift_add_document_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_add_document_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -67,9 +67,9 @@ uint32_t StupaThrift_add_document_args::read(::apache::thrift::protocol::TProtoc
   return xfer;
 }
 
-uint32_t StupaThrift_add_document_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_add_document_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_add_document_args");
+  xfer += oprot->writeStructBegin("Search_add_document_args");
   xfer += oprot->writeFieldBegin("document_id", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->document_id);
   xfer += oprot->writeFieldEnd();
@@ -89,9 +89,9 @@ uint32_t StupaThrift_add_document_args::write(::apache::thrift::protocol::TProto
   return xfer;
 }
 
-uint32_t StupaThrift_add_document_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_add_document_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_add_document_pargs");
+  xfer += oprot->writeStructBegin("Search_add_document_pargs");
   xfer += oprot->writeFieldBegin("document_id", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->document_id)));
   xfer += oprot->writeFieldEnd();
@@ -111,7 +111,7 @@ uint32_t StupaThrift_add_document_pargs::write(::apache::thrift::protocol::TProt
   return xfer;
 }
 
-uint32_t StupaThrift_add_document_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_add_document_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -143,18 +143,18 @@ uint32_t StupaThrift_add_document_result::read(::apache::thrift::protocol::TProt
   return xfer;
 }
 
-uint32_t StupaThrift_add_document_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_add_document_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
-  xfer += oprot->writeStructBegin("StupaThrift_add_document_result");
+  xfer += oprot->writeStructBegin("Search_add_document_result");
 
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-uint32_t StupaThrift_add_document_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_add_document_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -186,7 +186,7 @@ uint32_t StupaThrift_add_document_presult::read(::apache::thrift::protocol::TPro
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_delete_document_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -226,9 +226,9 @@ uint32_t StupaThrift_delete_document_args::read(::apache::thrift::protocol::TPro
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_delete_document_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_delete_document_args");
+  xfer += oprot->writeStructBegin("Search_delete_document_args");
   xfer += oprot->writeFieldBegin("document_id", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->document_id);
   xfer += oprot->writeFieldEnd();
@@ -237,9 +237,9 @@ uint32_t StupaThrift_delete_document_args::write(::apache::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_delete_document_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_delete_document_pargs");
+  xfer += oprot->writeStructBegin("Search_delete_document_pargs");
   xfer += oprot->writeFieldBegin("document_id", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->document_id)));
   xfer += oprot->writeFieldEnd();
@@ -248,7 +248,7 @@ uint32_t StupaThrift_delete_document_pargs::write(::apache::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_delete_document_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -280,18 +280,18 @@ uint32_t StupaThrift_delete_document_result::read(::apache::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_delete_document_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
-  xfer += oprot->writeStructBegin("StupaThrift_delete_document_result");
+  xfer += oprot->writeStructBegin("Search_delete_document_result");
 
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-uint32_t StupaThrift_delete_document_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_delete_document_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -323,7 +323,7 @@ uint32_t StupaThrift_delete_document_presult::read(::apache::thrift::protocol::T
   return xfer;
 }
 
-uint32_t StupaThrift_size_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_size_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -355,23 +355,23 @@ uint32_t StupaThrift_size_args::read(::apache::thrift::protocol::TProtocol* ipro
   return xfer;
 }
 
-uint32_t StupaThrift_size_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_size_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_size_args");
+  xfer += oprot->writeStructBegin("Search_size_args");
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-uint32_t StupaThrift_size_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_size_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_size_pargs");
+  xfer += oprot->writeStructBegin("Search_size_pargs");
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-uint32_t StupaThrift_size_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_size_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -411,11 +411,11 @@ uint32_t StupaThrift_size_result::read(::apache::thrift::protocol::TProtocol* ip
   return xfer;
 }
 
-uint32_t StupaThrift_size_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_size_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
-  xfer += oprot->writeStructBegin("StupaThrift_size_result");
+  xfer += oprot->writeStructBegin("Search_size_result");
 
   if (this->__isset.success) {
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_I64, 0);
@@ -427,7 +427,7 @@ uint32_t StupaThrift_size_result::write(::apache::thrift::protocol::TProtocol* o
   return xfer;
 }
 
-uint32_t StupaThrift_size_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_size_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -467,7 +467,7 @@ uint32_t StupaThrift_size_presult::read(::apache::thrift::protocol::TProtocol* i
   return xfer;
 }
 
-uint32_t StupaThrift_clear_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_clear_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -499,23 +499,23 @@ uint32_t StupaThrift_clear_args::read(::apache::thrift::protocol::TProtocol* ipr
   return xfer;
 }
 
-uint32_t StupaThrift_clear_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_clear_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_clear_args");
+  xfer += oprot->writeStructBegin("Search_clear_args");
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-uint32_t StupaThrift_clear_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_clear_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_clear_pargs");
+  xfer += oprot->writeStructBegin("Search_clear_pargs");
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-uint32_t StupaThrift_clear_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_clear_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -547,18 +547,18 @@ uint32_t StupaThrift_clear_result::read(::apache::thrift::protocol::TProtocol* i
   return xfer;
 }
 
-uint32_t StupaThrift_clear_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_clear_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
-  xfer += oprot->writeStructBegin("StupaThrift_clear_result");
+  xfer += oprot->writeStructBegin("Search_clear_result");
 
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-uint32_t StupaThrift_clear_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_clear_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -590,7 +590,7 @@ uint32_t StupaThrift_clear_presult::read(::apache::thrift::protocol::TProtocol* 
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_search_by_document_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -650,9 +650,9 @@ uint32_t StupaThrift_search_by_document_args::read(::apache::thrift::protocol::T
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_search_by_document_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_search_by_document_args");
+  xfer += oprot->writeStructBegin("Search_search_by_document_args");
   xfer += oprot->writeFieldBegin("max", ::apache::thrift::protocol::T_I64, 1);
   xfer += oprot->writeI64(this->max);
   xfer += oprot->writeFieldEnd();
@@ -672,9 +672,9 @@ uint32_t StupaThrift_search_by_document_args::write(::apache::thrift::protocol::
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_search_by_document_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_search_by_document_pargs");
+  xfer += oprot->writeStructBegin("Search_search_by_document_pargs");
   xfer += oprot->writeFieldBegin("max", ::apache::thrift::protocol::T_I64, 1);
   xfer += oprot->writeI64((*(this->max)));
   xfer += oprot->writeFieldEnd();
@@ -694,7 +694,7 @@ uint32_t StupaThrift_search_by_document_pargs::write(::apache::thrift::protocol:
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_search_by_document_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -746,11 +746,11 @@ uint32_t StupaThrift_search_by_document_result::read(::apache::thrift::protocol:
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_search_by_document_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
-  xfer += oprot->writeStructBegin("StupaThrift_search_by_document_result");
+  xfer += oprot->writeStructBegin("Search_search_by_document_result");
 
   if (this->__isset.success) {
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
@@ -770,7 +770,7 @@ uint32_t StupaThrift_search_by_document_result::write(::apache::thrift::protocol
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_document_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_search_by_document_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -822,7 +822,7 @@ uint32_t StupaThrift_search_by_document_presult::read(::apache::thrift::protocol
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_search_by_feature_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -882,9 +882,9 @@ uint32_t StupaThrift_search_by_feature_args::read(::apache::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_search_by_feature_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_search_by_feature_args");
+  xfer += oprot->writeStructBegin("Search_search_by_feature_args");
   xfer += oprot->writeFieldBegin("max", ::apache::thrift::protocol::T_I64, 1);
   xfer += oprot->writeI64(this->max);
   xfer += oprot->writeFieldEnd();
@@ -904,9 +904,9 @@ uint32_t StupaThrift_search_by_feature_args::write(::apache::thrift::protocol::T
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_search_by_feature_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_search_by_feature_pargs");
+  xfer += oprot->writeStructBegin("Search_search_by_feature_pargs");
   xfer += oprot->writeFieldBegin("max", ::apache::thrift::protocol::T_I64, 1);
   xfer += oprot->writeI64((*(this->max)));
   xfer += oprot->writeFieldEnd();
@@ -926,7 +926,7 @@ uint32_t StupaThrift_search_by_feature_pargs::write(::apache::thrift::protocol::
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_search_by_feature_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -978,11 +978,11 @@ uint32_t StupaThrift_search_by_feature_result::read(::apache::thrift::protocol::
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_search_by_feature_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
-  xfer += oprot->writeStructBegin("StupaThrift_search_by_feature_result");
+  xfer += oprot->writeStructBegin("Search_search_by_feature_result");
 
   if (this->__isset.success) {
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
@@ -1002,7 +1002,7 @@ uint32_t StupaThrift_search_by_feature_result::write(::apache::thrift::protocol:
   return xfer;
 }
 
-uint32_t StupaThrift_search_by_feature_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_search_by_feature_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -1054,7 +1054,7 @@ uint32_t StupaThrift_search_by_feature_presult::read(::apache::thrift::protocol:
   return xfer;
 }
 
-uint32_t StupaThrift_save_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_save_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -1094,9 +1094,9 @@ uint32_t StupaThrift_save_args::read(::apache::thrift::protocol::TProtocol* ipro
   return xfer;
 }
 
-uint32_t StupaThrift_save_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_save_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_save_args");
+  xfer += oprot->writeStructBegin("Search_save_args");
   xfer += oprot->writeFieldBegin("filename", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->filename);
   xfer += oprot->writeFieldEnd();
@@ -1105,9 +1105,9 @@ uint32_t StupaThrift_save_args::write(::apache::thrift::protocol::TProtocol* opr
   return xfer;
 }
 
-uint32_t StupaThrift_save_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_save_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_save_pargs");
+  xfer += oprot->writeStructBegin("Search_save_pargs");
   xfer += oprot->writeFieldBegin("filename", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->filename)));
   xfer += oprot->writeFieldEnd();
@@ -1116,7 +1116,7 @@ uint32_t StupaThrift_save_pargs::write(::apache::thrift::protocol::TProtocol* op
   return xfer;
 }
 
-uint32_t StupaThrift_save_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_save_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -1156,11 +1156,11 @@ uint32_t StupaThrift_save_result::read(::apache::thrift::protocol::TProtocol* ip
   return xfer;
 }
 
-uint32_t StupaThrift_save_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_save_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
-  xfer += oprot->writeStructBegin("StupaThrift_save_result");
+  xfer += oprot->writeStructBegin("Search_save_result");
 
   if (this->__isset.success) {
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_BOOL, 0);
@@ -1172,7 +1172,7 @@ uint32_t StupaThrift_save_result::write(::apache::thrift::protocol::TProtocol* o
   return xfer;
 }
 
-uint32_t StupaThrift_save_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_save_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -1212,7 +1212,7 @@ uint32_t StupaThrift_save_presult::read(::apache::thrift::protocol::TProtocol* i
   return xfer;
 }
 
-uint32_t StupaThrift_load_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_load_args::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -1252,9 +1252,9 @@ uint32_t StupaThrift_load_args::read(::apache::thrift::protocol::TProtocol* ipro
   return xfer;
 }
 
-uint32_t StupaThrift_load_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_load_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_load_args");
+  xfer += oprot->writeStructBegin("Search_load_args");
   xfer += oprot->writeFieldBegin("filename", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->filename);
   xfer += oprot->writeFieldEnd();
@@ -1263,9 +1263,9 @@ uint32_t StupaThrift_load_args::write(::apache::thrift::protocol::TProtocol* opr
   return xfer;
 }
 
-uint32_t StupaThrift_load_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_load_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
-  xfer += oprot->writeStructBegin("StupaThrift_load_pargs");
+  xfer += oprot->writeStructBegin("Search_load_pargs");
   xfer += oprot->writeFieldBegin("filename", ::apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->filename)));
   xfer += oprot->writeFieldEnd();
@@ -1274,7 +1274,7 @@ uint32_t StupaThrift_load_pargs::write(::apache::thrift::protocol::TProtocol* op
   return xfer;
 }
 
-uint32_t StupaThrift_load_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_load_result::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -1314,11 +1314,11 @@ uint32_t StupaThrift_load_result::read(::apache::thrift::protocol::TProtocol* ip
   return xfer;
 }
 
-uint32_t StupaThrift_load_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t Search_load_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
-  xfer += oprot->writeStructBegin("StupaThrift_load_result");
+  xfer += oprot->writeStructBegin("Search_load_result");
 
   if (this->__isset.success) {
     xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_BOOL, 0);
@@ -1330,7 +1330,7 @@ uint32_t StupaThrift_load_result::write(::apache::thrift::protocol::TProtocol* o
   return xfer;
 }
 
-uint32_t StupaThrift_load_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t Search_load_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
@@ -1370,18 +1370,18 @@ uint32_t StupaThrift_load_presult::read(::apache::thrift::protocol::TProtocol* i
   return xfer;
 }
 
-void StupaThriftClient::add_document(const std::string& document_id, const std::vector<std::string> & features)
+void SearchClient::add_document(const std::string& document_id, const std::vector<std::string> & features)
 {
   send_add_document(document_id, features);
   recv_add_document();
 }
 
-void StupaThriftClient::send_add_document(const std::string& document_id, const std::vector<std::string> & features)
+void SearchClient::send_add_document(const std::string& document_id, const std::vector<std::string> & features)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("add_document", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  StupaThrift_add_document_pargs args;
+  Search_add_document_pargs args;
   args.document_id = &document_id;
   args.features = &features;
   args.write(oprot_);
@@ -1391,7 +1391,7 @@ void StupaThriftClient::send_add_document(const std::string& document_id, const 
   oprot_->getTransport()->writeEnd();
 }
 
-void StupaThriftClient::recv_add_document()
+void SearchClient::recv_add_document()
 {
 
   int32_t rseqid = 0;
@@ -1418,7 +1418,7 @@ void StupaThriftClient::recv_add_document()
     iprot_->getTransport()->readEnd();
     throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
-  StupaThrift_add_document_presult result;
+  Search_add_document_presult result;
   result.read(iprot_);
   iprot_->readMessageEnd();
   iprot_->getTransport()->readEnd();
@@ -1426,18 +1426,18 @@ void StupaThriftClient::recv_add_document()
   return;
 }
 
-void StupaThriftClient::delete_document(const std::string& document_id)
+void SearchClient::delete_document(const std::string& document_id)
 {
   send_delete_document(document_id);
   recv_delete_document();
 }
 
-void StupaThriftClient::send_delete_document(const std::string& document_id)
+void SearchClient::send_delete_document(const std::string& document_id)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("delete_document", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  StupaThrift_delete_document_pargs args;
+  Search_delete_document_pargs args;
   args.document_id = &document_id;
   args.write(oprot_);
 
@@ -1446,7 +1446,7 @@ void StupaThriftClient::send_delete_document(const std::string& document_id)
   oprot_->getTransport()->writeEnd();
 }
 
-void StupaThriftClient::recv_delete_document()
+void SearchClient::recv_delete_document()
 {
 
   int32_t rseqid = 0;
@@ -1473,7 +1473,7 @@ void StupaThriftClient::recv_delete_document()
     iprot_->getTransport()->readEnd();
     throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
-  StupaThrift_delete_document_presult result;
+  Search_delete_document_presult result;
   result.read(iprot_);
   iprot_->readMessageEnd();
   iprot_->getTransport()->readEnd();
@@ -1481,18 +1481,18 @@ void StupaThriftClient::recv_delete_document()
   return;
 }
 
-int64_t StupaThriftClient::size()
+int64_t SearchClient::size()
 {
   send_size();
   return recv_size();
 }
 
-void StupaThriftClient::send_size()
+void SearchClient::send_size()
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("size", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  StupaThrift_size_pargs args;
+  Search_size_pargs args;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -1500,7 +1500,7 @@ void StupaThriftClient::send_size()
   oprot_->getTransport()->writeEnd();
 }
 
-int64_t StupaThriftClient::recv_size()
+int64_t SearchClient::recv_size()
 {
 
   int32_t rseqid = 0;
@@ -1528,7 +1528,7 @@ int64_t StupaThriftClient::recv_size()
     throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   int64_t _return;
-  StupaThrift_size_presult result;
+  Search_size_presult result;
   result.success = &_return;
   result.read(iprot_);
   iprot_->readMessageEnd();
@@ -1540,18 +1540,18 @@ int64_t StupaThriftClient::recv_size()
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "size failed: unknown result");
 }
 
-void StupaThriftClient::clear()
+void SearchClient::clear()
 {
   send_clear();
   recv_clear();
 }
 
-void StupaThriftClient::send_clear()
+void SearchClient::send_clear()
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("clear", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  StupaThrift_clear_pargs args;
+  Search_clear_pargs args;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -1559,7 +1559,7 @@ void StupaThriftClient::send_clear()
   oprot_->getTransport()->writeEnd();
 }
 
-void StupaThriftClient::recv_clear()
+void SearchClient::recv_clear()
 {
 
   int32_t rseqid = 0;
@@ -1586,7 +1586,7 @@ void StupaThriftClient::recv_clear()
     iprot_->getTransport()->readEnd();
     throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
-  StupaThrift_clear_presult result;
+  Search_clear_presult result;
   result.read(iprot_);
   iprot_->readMessageEnd();
   iprot_->getTransport()->readEnd();
@@ -1594,18 +1594,18 @@ void StupaThriftClient::recv_clear()
   return;
 }
 
-void StupaThriftClient::search_by_document(std::vector<SearchResult> & _return, const int64_t max, const std::vector<std::string> & query)
+void SearchClient::search_by_document(std::vector<SearchResult> & _return, const int64_t max, const std::vector<std::string> & query)
 {
   send_search_by_document(max, query);
   recv_search_by_document(_return);
 }
 
-void StupaThriftClient::send_search_by_document(const int64_t max, const std::vector<std::string> & query)
+void SearchClient::send_search_by_document(const int64_t max, const std::vector<std::string> & query)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("search_by_document", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  StupaThrift_search_by_document_pargs args;
+  Search_search_by_document_pargs args;
   args.max = &max;
   args.query = &query;
   args.write(oprot_);
@@ -1615,7 +1615,7 @@ void StupaThriftClient::send_search_by_document(const int64_t max, const std::ve
   oprot_->getTransport()->writeEnd();
 }
 
-void StupaThriftClient::recv_search_by_document(std::vector<SearchResult> & _return)
+void SearchClient::recv_search_by_document(std::vector<SearchResult> & _return)
 {
 
   int32_t rseqid = 0;
@@ -1642,7 +1642,7 @@ void StupaThriftClient::recv_search_by_document(std::vector<SearchResult> & _ret
     iprot_->getTransport()->readEnd();
     throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
-  StupaThrift_search_by_document_presult result;
+  Search_search_by_document_presult result;
   result.success = &_return;
   result.read(iprot_);
   iprot_->readMessageEnd();
@@ -1655,18 +1655,18 @@ void StupaThriftClient::recv_search_by_document(std::vector<SearchResult> & _ret
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "search_by_document failed: unknown result");
 }
 
-void StupaThriftClient::search_by_feature(std::vector<SearchResult> & _return, const int64_t max, const std::vector<std::string> & query)
+void SearchClient::search_by_feature(std::vector<SearchResult> & _return, const int64_t max, const std::vector<std::string> & query)
 {
   send_search_by_feature(max, query);
   recv_search_by_feature(_return);
 }
 
-void StupaThriftClient::send_search_by_feature(const int64_t max, const std::vector<std::string> & query)
+void SearchClient::send_search_by_feature(const int64_t max, const std::vector<std::string> & query)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("search_by_feature", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  StupaThrift_search_by_feature_pargs args;
+  Search_search_by_feature_pargs args;
   args.max = &max;
   args.query = &query;
   args.write(oprot_);
@@ -1676,7 +1676,7 @@ void StupaThriftClient::send_search_by_feature(const int64_t max, const std::vec
   oprot_->getTransport()->writeEnd();
 }
 
-void StupaThriftClient::recv_search_by_feature(std::vector<SearchResult> & _return)
+void SearchClient::recv_search_by_feature(std::vector<SearchResult> & _return)
 {
 
   int32_t rseqid = 0;
@@ -1703,7 +1703,7 @@ void StupaThriftClient::recv_search_by_feature(std::vector<SearchResult> & _retu
     iprot_->getTransport()->readEnd();
     throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
-  StupaThrift_search_by_feature_presult result;
+  Search_search_by_feature_presult result;
   result.success = &_return;
   result.read(iprot_);
   iprot_->readMessageEnd();
@@ -1716,18 +1716,18 @@ void StupaThriftClient::recv_search_by_feature(std::vector<SearchResult> & _retu
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "search_by_feature failed: unknown result");
 }
 
-bool StupaThriftClient::save(const std::string& filename)
+bool SearchClient::save(const std::string& filename)
 {
   send_save(filename);
   return recv_save();
 }
 
-void StupaThriftClient::send_save(const std::string& filename)
+void SearchClient::send_save(const std::string& filename)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("save", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  StupaThrift_save_pargs args;
+  Search_save_pargs args;
   args.filename = &filename;
   args.write(oprot_);
 
@@ -1736,7 +1736,7 @@ void StupaThriftClient::send_save(const std::string& filename)
   oprot_->getTransport()->writeEnd();
 }
 
-bool StupaThriftClient::recv_save()
+bool SearchClient::recv_save()
 {
 
   int32_t rseqid = 0;
@@ -1764,7 +1764,7 @@ bool StupaThriftClient::recv_save()
     throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   bool _return;
-  StupaThrift_save_presult result;
+  Search_save_presult result;
   result.success = &_return;
   result.read(iprot_);
   iprot_->readMessageEnd();
@@ -1776,18 +1776,18 @@ bool StupaThriftClient::recv_save()
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "save failed: unknown result");
 }
 
-bool StupaThriftClient::load(const std::string& filename)
+bool SearchClient::load(const std::string& filename)
 {
   send_load(filename);
   return recv_load();
 }
 
-void StupaThriftClient::send_load(const std::string& filename)
+void SearchClient::send_load(const std::string& filename)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("load", ::apache::thrift::protocol::T_CALL, cseqid);
 
-  StupaThrift_load_pargs args;
+  Search_load_pargs args;
   args.filename = &filename;
   args.write(oprot_);
 
@@ -1796,7 +1796,7 @@ void StupaThriftClient::send_load(const std::string& filename)
   oprot_->getTransport()->writeEnd();
 }
 
-bool StupaThriftClient::recv_load()
+bool SearchClient::recv_load()
 {
 
   int32_t rseqid = 0;
@@ -1824,7 +1824,7 @@ bool StupaThriftClient::recv_load()
     throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   bool _return;
-  StupaThrift_load_presult result;
+  Search_load_presult result;
   result.success = &_return;
   result.read(iprot_);
   iprot_->readMessageEnd();
@@ -1836,7 +1836,7 @@ bool StupaThriftClient::recv_load()
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "load failed: unknown result");
 }
 
-bool StupaThriftProcessor::process(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot, boost::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot) {
+bool SearchProcessor::process(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot, boost::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot) {
 
   ::apache::thrift::protocol::TProtocol* iprot = piprot.get();
   ::apache::thrift::protocol::TProtocol* oprot = poprot.get();
@@ -1862,8 +1862,8 @@ bool StupaThriftProcessor::process(boost::shared_ptr< ::apache::thrift::protocol
   return process_fn(iprot, oprot, fname, seqid);
 }
 
-bool StupaThriftProcessor::process_fn(::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, std::string& fname, int32_t seqid) {
-  std::map<std::string, void (StupaThriftProcessor::*)(int32_t, ::apache::thrift::protocol::TProtocol*, ::apache::thrift::protocol::TProtocol*)>::iterator pfn;
+bool SearchProcessor::process_fn(::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, std::string& fname, int32_t seqid) {
+  std::map<std::string, void (SearchProcessor::*)(int32_t, ::apache::thrift::protocol::TProtocol*, ::apache::thrift::protocol::TProtocol*)>::iterator pfn;
   pfn = processMap_.find(fname);
   if (pfn == processMap_.end()) {
     iprot->skip(::apache::thrift::protocol::T_STRUCT);
@@ -1881,14 +1881,14 @@ bool StupaThriftProcessor::process_fn(::apache::thrift::protocol::TProtocol* ipr
   return true;
 }
 
-void StupaThriftProcessor::process_add_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
+void SearchProcessor::process_add_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
-  StupaThrift_add_document_args args;
+  Search_add_document_args args;
   args.read(iprot);
   iprot->readMessageEnd();
   iprot->getTransport()->readEnd();
 
-  StupaThrift_add_document_result result;
+  Search_add_document_result result;
   try {
     iface_->add_document(args.document_id, args.features);
   } catch (const std::exception& e) {
@@ -1908,14 +1908,14 @@ void StupaThriftProcessor::process_add_document(int32_t seqid, ::apache::thrift:
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_delete_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
+void SearchProcessor::process_delete_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
-  StupaThrift_delete_document_args args;
+  Search_delete_document_args args;
   args.read(iprot);
   iprot->readMessageEnd();
   iprot->getTransport()->readEnd();
 
-  StupaThrift_delete_document_result result;
+  Search_delete_document_result result;
   try {
     iface_->delete_document(args.document_id);
   } catch (const std::exception& e) {
@@ -1935,14 +1935,14 @@ void StupaThriftProcessor::process_delete_document(int32_t seqid, ::apache::thri
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_size(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
+void SearchProcessor::process_size(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
-  StupaThrift_size_args args;
+  Search_size_args args;
   args.read(iprot);
   iprot->readMessageEnd();
   iprot->getTransport()->readEnd();
 
-  StupaThrift_size_result result;
+  Search_size_result result;
   try {
     result.success = iface_->size();
     result.__isset.success = true;
@@ -1963,14 +1963,14 @@ void StupaThriftProcessor::process_size(int32_t seqid, ::apache::thrift::protoco
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_clear(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
+void SearchProcessor::process_clear(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
-  StupaThrift_clear_args args;
+  Search_clear_args args;
   args.read(iprot);
   iprot->readMessageEnd();
   iprot->getTransport()->readEnd();
 
-  StupaThrift_clear_result result;
+  Search_clear_result result;
   try {
     iface_->clear();
   } catch (const std::exception& e) {
@@ -1990,14 +1990,14 @@ void StupaThriftProcessor::process_clear(int32_t seqid, ::apache::thrift::protoc
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_search_by_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
+void SearchProcessor::process_search_by_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
-  StupaThrift_search_by_document_args args;
+  Search_search_by_document_args args;
   args.read(iprot);
   iprot->readMessageEnd();
   iprot->getTransport()->readEnd();
 
-  StupaThrift_search_by_document_result result;
+  Search_search_by_document_result result;
   try {
     iface_->search_by_document(result.success, args.max, args.query);
     result.__isset.success = true;
@@ -2018,14 +2018,14 @@ void StupaThriftProcessor::process_search_by_document(int32_t seqid, ::apache::t
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_search_by_feature(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
+void SearchProcessor::process_search_by_feature(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
-  StupaThrift_search_by_feature_args args;
+  Search_search_by_feature_args args;
   args.read(iprot);
   iprot->readMessageEnd();
   iprot->getTransport()->readEnd();
 
-  StupaThrift_search_by_feature_result result;
+  Search_search_by_feature_result result;
   try {
     iface_->search_by_feature(result.success, args.max, args.query);
     result.__isset.success = true;
@@ -2046,14 +2046,14 @@ void StupaThriftProcessor::process_search_by_feature(int32_t seqid, ::apache::th
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_save(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
+void SearchProcessor::process_save(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
-  StupaThrift_save_args args;
+  Search_save_args args;
   args.read(iprot);
   iprot->readMessageEnd();
   iprot->getTransport()->readEnd();
 
-  StupaThrift_save_result result;
+  Search_save_result result;
   try {
     result.success = iface_->save(args.filename);
     result.__isset.success = true;
@@ -2074,14 +2074,14 @@ void StupaThriftProcessor::process_save(int32_t seqid, ::apache::thrift::protoco
   oprot->getTransport()->writeEnd();
 }
 
-void StupaThriftProcessor::process_load(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
+void SearchProcessor::process_load(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot)
 {
-  StupaThrift_load_args args;
+  Search_load_args args;
   args.read(iprot);
   iprot->readMessageEnd();
   iprot->getTransport()->readEnd();
 
-  StupaThrift_load_result result;
+  Search_load_result result;
   try {
     result.success = iface_->load(args.filename);
     result.__isset.success = true;
@@ -2102,5 +2102,5 @@ void StupaThriftProcessor::process_load(int32_t seqid, ::apache::thrift::protoco
   oprot->getTransport()->writeEnd();
 }
 
-
+}} // namespace
 

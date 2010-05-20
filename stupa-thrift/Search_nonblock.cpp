@@ -17,8 +17,8 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#include "StupaThrift.h"
-#include "StupaThrift_handler.h"
+#include "Search.h"
+#include "Search_handler.h"
 #include <concurrency/PosixThreadFactory.h>
 #include <concurrency/ThreadManager.h>
 #include <protocol/TBinaryProtocol.h>
@@ -33,6 +33,8 @@ using namespace apache::thrift::protocol;
 using namespace apache::thrift::transport;
 using namespace apache::thrift::server;
 
+using namespace stupa::thrift;
+
 using boost::shared_ptr;
 
 void start_nonblocking_thread_server(const ServerParam &param);
@@ -46,10 +48,10 @@ int main(int argc, char **argv) {
 }
 
 void start_nonblocking_thread_server(const ServerParam &param) {
-  shared_ptr<StupaThriftHandler> handler(
-    new StupaThriftHandler(param.invsize, param.max_doc));
+  shared_ptr<SearchHandler> handler(
+    new SearchHandler(param.invsize, param.max_doc));
   if (param.filename) handler->load(param.filename);
-  shared_ptr<TProcessor> processor(new StupaThriftProcessor(handler));
+  shared_ptr<TProcessor> processor(new SearchProcessor(handler));
   shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 
   shared_ptr<ThreadManager> threadManager =

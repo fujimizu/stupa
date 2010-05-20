@@ -8,7 +8,7 @@
 
 #include "stupa_types.h"
 
-
+namespace stupa { namespace thrift {
 
 class stupaConstants {
  public:
@@ -18,6 +18,6 @@ class stupaConstants {
 
 extern const stupaConstants g_stupa_constants;
 
-
+}} // namespace
 
 #endif

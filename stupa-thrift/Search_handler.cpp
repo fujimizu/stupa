@@ -18,7 +18,9 @@
 //
 
 #include <cstring>
-#include "StupaThrift_handler.h"
+#include "Search_handler.h"
+
+namespace stupa { namespace thrift { /* namespace stupa::thrift */
 
 void usage(const char *progname) {
   fprintf(stderr, "Usage: %s [options]\n", progname);
@@ -58,3 +60,5 @@ void parse_options(int argc, char **argv, ServerParam &param) {
     }
   }
 }
+
+}}  /* namespace stupa::thrift */

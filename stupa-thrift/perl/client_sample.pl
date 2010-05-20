@@ -14,7 +14,7 @@ use Thrift::Socket;
 use Thrift::BufferedTransport;
 use Thrift::FramedTransport;
 
-use StupaThrift;
+use Stupa::Thrift::Search;
 
 my $socket = Thrift::Socket->new('localhost', 9090);
 #$socket->setRecvTimeout(100000);  # set timeout
@@ -33,7 +33,7 @@ if (@ARGV) {
         exit 1;
     }
 }
-my $client = StupaThriftClient->new(Thrift::BinaryProtocol->new($transport));
+my $client = Stupa::Thrift::SearchClient->new(Thrift::BinaryProtocol->new($transport));
 
 eval {
     $transport->open;

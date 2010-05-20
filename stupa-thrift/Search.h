@@ -3,17 +3,17 @@
  *
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
  */
-#ifndef StupaThrift_H
-#define StupaThrift_H
+#ifndef Search_H
+#define Search_H
 
 #include <TProcessor.h>
 #include "stupa_types.h"
 
+namespace stupa { namespace thrift {
 
-
-class StupaThriftIf {
+class SearchIf {
  public:
-  virtual ~StupaThriftIf() {}
+  virtual ~SearchIf() {}
   virtual void add_document(const std::string& document_id, const std::vector<std::string> & features) = 0;
   virtual void delete_document(const std::string& document_id) = 0;
   virtual int64_t size() = 0;
@@ -24,9 +24,9 @@ class StupaThriftIf {
   virtual bool load(const std::string& filename) = 0;
 };
 
-class StupaThriftNull : virtual public StupaThriftIf {
+class SearchNull : virtual public SearchIf {
  public:
-  virtual ~StupaThriftNull() {}
+  virtual ~SearchNull() {}
   void add_document(const std::string& /* document_id */, const std::vector<std::string> & /* features */) {
     return;
   }
@@ -56,13 +56,13 @@ class StupaThriftNull : virtual public StupaThriftIf {
   }
 };
 
-class StupaThrift_add_document_args {
+class Search_add_document_args {
  public:
 
-  StupaThrift_add_document_args() : document_id("") {
+  Search_add_document_args() : document_id("") {
   }
 
-  virtual ~StupaThrift_add_document_args() throw() {}
+  virtual ~Search_add_document_args() throw() {}
 
   std::string document_id;
   std::vector<std::string>  features;
@@ -73,7 +73,7 @@ class StupaThrift_add_document_args {
     bool features;
   } __isset;
 
-  bool operator == (const StupaThrift_add_document_args & rhs) const
+  bool operator == (const Search_add_document_args & rhs) const
   {
     if (!(document_id == rhs.document_id))
       return false;
@@ -81,22 +81,22 @@ class StupaThrift_add_document_args {
       return false;
     return true;
   }
-  bool operator != (const StupaThrift_add_document_args &rhs) const {
+  bool operator != (const Search_add_document_args &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_add_document_args & ) const;
+  bool operator < (const Search_add_document_args & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_add_document_pargs {
+class Search_add_document_pargs {
  public:
 
 
-  virtual ~StupaThrift_add_document_pargs() throw() {}
+  virtual ~Search_add_document_pargs() throw() {}
 
   const std::string* document_id;
   const std::vector<std::string> * features;
@@ -105,48 +105,48 @@ class StupaThrift_add_document_pargs {
 
 };
 
-class StupaThrift_add_document_result {
+class Search_add_document_result {
  public:
 
-  StupaThrift_add_document_result() {
+  Search_add_document_result() {
   }
 
-  virtual ~StupaThrift_add_document_result() throw() {}
+  virtual ~Search_add_document_result() throw() {}
 
 
-  bool operator == (const StupaThrift_add_document_result & /* rhs */) const
+  bool operator == (const Search_add_document_result & /* rhs */) const
   {
     return true;
   }
-  bool operator != (const StupaThrift_add_document_result &rhs) const {
+  bool operator != (const Search_add_document_result &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_add_document_result & ) const;
+  bool operator < (const Search_add_document_result & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_add_document_presult {
+class Search_add_document_presult {
  public:
 
 
-  virtual ~StupaThrift_add_document_presult() throw() {}
+  virtual ~Search_add_document_presult() throw() {}
 
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
 };
 
-class StupaThrift_delete_document_args {
+class Search_delete_document_args {
  public:
 
-  StupaThrift_delete_document_args() : document_id("") {
+  Search_delete_document_args() : document_id("") {
   }
 
-  virtual ~StupaThrift_delete_document_args() throw() {}
+  virtual ~Search_delete_document_args() throw() {}
 
   std::string document_id;
 
@@ -155,28 +155,28 @@ class StupaThrift_delete_document_args {
     bool document_id;
   } __isset;
 
-  bool operator == (const StupaThrift_delete_document_args & rhs) const
+  bool operator == (const Search_delete_document_args & rhs) const
   {
     if (!(document_id == rhs.document_id))
       return false;
     return true;
   }
-  bool operator != (const StupaThrift_delete_document_args &rhs) const {
+  bool operator != (const Search_delete_document_args &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_delete_document_args & ) const;
+  bool operator < (const Search_delete_document_args & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_delete_document_pargs {
+class Search_delete_document_pargs {
  public:
 
 
-  virtual ~StupaThrift_delete_document_pargs() throw() {}
+  virtual ~Search_delete_document_pargs() throw() {}
 
   const std::string* document_id;
 
@@ -184,83 +184,83 @@ class StupaThrift_delete_document_pargs {
 
 };
 
-class StupaThrift_delete_document_result {
+class Search_delete_document_result {
  public:
 
-  StupaThrift_delete_document_result() {
+  Search_delete_document_result() {
   }
 
-  virtual ~StupaThrift_delete_document_result() throw() {}
+  virtual ~Search_delete_document_result() throw() {}
 
 
-  bool operator == (const StupaThrift_delete_document_result & /* rhs */) const
+  bool operator == (const Search_delete_document_result & /* rhs */) const
   {
     return true;
   }
-  bool operator != (const StupaThrift_delete_document_result &rhs) const {
+  bool operator != (const Search_delete_document_result &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_delete_document_result & ) const;
+  bool operator < (const Search_delete_document_result & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_delete_document_presult {
+class Search_delete_document_presult {
  public:
 
 
-  virtual ~StupaThrift_delete_document_presult() throw() {}
+  virtual ~Search_delete_document_presult() throw() {}
 
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
 };
 
-class StupaThrift_size_args {
+class Search_size_args {
  public:
 
-  StupaThrift_size_args() {
+  Search_size_args() {
   }
 
-  virtual ~StupaThrift_size_args() throw() {}
+  virtual ~Search_size_args() throw() {}
 
 
-  bool operator == (const StupaThrift_size_args & /* rhs */) const
+  bool operator == (const Search_size_args & /* rhs */) const
   {
     return true;
   }
-  bool operator != (const StupaThrift_size_args &rhs) const {
+  bool operator != (const Search_size_args &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_size_args & ) const;
+  bool operator < (const Search_size_args & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_size_pargs {
+class Search_size_pargs {
  public:
 
 
-  virtual ~StupaThrift_size_pargs() throw() {}
+  virtual ~Search_size_pargs() throw() {}
 
 
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_size_result {
+class Search_size_result {
  public:
 
-  StupaThrift_size_result() : success(0) {
+  Search_size_result() : success(0) {
   }
 
-  virtual ~StupaThrift_size_result() throw() {}
+  virtual ~Search_size_result() throw() {}
 
   int64_t success;
 
@@ -269,28 +269,28 @@ class StupaThrift_size_result {
     bool success;
   } __isset;
 
-  bool operator == (const StupaThrift_size_result & rhs) const
+  bool operator == (const Search_size_result & rhs) const
   {
     if (!(success == rhs.success))
       return false;
     return true;
   }
-  bool operator != (const StupaThrift_size_result &rhs) const {
+  bool operator != (const Search_size_result &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_size_result & ) const;
+  bool operator < (const Search_size_result & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_size_presult {
+class Search_size_presult {
  public:
 
 
-  virtual ~StupaThrift_size_presult() throw() {}
+  virtual ~Search_size_presult() throw() {}
 
   int64_t* success;
 
@@ -303,83 +303,83 @@ class StupaThrift_size_presult {
 
 };
 
-class StupaThrift_clear_args {
+class Search_clear_args {
  public:
 
-  StupaThrift_clear_args() {
+  Search_clear_args() {
   }
 
-  virtual ~StupaThrift_clear_args() throw() {}
+  virtual ~Search_clear_args() throw() {}
 
 
-  bool operator == (const StupaThrift_clear_args & /* rhs */) const
+  bool operator == (const Search_clear_args & /* rhs */) const
   {
     return true;
   }
-  bool operator != (const StupaThrift_clear_args &rhs) const {
+  bool operator != (const Search_clear_args &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_clear_args & ) const;
+  bool operator < (const Search_clear_args & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_clear_pargs {
+class Search_clear_pargs {
  public:
 
 
-  virtual ~StupaThrift_clear_pargs() throw() {}
+  virtual ~Search_clear_pargs() throw() {}
 
 
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_clear_result {
+class Search_clear_result {
  public:
 
-  StupaThrift_clear_result() {
+  Search_clear_result() {
   }
 
-  virtual ~StupaThrift_clear_result() throw() {}
+  virtual ~Search_clear_result() throw() {}
 
 
-  bool operator == (const StupaThrift_clear_result & /* rhs */) const
+  bool operator == (const Search_clear_result & /* rhs */) const
   {
     return true;
   }
-  bool operator != (const StupaThrift_clear_result &rhs) const {
+  bool operator != (const Search_clear_result &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_clear_result & ) const;
+  bool operator < (const Search_clear_result & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_clear_presult {
+class Search_clear_presult {
  public:
 
 
-  virtual ~StupaThrift_clear_presult() throw() {}
+  virtual ~Search_clear_presult() throw() {}
 
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
 };
 
-class StupaThrift_search_by_document_args {
+class Search_search_by_document_args {
  public:
 
-  StupaThrift_search_by_document_args() : max(0) {
+  Search_search_by_document_args() : max(0) {
   }
 
-  virtual ~StupaThrift_search_by_document_args() throw() {}
+  virtual ~Search_search_by_document_args() throw() {}
 
   int64_t max;
   std::vector<std::string>  query;
@@ -390,7 +390,7 @@ class StupaThrift_search_by_document_args {
     bool query;
   } __isset;
 
-  bool operator == (const StupaThrift_search_by_document_args & rhs) const
+  bool operator == (const Search_search_by_document_args & rhs) const
   {
     if (!(max == rhs.max))
       return false;
@@ -398,22 +398,22 @@ class StupaThrift_search_by_document_args {
       return false;
     return true;
   }
-  bool operator != (const StupaThrift_search_by_document_args &rhs) const {
+  bool operator != (const Search_search_by_document_args &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_search_by_document_args & ) const;
+  bool operator < (const Search_search_by_document_args & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_search_by_document_pargs {
+class Search_search_by_document_pargs {
  public:
 
 
-  virtual ~StupaThrift_search_by_document_pargs() throw() {}
+  virtual ~Search_search_by_document_pargs() throw() {}
 
   const int64_t* max;
   const std::vector<std::string> * query;
@@ -422,13 +422,13 @@ class StupaThrift_search_by_document_pargs {
 
 };
 
-class StupaThrift_search_by_document_result {
+class Search_search_by_document_result {
  public:
 
-  StupaThrift_search_by_document_result() {
+  Search_search_by_document_result() {
   }
 
-  virtual ~StupaThrift_search_by_document_result() throw() {}
+  virtual ~Search_search_by_document_result() throw() {}
 
   std::vector<SearchResult>  success;
 
@@ -437,28 +437,28 @@ class StupaThrift_search_by_document_result {
     bool success;
   } __isset;
 
-  bool operator == (const StupaThrift_search_by_document_result & rhs) const
+  bool operator == (const Search_search_by_document_result & rhs) const
   {
     if (!(success == rhs.success))
       return false;
     return true;
   }
-  bool operator != (const StupaThrift_search_by_document_result &rhs) const {
+  bool operator != (const Search_search_by_document_result &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_search_by_document_result & ) const;
+  bool operator < (const Search_search_by_document_result & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_search_by_document_presult {
+class Search_search_by_document_presult {
  public:
 
 
-  virtual ~StupaThrift_search_by_document_presult() throw() {}
+  virtual ~Search_search_by_document_presult() throw() {}
 
   std::vector<SearchResult> * success;
 
@@ -471,13 +471,13 @@ class StupaThrift_search_by_document_presult {
 
 };
 
-class StupaThrift_search_by_feature_args {
+class Search_search_by_feature_args {
  public:
 
-  StupaThrift_search_by_feature_args() : max(0) {
+  Search_search_by_feature_args() : max(0) {
   }
 
-  virtual ~StupaThrift_search_by_feature_args() throw() {}
+  virtual ~Search_search_by_feature_args() throw() {}
 
   int64_t max;
   std::vector<std::string>  query;
@@ -488,7 +488,7 @@ class StupaThrift_search_by_feature_args {
     bool query;
   } __isset;
 
-  bool operator == (const StupaThrift_search_by_feature_args & rhs) const
+  bool operator == (const Search_search_by_feature_args & rhs) const
   {
     if (!(max == rhs.max))
       return false;
@@ -496,22 +496,22 @@ class StupaThrift_search_by_feature_args {
       return false;
     return true;
   }
-  bool operator != (const StupaThrift_search_by_feature_args &rhs) const {
+  bool operator != (const Search_search_by_feature_args &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_search_by_feature_args & ) const;
+  bool operator < (const Search_search_by_feature_args & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_search_by_feature_pargs {
+class Search_search_by_feature_pargs {
  public:
 
 
-  virtual ~StupaThrift_search_by_feature_pargs() throw() {}
+  virtual ~Search_search_by_feature_pargs() throw() {}
 
   const int64_t* max;
   const std::vector<std::string> * query;
@@ -520,13 +520,13 @@ class StupaThrift_search_by_feature_pargs {
 
 };
 
-class StupaThrift_search_by_feature_result {
+class Search_search_by_feature_result {
  public:
 
-  StupaThrift_search_by_feature_result() {
+  Search_search_by_feature_result() {
   }
 
-  virtual ~StupaThrift_search_by_feature_result() throw() {}
+  virtual ~Search_search_by_feature_result() throw() {}
 
   std::vector<SearchResult>  success;
 
@@ -535,28 +535,28 @@ class StupaThrift_search_by_feature_result {
     bool success;
   } __isset;
 
-  bool operator == (const StupaThrift_search_by_feature_result & rhs) const
+  bool operator == (const Search_search_by_feature_result & rhs) const
   {
     if (!(success == rhs.success))
       return false;
     return true;
   }
-  bool operator != (const StupaThrift_search_by_feature_result &rhs) const {
+  bool operator != (const Search_search_by_feature_result &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_search_by_feature_result & ) const;
+  bool operator < (const Search_search_by_feature_result & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_search_by_feature_presult {
+class Search_search_by_feature_presult {
  public:
 
 
-  virtual ~StupaThrift_search_by_feature_presult() throw() {}
+  virtual ~Search_search_by_feature_presult() throw() {}
 
   std::vector<SearchResult> * success;
 
@@ -569,13 +569,13 @@ class StupaThrift_search_by_feature_presult {
 
 };
 
-class StupaThrift_save_args {
+class Search_save_args {
  public:
 
-  StupaThrift_save_args() : filename("") {
+  Search_save_args() : filename("") {
   }
 
-  virtual ~StupaThrift_save_args() throw() {}
+  virtual ~Search_save_args() throw() {}
 
   std::string filename;
 
@@ -584,28 +584,28 @@ class StupaThrift_save_args {
     bool filename;
   } __isset;
 
-  bool operator == (const StupaThrift_save_args & rhs) const
+  bool operator == (const Search_save_args & rhs) const
   {
     if (!(filename == rhs.filename))
       return false;
     return true;
   }
-  bool operator != (const StupaThrift_save_args &rhs) const {
+  bool operator != (const Search_save_args &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_save_args & ) const;
+  bool operator < (const Search_save_args & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_save_pargs {
+class Search_save_pargs {
  public:
 
 
-  virtual ~StupaThrift_save_pargs() throw() {}
+  virtual ~Search_save_pargs() throw() {}
 
   const std::string* filename;
 
@@ -613,13 +613,13 @@ class StupaThrift_save_pargs {
 
 };
 
-class StupaThrift_save_result {
+class Search_save_result {
  public:
 
-  StupaThrift_save_result() : success(0) {
+  Search_save_result() : success(0) {
   }
 
-  virtual ~StupaThrift_save_result() throw() {}
+  virtual ~Search_save_result() throw() {}
 
   bool success;
 
@@ -628,28 +628,28 @@ class StupaThrift_save_result {
     bool success;
   } __isset;
 
-  bool operator == (const StupaThrift_save_result & rhs) const
+  bool operator == (const Search_save_result & rhs) const
   {
     if (!(success == rhs.success))
       return false;
     return true;
   }
-  bool operator != (const StupaThrift_save_result &rhs) const {
+  bool operator != (const Search_save_result &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_save_result & ) const;
+  bool operator < (const Search_save_result & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_save_presult {
+class Search_save_presult {
  public:
 
 
-  virtual ~StupaThrift_save_presult() throw() {}
+  virtual ~Search_save_presult() throw() {}
 
   bool* success;
 
@@ -662,13 +662,13 @@ class StupaThrift_save_presult {
 
 };
 
-class StupaThrift_load_args {
+class Search_load_args {
  public:
 
-  StupaThrift_load_args() : filename("") {
+  Search_load_args() : filename("") {
   }
 
-  virtual ~StupaThrift_load_args() throw() {}
+  virtual ~Search_load_args() throw() {}
 
   std::string filename;
 
@@ -677,28 +677,28 @@ class StupaThrift_load_args {
     bool filename;
   } __isset;
 
-  bool operator == (const StupaThrift_load_args & rhs) const
+  bool operator == (const Search_load_args & rhs) const
   {
     if (!(filename == rhs.filename))
       return false;
     return true;
   }
-  bool operator != (const StupaThrift_load_args &rhs) const {
+  bool operator != (const Search_load_args &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_load_args & ) const;
+  bool operator < (const Search_load_args & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_load_pargs {
+class Search_load_pargs {
  public:
 
 
-  virtual ~StupaThrift_load_pargs() throw() {}
+  virtual ~Search_load_pargs() throw() {}
 
   const std::string* filename;
 
@@ -706,13 +706,13 @@ class StupaThrift_load_pargs {
 
 };
 
-class StupaThrift_load_result {
+class Search_load_result {
  public:
 
-  StupaThrift_load_result() : success(0) {
+  Search_load_result() : success(0) {
   }
 
-  virtual ~StupaThrift_load_result() throw() {}
+  virtual ~Search_load_result() throw() {}
 
   bool success;
 
@@ -721,28 +721,28 @@ class StupaThrift_load_result {
     bool success;
   } __isset;
 
-  bool operator == (const StupaThrift_load_result & rhs) const
+  bool operator == (const Search_load_result & rhs) const
   {
     if (!(success == rhs.success))
       return false;
     return true;
   }
-  bool operator != (const StupaThrift_load_result &rhs) const {
+  bool operator != (const Search_load_result &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const StupaThrift_load_result & ) const;
+  bool operator < (const Search_load_result & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class StupaThrift_load_presult {
+class Search_load_presult {
  public:
 
 
-  virtual ~StupaThrift_load_presult() throw() {}
+  virtual ~Search_load_presult() throw() {}
 
   bool* success;
 
@@ -755,15 +755,15 @@ class StupaThrift_load_presult {
 
 };
 
-class StupaThriftClient : virtual public StupaThriftIf {
+class SearchClient : virtual public SearchIf {
  public:
-  StupaThriftClient(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> prot) :
+  SearchClient(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> prot) :
     piprot_(prot),
     poprot_(prot) {
     iprot_ = prot.get();
     oprot_ = prot.get();
   }
-  StupaThriftClient(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> iprot, boost::shared_ptr< ::apache::thrift::protocol::TProtocol> oprot) :
+  SearchClient(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> iprot, boost::shared_ptr< ::apache::thrift::protocol::TProtocol> oprot) :
     piprot_(iprot),
     poprot_(oprot) {
     iprot_ = iprot.get();
@@ -806,12 +806,12 @@ class StupaThriftClient : virtual public StupaThriftIf {
   ::apache::thrift::protocol::TProtocol* oprot_;
 };
 
-class StupaThriftProcessor : virtual public ::apache::thrift::TProcessor {
+class SearchProcessor : virtual public ::apache::thrift::TProcessor {
  protected:
-  boost::shared_ptr<StupaThriftIf> iface_;
+  boost::shared_ptr<SearchIf> iface_;
   virtual bool process_fn(::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, std::string& fname, int32_t seqid);
  private:
-  std::map<std::string, void (StupaThriftProcessor::*)(int32_t, ::apache::thrift::protocol::TProtocol*, ::apache::thrift::protocol::TProtocol*)> processMap_;
+  std::map<std::string, void (SearchProcessor::*)(int32_t, ::apache::thrift::protocol::TProtocol*, ::apache::thrift::protocol::TProtocol*)> processMap_;
   void process_add_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
   void process_delete_document(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
   void process_size(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
@@ -821,31 +821,31 @@ class StupaThriftProcessor : virtual public ::apache::thrift::TProcessor {
   void process_save(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
   void process_load(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot);
  public:
-  StupaThriftProcessor(boost::shared_ptr<StupaThriftIf> iface) :
+  SearchProcessor(boost::shared_ptr<SearchIf> iface) :
     iface_(iface) {
-    processMap_["add_document"] = &StupaThriftProcessor::process_add_document;
-    processMap_["delete_document"] = &StupaThriftProcessor::process_delete_document;
-    processMap_["size"] = &StupaThriftProcessor::process_size;
-    processMap_["clear"] = &StupaThriftProcessor::process_clear;
-    processMap_["search_by_document"] = &StupaThriftProcessor::process_search_by_document;
-    processMap_["search_by_feature"] = &StupaThriftProcessor::process_search_by_feature;
-    processMap_["save"] = &StupaThriftProcessor::process_save;
-    processMap_["load"] = &StupaThriftProcessor::process_load;
+    processMap_["add_document"] = &SearchProcessor::process_add_document;
+    processMap_["delete_document"] = &SearchProcessor::process_delete_document;
+    processMap_["size"] = &SearchProcessor::process_size;
+    processMap_["clear"] = &SearchProcessor::process_clear;
+    processMap_["search_by_document"] = &SearchProcessor::process_search_by_document;
+    processMap_["search_by_feature"] = &SearchProcessor::process_search_by_feature;
+    processMap_["save"] = &SearchProcessor::process_save;
+    processMap_["load"] = &SearchProcessor::process_load;
   }
 
   virtual bool process(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot, boost::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot);
-  virtual ~StupaThriftProcessor() {}
+  virtual ~SearchProcessor() {}
 };
 
-class StupaThriftMultiface : virtual public StupaThriftIf {
+class SearchMultiface : virtual public SearchIf {
  public:
-  StupaThriftMultiface(std::vector<boost::shared_ptr<StupaThriftIf> >& ifaces) : ifaces_(ifaces) {
+  SearchMultiface(std::vector<boost::shared_ptr<SearchIf> >& ifaces) : ifaces_(ifaces) {
   }
-  virtual ~StupaThriftMultiface() {}
+  virtual ~SearchMultiface() {}
  protected:
-  std::vector<boost::shared_ptr<StupaThriftIf> > ifaces_;
-  StupaThriftMultiface() {}
-  void add(boost::shared_ptr<StupaThriftIf> iface) {
+  std::vector<boost::shared_ptr<SearchIf> > ifaces_;
+  SearchMultiface() {}
+  void add(boost::shared_ptr<SearchIf> iface) {
     ifaces_.push_back(iface);
   }
  public:
@@ -929,6 +929,6 @@ class StupaThriftMultiface : virtual public StupaThriftIf {
 
 };
 
-
+}} // namespace
 
 #endif

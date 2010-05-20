@@ -5,12 +5,12 @@
  */
 #include "stupa_constants.h"
 
-
+namespace stupa { namespace thrift {
 
 const stupaConstants g_stupa_constants;
 
 stupaConstants::stupaConstants() {
 }
 
-
+}} // namespace
 

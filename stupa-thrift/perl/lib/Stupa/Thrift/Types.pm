@@ -8,9 +8,9 @@ use strict;
 use warnings;
 use Thrift;
 
-package SearchResult;
+package Stupa::Thrift::SearchResult;
 use base qw(Class::Accessor);
-SearchResult->mk_accessors( qw( name point ) );
+Stupa::Thrift::SearchResult->mk_accessors( qw( name point ) );
 
 sub new {
   my $classname = shift;

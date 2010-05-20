@@ -1,9 +1,12 @@
+namespace cpp stupa.thrift
+namespace perl Stupa.Thrift
+
 struct SearchResult {
   1: string name
   2: double point
 }
 
-service StupaThrift {
+service Search {
   void add_document(1: string document_id, 2: list<string> features),
   void delete_document(1: string document_id),
   i64 size(),

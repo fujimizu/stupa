@@ -12,7 +12,7 @@
 
 
 
-
+namespace stupa { namespace thrift {
 
 class SearchResult {
  public:
@@ -53,6 +53,6 @@ class SearchResult {
 
 };
 
-
+}} // namespace
 
 #endif

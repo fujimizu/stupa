@@ -5,7 +5,7 @@
  */
 #include "stupa_types.h"
 
-
+namespace stupa { namespace thrift {
 
 const char* SearchResult::ascii_fingerprint = "C712EF0DA8599E55DF4D0F13415232EF";
 const uint8_t SearchResult::binary_fingerprint[16] = {0xC7,0x12,0xEF,0x0D,0xA8,0x59,0x9E,0x55,0xDF,0x4D,0x0F,0x13,0x41,0x52,0x32,0xEF};
@@ -72,4 +72,4 @@ uint32_t SearchResult::write(::apache::thrift::protocol::TProtocol* oprot) const
   return xfer;
 }
 
-
+}} // namespace

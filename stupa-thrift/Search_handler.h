@@ -17,34 +17,36 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-#ifndef StupaThrift_Handler_H
-#define StupaThrift_Handler_H
+#ifndef Search_Handler_H
+#define Search_Handler_H
 
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <utility>
 #include <vector>
-#include "StupaThrift.h"
 #include <concurrency/Mutex.h>
+#include "Search.h"
 #include "stupa.h"
 
 using namespace apache::thrift;
 using namespace apache::thrift::concurrency;
+
+namespace stupa { namespace thrift { /* namespace stupa::thrift */
 
 const int PORT         = 9090;
 const int WORKER_COUNT = 4;
 const size_t INV_SIZE  = 100;
 
 
-class StupaThriftHandler : virtual public StupaThriftIf {
+class SearchHandler : virtual public SearchIf {
  private:
-  stupa::StupaSearch stpsearch_;  ///< stupa search
+  StupaSearch stpsearch_;  ///< stupa search
   ReadWriteMutex lock_;          ///< read-write lock
 
  public:
-  StupaThriftHandler(size_t invsize, size_t max_doc)
-    : stpsearch_(stupa::SearchModel::INNER_PRODUCT, invsize, max_doc) { }
+  SearchHandler(size_t invsize, size_t max_doc)
+    : stpsearch_(SearchModel::INNER_PRODUCT, invsize, max_doc) { }
 
   /**
    * Add a document.
@@ -177,4 +179,6 @@ struct ServerParam {
 void usage(const char *progname);
 void parse_options(int argc, char **argv, ServerParam &param);
 
-#endif  // StupaThrift_Handler_H
+}}  /* namespace stupa::thrift */
+
+#endif  // Search_Handler_H
