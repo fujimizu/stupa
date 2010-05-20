@@ -23,7 +23,7 @@
 #include <iostream>
 #include "thread.h"
 
-namespace stupa {
+namespace stupa { namespace evhttp {
 
 ReadWriteLock::ReadWriteLock() : lock_(NULL) {
   pthread_rwlock_t *rwlock = new pthread_rwlock_t;
@@ -65,4 +65,4 @@ void ReadWriteLock::release() const {
   }
 }
 
-} /* namespace stupa */
+}} /* namespace stupa::evhttp */

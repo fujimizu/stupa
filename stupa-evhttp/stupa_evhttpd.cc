@@ -170,8 +170,8 @@ void generic_handler(evhttp_request *req, void *arg) {
  * @param arg optional argument
  */
 void add_handler(evhttp_request *req, void *arg) {
-  stupa::StupaSearchHandler *handler =
-    reinterpret_cast<stupa::StupaSearchHandler *>(arg);
+  stupa::evhttp::StupaSearchHandler *handler =
+    reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
@@ -199,8 +199,8 @@ void add_handler(evhttp_request *req, void *arg) {
  * @param arg optional argument
  */
 void delete_handler(evhttp_request *req, void *arg) {
-  stupa::StupaSearchHandler *handler =
-    reinterpret_cast<stupa::StupaSearchHandler *>(arg);
+  stupa::evhttp::StupaSearchHandler *handler =
+    reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
@@ -224,8 +224,8 @@ void delete_handler(evhttp_request *req, void *arg) {
  * @param arg optional argument
  */
 void clear_handler(evhttp_request *req, void *arg) {
-  stupa::StupaSearchHandler *handler =
-    reinterpret_cast<stupa::StupaSearchHandler *>(arg);
+  stupa::evhttp::StupaSearchHandler *handler =
+    reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   handler->clear();
@@ -238,8 +238,8 @@ void clear_handler(evhttp_request *req, void *arg) {
  * @param arg optional argument
  */
 void size_handler(evhttp_request *req, void *arg) {
-  stupa::StupaSearchHandler *handler =
-    reinterpret_cast<stupa::StupaSearchHandler *>(arg);
+  stupa::evhttp::StupaSearchHandler *handler =
+    reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evbuffer *buf = create_buffer(req);
@@ -256,8 +256,8 @@ void size_handler(evhttp_request *req, void *arg) {
  * @param arg optional argument
  */
 void dsearch_handler(evhttp_request *req, void *arg) {
-  stupa::StupaSearchHandler *handler =
-    reinterpret_cast<stupa::StupaSearchHandler *>(arg);
+  stupa::evhttp::StupaSearchHandler *handler =
+    reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
@@ -293,8 +293,8 @@ void dsearch_handler(evhttp_request *req, void *arg) {
  * @param arg optional argument
  */
 void fsearch_handler(evhttp_request *req, void *arg) {
-  stupa::StupaSearchHandler *handler =
-    reinterpret_cast<stupa::StupaSearchHandler *>(arg);
+  stupa::evhttp::StupaSearchHandler *handler =
+    reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
@@ -330,8 +330,8 @@ void fsearch_handler(evhttp_request *req, void *arg) {
  * @param arg optional argument
  */
 void save_handler(evhttp_request *req, void *arg) {
-  stupa::StupaSearchHandler *handler =
-    reinterpret_cast<stupa::StupaSearchHandler *>(arg);
+  stupa::evhttp::StupaSearchHandler *handler =
+    reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
@@ -357,8 +357,8 @@ void save_handler(evhttp_request *req, void *arg) {
  * @param arg optional argument
  */
 void load_handler(evhttp_request *req, void *arg) {
-  stupa::StupaSearchHandler *handler =
-    reinterpret_cast<stupa::StupaSearchHandler *>(arg);
+  stupa::evhttp::StupaSearchHandler *handler =
+    reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
@@ -390,7 +390,7 @@ void start_server(const Param &param) {
     fprintf(stderr, "cannot start stupa server\n");
     exit(EXIT_FAILURE);
   }
-  stupa::StupaSearchHandler handler(param.invsize, param.max_doc);
+  stupa::evhttp::StupaSearchHandler handler(param.invsize, param.max_doc);
   if (param.filename) {
     printf("Load: %s\n", param.filename);
     handler.load(param.filename);

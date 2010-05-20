@@ -1,6 +1,6 @@
 use inc::Module::Install;
-name 'StupaEvhttpClient';
-all_from 'lib/StupaEvhttpClient.pm';
+name 'Stupa-Evhttp-Client';
+all_from 'lib/Stupa/Evhttp/Client.pm';
 
 # requires '';
 

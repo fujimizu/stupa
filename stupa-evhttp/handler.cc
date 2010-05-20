@@ -19,8 +19,8 @@
 
 #include "handler.h"
 
-namespace stupa {
+namespace stupa { namespace evhttp {
 
 /* no implementaion */
 
-} /* namespace stupa */
+}} /* namespace stupa::evhttp */

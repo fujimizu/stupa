@@ -24,11 +24,11 @@
 #include "thread.h"
 #include "stupa.h"
 
-namespace stupa {
+namespace stupa { namespace evhttp { /* namespace stupa::evhttp */
 
 class StupaSearchHandler {
  private:
-  stupa::StupaSearch stpsearch_; ///<  stupa search
+  StupaSearch stpsearch_; ///<  stupa search
   ReadWriteLock lock_;
 
  public:
@@ -38,7 +38,7 @@ class StupaSearchHandler {
    * @param max_doc maximum number of documents
    */
   StupaSearchHandler(size_t invsize, size_t max_doc)
-    : stpsearch_(stupa::SearchModel::INNER_PRODUCT,
+    : stpsearch_(SearchModel::INNER_PRODUCT,
                  invsize, max_doc) { }
 
   /**
@@ -143,6 +143,6 @@ class StupaSearchHandler {
 };
 
 
-} /* namespace stupa */
+}}  /* namespace stupa::evhttp */
 
 #endif // STUPA_STUPA_EVHTTP_H_

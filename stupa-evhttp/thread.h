@@ -23,7 +23,7 @@
 #include <pthread.h>
 #include <queue>
 
-namespace stupa {
+namespace stupa { namespace evhttp {
 
 /**
  * Read-Write lock.
@@ -142,6 +142,6 @@ class ThreadPool {
   bool is_shutdown() { return shutdown_; }
 };
 
-} /* namespace stupa */
+}} /* namespace stupa::evhttp */
 
 #endif
