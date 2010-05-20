@@ -24,7 +24,7 @@
 #include <evhttp.h>
 #include "handler.h"
 
-const int PORT          = 147258;
+const int PORT          = 8080;
 const size_t INV_SIZE   = 100;
 const size_t NUM_WORKER = 4;
 const size_t MAX_RESULT = 50;
@@ -51,6 +51,7 @@ void write_search_result(
 void add_handler(evhttp_request *req, void *arg);
 void delete_handler(evhttp_request *req, void *arg);
 void size_handler(evhttp_request *req, void *arg);
+void clear_handler(evhttp_request *req, void *arg);
 void dsearch_handler(evhttp_request *req, void *arg);
 void fsearch_handler(evhttp_request *req, void *arg);
 void save_handler(evhttp_request *req, void *arg);
@@ -215,6 +216,20 @@ void delete_handler(evhttp_request *req, void *arg) {
     evhttp_send_reply(req, HTTP_BADREQUEST, "document id not specified", NULL);
   }
   evhttp_clear_headers(&headers);
+}
+
+/**
+ * 'clear' handler
+ * @param req evhttp request object
+ * @param arg optional argument
+ */
+void clear_handler(evhttp_request *req, void *arg) {
+  stupa::StupaSearchHandler *handler =
+    reinterpret_cast<stupa::StupaSearchHandler *>(arg);
+  evhttp_add_header(req->output_headers, "Content-Type",
+                    "text/plain; charset=UTF-8");
+  handler->clear();
+  evhttp_send_reply(req, HTTP_OK, "OK", NULL);
 }
 
 /**
@@ -384,6 +399,7 @@ void start_server(const Param &param) {
   evhttp_set_cb(httpd, "/add",     add_handler,     &handler);
   evhttp_set_cb(httpd, "/delete",  delete_handler,  &handler);
   evhttp_set_cb(httpd, "/size",    size_handler,    &handler);
+  evhttp_set_cb(httpd, "/clear",   clear_handler,    &handler);
   evhttp_set_cb(httpd, "/fsearch", fsearch_handler, &handler);
   evhttp_set_cb(httpd, "/dsearch", dsearch_handler, &handler);
   evhttp_set_cb(httpd, "/save",    save_handler,    &handler);

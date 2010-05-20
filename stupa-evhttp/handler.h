@@ -73,6 +73,15 @@ class StupaSearchHandler {
   }
 
   /**
+   * Clear status.
+   * @param filename file name
+   */
+  void clear() {
+    RWGuard m(lock_, true);
+    stpsearch_.clear();
+  }
+
+  /**
    * Search related documents using queries of document ids.
    * @param query the identifiers of query documents
    * @param result search result
