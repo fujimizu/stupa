@@ -10,8 +10,10 @@ Overview:
   an associative search engine.
 
 Build:
-  * Build all
-    % make
+  % ./waf configure
+  % ./waf build
+  % ./waf --check    # gtest required
+  % ./waf install
 
 Usage:
   * Start stupa search server
