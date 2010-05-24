@@ -197,6 +197,8 @@ TEST(HandlerTest, SaveLoadTest) {
     handler.search_by_feature(it->second, results, MAX_RESULT);
     EXPECT_LT(0, results.size());
   }
+
+  remove(filename);
 }
 
 int main(int argc, char **argv) {
