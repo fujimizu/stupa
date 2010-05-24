@@ -48,15 +48,15 @@ void parse_options(int argc, char **argv, Param &param);
 evbuffer *create_buffer(evhttp_request *req);
 void write_search_result(
   const std::vector<std::pair<std::string, double> > &results, evbuffer *buf);
-void add_handler(evhttp_request *req, void *arg);
-void delete_handler(evhttp_request *req, void *arg);
-void size_handler(evhttp_request *req, void *arg);
-void clear_handler(evhttp_request *req, void *arg);
-void dsearch_handler(evhttp_request *req, void *arg);
-void fsearch_handler(evhttp_request *req, void *arg);
-void save_handler(evhttp_request *req, void *arg);
-void load_handler(evhttp_request *req, void *arg);
-void generic_handler(evhttp_request *req, void *arg);
+void cb_add(evhttp_request *req, void *arg);
+void cb_delete(evhttp_request *req, void *arg);
+void cb_size(evhttp_request *req, void *arg);
+void cb_clear(evhttp_request *req, void *arg);
+void cb_dsearch(evhttp_request *req, void *arg);
+void cb_fsearch(evhttp_request *req, void *arg);
+void cb_save(evhttp_request *req, void *arg);
+void cb_load(evhttp_request *req, void *arg);
+void cb_notfound(evhttp_request *req, void *arg);
 void start_server(const Param &param);
 
 
@@ -154,22 +154,22 @@ void write_search_result(
 }
 
 /**
- * Generic event handler.
+ * NotFound event handler.
  * @param req evhttp request object
  * @param arg optional argument
  */
-void generic_handler(evhttp_request *req, void *arg) {
+void cb_notfound(evhttp_request *req, void *arg) {
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evhttp_send_reply(req, HTTP_NOTFOUND, "Not found", NULL);
 }
 
 /**
- * 'add' handler (search by documents)
+ * 'add' callback function (search by documents)
  * @param req evhttp request object
  * @param arg optional argument
  */
-void add_handler(evhttp_request *req, void *arg) {
+void cb_add(evhttp_request *req, void *arg) {
   stupa::evhttp::StupaSearchHandler *handler =
     reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
@@ -194,11 +194,11 @@ void add_handler(evhttp_request *req, void *arg) {
 }
 
 /**
- * 'delete' handler
+ * 'delete' callback function
  * @param req evhttp request object
  * @param arg optional argument
  */
-void delete_handler(evhttp_request *req, void *arg) {
+void cb_delete(evhttp_request *req, void *arg) {
   stupa::evhttp::StupaSearchHandler *handler =
     reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
@@ -219,11 +219,11 @@ void delete_handler(evhttp_request *req, void *arg) {
 }
 
 /**
- * 'clear' handler
+ * 'clear' callback function
  * @param req evhttp request object
  * @param arg optional argument
  */
-void clear_handler(evhttp_request *req, void *arg) {
+void cb_clear(evhttp_request *req, void *arg) {
   stupa::evhttp::StupaSearchHandler *handler =
     reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
@@ -233,11 +233,11 @@ void clear_handler(evhttp_request *req, void *arg) {
 }
 
 /**
- * 'size' handler
+ * 'size' callback function
  * @param req evhttp request object
  * @param arg optional argument
  */
-void size_handler(evhttp_request *req, void *arg) {
+void cb_size(evhttp_request *req, void *arg) {
   stupa::evhttp::StupaSearchHandler *handler =
     reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
@@ -251,11 +251,11 @@ void size_handler(evhttp_request *req, void *arg) {
 }
 
 /**
- * 'dsearch' handler (search by documents)
+ * 'dsearch' callback function (search by documents)
  * @param req evhttp request object
  * @param arg optional argument
  */
-void dsearch_handler(evhttp_request *req, void *arg) {
+void cb_dsearch(evhttp_request *req, void *arg) {
   stupa::evhttp::StupaSearchHandler *handler =
     reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
@@ -288,11 +288,11 @@ void dsearch_handler(evhttp_request *req, void *arg) {
 }
 
 /**
- * 'fsearch' handler (search by features)
+ * 'fsearch' callback function (search by features)
  * @param req evhttp request object
  * @param arg optional argument
  */
-void fsearch_handler(evhttp_request *req, void *arg) {
+void cb_fsearch(evhttp_request *req, void *arg) {
   stupa::evhttp::StupaSearchHandler *handler =
     reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
@@ -325,11 +325,11 @@ void fsearch_handler(evhttp_request *req, void *arg) {
 }
 
 /**
- * 'save' handler
+ * 'save' callback function
  * @param req evhttp request object
  * @param arg optional argument
  */
-void save_handler(evhttp_request *req, void *arg) {
+void cb_save(evhttp_request *req, void *arg) {
   stupa::evhttp::StupaSearchHandler *handler =
     reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
@@ -352,11 +352,11 @@ void save_handler(evhttp_request *req, void *arg) {
 }
 
 /**
- * 'load' handler
+ * 'load' callback function
  * @param req evhttp request object
  * @param arg optional argument
  */
-void load_handler(evhttp_request *req, void *arg) {
+void cb_load(evhttp_request *req, void *arg) {
   stupa::evhttp::StupaSearchHandler *handler =
     reinterpret_cast<stupa::evhttp::StupaSearchHandler *>(arg);
   evhttp_add_header(req->output_headers, "Content-Type",
@@ -396,15 +396,15 @@ void start_server(const Param &param) {
     handler.load(param.filename);
   }
   // set event handlers
-  evhttp_set_cb(httpd, "/add",     add_handler,     &handler);
-  evhttp_set_cb(httpd, "/delete",  delete_handler,  &handler);
-  evhttp_set_cb(httpd, "/size",    size_handler,    &handler);
-  evhttp_set_cb(httpd, "/clear",   clear_handler,    &handler);
-  evhttp_set_cb(httpd, "/fsearch", fsearch_handler, &handler);
-  evhttp_set_cb(httpd, "/dsearch", dsearch_handler, &handler);
-  evhttp_set_cb(httpd, "/save",    save_handler,    &handler);
-  evhttp_set_cb(httpd, "/load",    load_handler,    &handler);
-  evhttp_set_gencb(httpd, generic_handler, NULL);
+  evhttp_set_cb(httpd, "/add",     cb_add,     &handler);
+  evhttp_set_cb(httpd, "/delete",  cb_delete,  &handler);
+  evhttp_set_cb(httpd, "/size",    cb_size,    &handler);
+  evhttp_set_cb(httpd, "/clear",   cb_clear,   &handler);
+  evhttp_set_cb(httpd, "/fsearch", cb_fsearch, &handler);
+  evhttp_set_cb(httpd, "/dsearch", cb_dsearch, &handler);
+  evhttp_set_cb(httpd, "/save",    cb_save,    &handler);
+  evhttp_set_cb(httpd, "/load",    cb_load,    &handler);
+  evhttp_set_gencb(httpd, cb_notfound, NULL);
 
   printf("Start stupa search server\n");
   event_dispatch();
