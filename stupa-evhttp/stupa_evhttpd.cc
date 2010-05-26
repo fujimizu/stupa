@@ -24,7 +24,7 @@
 #include <evhttp.h>
 #include "handler.h"
 
-const int PORT          = 8080;
+const int PORT          = 22122;
 const size_t INV_SIZE   = 100;
 const size_t NUM_WORKER = 4;
 const size_t MAX_RESULT = 50;

@@ -6,7 +6,7 @@ use Test::More qw(no_plan);
 
 use constant {
     HOST         => 'localhost',
-    PORT         => 8080,
+    PORT         => 22122,
     NUM_DOCUMENT => 20,
     NUM_FEATURE  => 10,
     LEN_FEATURE  => 5,
