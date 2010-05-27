@@ -26,7 +26,7 @@ DOCUMENTFILES = @MYDOCUMENTFILES@
 # Install destinations
 prefix = @prefix@
 exec_prefix = @exec_prefix@
-INCLUDEDIR = @includedir@
+INCLUDEDIR = @includedir@/stupa
 LIBDIR = @libdir@
 BINDIR = @bindir@
 DESTDIR =
