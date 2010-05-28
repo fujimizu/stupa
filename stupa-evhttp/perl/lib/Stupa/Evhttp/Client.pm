@@ -30,14 +30,18 @@ sub new {
     });
 }
 
+sub _set_postdata {
+    my ($self, $param) = @_;
+    $self->curl->setopt(CURLOPT_POST, 1);
+    my $content = join '&', map {
+        sprintf "%s=%s", $_, uri_escape $param->{$_}
+    } keys %{ $param };
+    $self->curl->setopt(CURLOPT_POSTFIELDS, $content);
+}
+
 sub _make_request_url {
-    my ($self, $method, $args) = @_;
+    my ($self, $method) = @_;
     my $url = sprintf "http://%s:%d/%s", $self->host, $self->port, $method;
-    if ($args) {
-        $url .= '?' . join('&', map {
-            sprintf "%s=%s", $_, uri_escape $args->{$_}
-        } keys %{ $args });
-    }
     return $url;
 }
 
@@ -59,7 +63,8 @@ sub add_document {
         id      => $document_id,
         feature => join "\t", @{ $feature_ids },
     );
-    my $url = $self->_make_request_url('add', \%option);
+    $self->_set_postdata(\%option);
+    my $url = $self->_make_request_url('add');
     my ($ret, $response) = $self->_send_request($url);
     return $ret == 0 ? 1 : 0;
 }
@@ -70,7 +75,8 @@ sub delete_document {
     my %option = (
         id => $document_id
     );
-    my $url = $self->_make_request_url('delete', \%option);
+    $self->_set_postdata(\%option);
+    my $url = $self->_make_request_url('delete');
     my ($ret, $response) = $self->_send_request($url);
     return $ret == 0 ? 1 : 0;
 }
@@ -97,7 +103,8 @@ sub search_by_document {
     my %option;
     $option{query} = join "\t", @{ $document_ids };
     $option{max} = $max if $max > 0;
-    my $url = $self->_make_request_url('dsearch', \%option);
+    $self->_set_postdata(\%option);
+    my $url = $self->_make_request_url('dsearch');
     my ($ret, $response) = $self->_send_request($url);
     return if $ret != 0 || !$response;
     my %results;
@@ -115,7 +122,8 @@ sub search_by_feature {
     my %option;
     $option{query} = join "\t", @{ $feature_ids };
     $option{max} = $max if $max > 0;
-    my $url = $self->_make_request_url('fsearch', \%option);
+    $self->_set_postdata(\%option);
+    my $url = $self->_make_request_url('fsearch');
     my ($ret, $response) = $self->_send_request($url);
     return if $ret != 0 || !$response;
     my %results;
@@ -133,7 +141,8 @@ sub save {
     my %option = (
         file => $filename,
     );
-    my $url = $self->_make_request_url('save', \%option);
+    $self->_set_postdata(\%option);
+    my $url = $self->_make_request_url('save');
     my ($ret, $response) = $self->_send_request($url);
     return $ret == 0 ? 1 : 0;
 }
@@ -144,7 +153,7 @@ sub load {
     my %option = (
         file => $filename,
     );
-    my $url = $self->_make_request_url('load', \%option);
+    my $url = $self->_make_request_url('load');
     my ($ret, $response) = $self->_send_request($url);
     return $ret == 0 ? 1 : 0;
 }
