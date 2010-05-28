@@ -46,6 +46,7 @@ struct Param {
 void usage(const char *progname);
 void parse_options(int argc, char **argv, Param &param);
 evbuffer *create_buffer(evhttp_request *req);
+void parse_postdata(evhttp_request *req, evkeyvalq &headers);
 void write_search_result(
   const std::vector<std::pair<std::string, double> > &results, evbuffer *buf);
 void cb_add(evhttp_request *req, void *arg);
@@ -136,6 +137,22 @@ evbuffer *create_buffer(evhttp_request *req) {
 }
 
 /**
+ * parse post data
+ * @param req request
+ * @param headers output
+ */
+void parse_postdata(evhttp_request *req, evkeyvalq &headers) {
+  size_t length = EVBUFFER_LENGTH(req->input_buffer);
+  char post_data[length+2];
+  post_data[0] = '?';
+  memcpy(post_data+1, EVBUFFER_DATA(req->input_buffer), length);
+  post_data[length+1] = '\0';
+
+  TAILQ_INIT(&headers);
+  evhttp_parse_query(post_data, &headers);
+}
+
+/**
  * Write search results to output buffer.
  * @param buf output buffer
  * @param results search results
@@ -175,17 +192,18 @@ void cb_add(evhttp_request *req, void *arg) {
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
-  TAILQ_INIT(&headers);
-  char *decoded_uri = evhttp_decode_uri(evhttp_request_uri(req));
-  evhttp_parse_query(decoded_uri, &headers);
-  free(decoded_uri);
+  parse_postdata(req, headers);
   const char *id = evhttp_find_header(&headers, "id");
   const char *fstr = evhttp_find_header(&headers, "feature");
   if (id && fstr) {
+    char *id_dec = evhttp_decode_uri(id);
+    char *fstr_dec = evhttp_decode_uri(fstr);
     std::vector<std::string> features;
-    stupa::split_string(fstr, "\t", features);
-    handler->add_document(id, features);
+    stupa::split_string(fstr_dec, "\t", features);
+    handler->add_document(id_dec, features);
     evhttp_send_reply(req, HTTP_OK, "OK", NULL);
+    free(id_dec);
+    free(fstr_dec);
   } else {
     evhttp_send_reply(req, HTTP_BADREQUEST,
                       "document id or features not specified", NULL);
@@ -204,14 +222,13 @@ void cb_delete(evhttp_request *req, void *arg) {
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
-  TAILQ_INIT(&headers);
-  char *decoded_uri = evhttp_decode_uri(evhttp_request_uri(req));
-  evhttp_parse_query(decoded_uri, &headers);
-  free(decoded_uri);
+  parse_postdata(req, headers);
   const char *id = evhttp_find_header(&headers, "id");
   if (id) {
-    handler->delete_document(id);
+    char *id_dec = evhttp_decode_uri(id);
+    handler->delete_document(id_dec);
     evhttp_send_reply(req, HTTP_OK, "OK", NULL);
+    free(id_dec);
   } else {
     evhttp_send_reply(req, HTTP_BADREQUEST, "document id not specified", NULL);
   }
@@ -244,7 +261,6 @@ void cb_size(evhttp_request *req, void *arg) {
                     "text/plain; charset=UTF-8");
   evbuffer *buf = create_buffer(req);
   if (!buf) return;
-
   evbuffer_add_printf(buf, "%ld\n", handler->size());
   evhttp_send_reply(req, HTTP_OK, "OK", buf);
   evbuffer_free(buf); 
@@ -261,25 +277,27 @@ void cb_dsearch(evhttp_request *req, void *arg) {
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
-  TAILQ_INIT(&headers);
-  char *decoded_uri = evhttp_decode_uri(evhttp_request_uri(req));
-  evhttp_parse_query(decoded_uri, &headers);
-  free(decoded_uri);
+  parse_postdata(req, headers);
 
   size_t max = MAX_RESULT;
   const char *maxstr = evhttp_find_header(&headers, "max");
-  if (maxstr) max = atoi(maxstr);
-
+  if (maxstr) {
+    char *maxstr_dec = evhttp_decode_uri(maxstr);
+    max = atoi(maxstr_dec);
+    free(maxstr_dec);
+  }
   const char *query = evhttp_find_header(&headers, "query");
   if (query) {
+    char *query_dec = evhttp_decode_uri(query);
     evbuffer *buf = create_buffer(req);
     std::vector<std::string> document_ids;
-    stupa::split_string(query, "\t", document_ids);
+    stupa::split_string(query_dec, "\t", document_ids);
     std::vector<std::pair<std::string, double> > results;
     handler->search_by_document(document_ids, results, max);
     write_search_result(results, buf);
     evhttp_send_reply(req, HTTP_OK, "OK", buf);
     evbuffer_free(buf);
+    free(query_dec);
   } else {
     evhttp_send_reply(req, HTTP_BADREQUEST,
                       "document id or features not specified", NULL);
@@ -298,25 +316,27 @@ void cb_fsearch(evhttp_request *req, void *arg) {
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
-  TAILQ_INIT(&headers);
-  char *decoded_uri = evhttp_decode_uri(evhttp_request_uri(req));
-  evhttp_parse_query(decoded_uri, &headers);
-  free(decoded_uri);
+  parse_postdata(req, headers);
 
   size_t max = MAX_RESULT;
   const char *maxstr = evhttp_find_header(&headers, "max");
-  if (maxstr) max = atoi(maxstr);
-
+  if (maxstr) {
+    char *maxstr_dec = evhttp_decode_uri(maxstr);
+    max = atoi(maxstr_dec);
+    free(maxstr_dec);
+  }
   const char *query = evhttp_find_header(&headers, "query");
   if (query) {
+    char *query_dec = evhttp_decode_uri(query);
     evbuffer *buf = create_buffer(req);
     std::vector<std::string> feature_ids;
-    stupa::split_string(query, "\t", feature_ids);
+    stupa::split_string(query_dec, "\t", feature_ids);
     std::vector<std::pair<std::string, double> > results;
     handler->search_by_feature(feature_ids, results, max);
     write_search_result(results, buf);
     evhttp_send_reply(req, HTTP_OK, "OK", buf);
     evbuffer_free(buf);
+    free(query_dec);
   } else {
     evhttp_send_reply(req, HTTP_BADREQUEST,
                       "feature id or features not specified", NULL);
@@ -335,19 +355,21 @@ void cb_save(evhttp_request *req, void *arg) {
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
-  TAILQ_INIT(&headers);
-  char *decoded_uri = evhttp_decode_uri(evhttp_request_uri(req));
-  evhttp_parse_query(decoded_uri, &headers);
-  free(decoded_uri);
+  parse_postdata(req, headers);
   const char *filename = evhttp_find_header(&headers, "file");
   if (!filename) {
     evhttp_send_reply(req, HTTP_BADREQUEST, "filename not specified", NULL);
+    evhttp_clear_headers(&headers);
+    return;
   }
-  if (!handler->save(filename)) {
+  char *filename_dec = evhttp_decode_uri(filename);
+  if (!handler->save(filename_dec)) {
     evhttp_send_reply(req, HTTP_SERVUNAVAIL,
                       "cannot save data to the specified path", NULL);
+  } else {
+    evhttp_send_reply(req, HTTP_OK, "OK", NULL);
   }
-  evhttp_send_reply(req, HTTP_OK, "OK", NULL);
+  free(filename_dec);
   evhttp_clear_headers(&headers);
 }
 
@@ -362,19 +384,21 @@ void cb_load(evhttp_request *req, void *arg) {
   evhttp_add_header(req->output_headers, "Content-Type",
                     "text/plain; charset=UTF-8");
   evkeyvalq headers;
-  TAILQ_INIT(&headers);
-  char *decoded_uri = evhttp_decode_uri(evhttp_request_uri(req));
-  evhttp_parse_query(decoded_uri, &headers);
-  free(decoded_uri);
+  parse_postdata(req, headers);
   const char *filename = evhttp_find_header(&headers, "file");
   if (!filename) {
     evhttp_send_reply(req, HTTP_BADREQUEST, "filename not specified", NULL);
+    evhttp_clear_headers(&headers);
+    return;
   }
+  char *filename_dec = evhttp_decode_uri(filename);
   if (!handler->load(filename)) {
     evhttp_send_reply(req, HTTP_SERVUNAVAIL,
                       "cannot open file", NULL);
+  } else {
+    evhttp_send_reply(req, HTTP_OK, "OK", NULL);
   }
-  evhttp_send_reply(req, HTTP_OK, "OK", NULL);
+  free(filename_dec);
   evhttp_clear_headers(&headers);
 }
 
