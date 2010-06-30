@@ -5,7 +5,7 @@ import sys
 import Options
 
 APPNAME = 'stupa-evhttp'
-VERSION = '0.0.1'
+VERSION = '0.0.3'
 
 srcdir = '.'
 blddir = 'build'
@@ -15,6 +15,10 @@ def set_options(opt):
     opt.tool_options('unittestt')
 
 def configure(conf):
+    conf.env.CPPPATH = ['/usr/local/include', '/usr/local/include/stupa']
+    conf.env.CXXFLAGS += ['-O2', '-Wall']
+    conf.env.LIBPATH  += ['/usr/local/lib']
+
     conf.check_tool('compiler_cxx')
     conf.check_tool('unittestt')
 
@@ -25,9 +29,6 @@ def configure(conf):
     conf.check_cxx(header_name = 'evhttp.h', mandatory = True)
     conf.check_cxx(header_name = 'event.h', mandatory = True)
     conf.check_cxx(header_name = 'stupa.h', mandatory = True)
-
-    conf.env.CXXFLAGS += ['-O2', '-Wall']
-    conf.env.LIBPATH  += ['/usr/local/lib']
 
     #conf.write_config_header('config.h')
 

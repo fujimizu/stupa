@@ -38,7 +38,7 @@ class StupaSearchHandler {
    * @param max_doc maximum number of documents
    */
   StupaSearchHandler(size_t invsize, size_t max_doc)
-    : stpsearch_(SearchModel::INNER_PRODUCT,
+    : stpsearch_(SearchModel::COSINE,
                  invsize, max_doc) { }
 
   /**
