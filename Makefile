@@ -1,6 +1,6 @@
 CXX = g++
 VERSION = 0.0.1
-CXXFLAGS = -O3 -Wall
+CXXFLAGS = -Wall -g
 LDFLAGS = -L/usr/local/lib -L../stupa
 INCLUDES = -I/usr/local/include -I/usr/local/include/stupa/ -I../stupa
 LIBS =  -levent -lstupa
@@ -29,6 +29,6 @@ dist:
 
 check:
 
-stupa_evhttpd.o : handler.h
+stupa_evhttpd.o : handler.h thread.h
 handler.o : handler.h thread.h
 thread.o : thread.h
