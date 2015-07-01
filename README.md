@@ -1,6 +1,6 @@
-[Tutorial in Japanese](Tutorial (Japanese))
+[Tutorial in Japanese](https://github.com/fujimizu/stupa/wiki/Tutorial_Japanese)
 
-[Tutorial in English](Tutorial (English))
+[Tutorial in English](https://github.com/fujimizu/stupa/wiki/Tutorial_English)
 
 ## Overview ##
 
